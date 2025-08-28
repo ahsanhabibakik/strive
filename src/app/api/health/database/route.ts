@@ -20,8 +20,8 @@ export async function GET() {
     // Test read/write operations
     const testCollection = db.collection('_health_check');
     const testDoc = { timestamp: new Date(), test: true };
-    await testCollection.insertOne(testDoc);
-    await testCollection.deleteOne({ _id: testDoc._id });
+    const insertResult = await testCollection.insertOne(testDoc);
+    await testCollection.deleteOne({ _id: insertResult.insertedId });
     
     await client.close();
 
