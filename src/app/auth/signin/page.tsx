@@ -1,6 +1,6 @@
 "use client";
 
-import { signIn, getSession } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -32,7 +32,7 @@ export default function SignInPage() {
       } else {
         router.push("/dashboard");
       }
-    } catch (error) {
+    } catch {
       setError("An error occurred");
     } finally {
       setLoading(false);

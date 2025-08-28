@@ -15,7 +15,7 @@ export const metadata = {
   description: 'Overview of your application metrics and activities',
 };
 
-async function getDashboardData(user: any) {
+async function getDashboardData(_user: unknown) {
   await connectToDatabase();
   
   const stats = {
@@ -46,7 +46,7 @@ export default async function DashboardPage() {
   }
 
   const { stats } = await getDashboardData(user);
-  const userRole = RBAC.getUserRole(user);
+  // const userRole = RBAC.getUserRole(user);
 
   return (
     <div className="space-y-8">

@@ -34,8 +34,7 @@ class EmailService {
         SMTP_HOST,
         SMTP_PORT,
         SMTP_USER,
-        SMTP_PASSWORD,
-        EMAIL_FROM
+        SMTP_PASSWORD
       } = process.env;
 
       if (!SMTP_HOST || !SMTP_PORT || !SMTP_USER || !SMTP_PASSWORD) {

@@ -270,7 +270,9 @@
       "Bash(pnpm lint:*)",
       "Bash(npm run type-check:*)",
       "Bash(npm run build:*)",
-      "Bash(npm run:*)"
+      "Bash(npm run:*)",
+      "Bash(npx tailwindcss:*)",
+      "Bash(timeout 15 pnpm dev)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

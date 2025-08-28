@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import jwt from 'jsonwebtoken';
 import crypto from 'crypto';
 import connectToDatabase from '../mongoose';
 import { User, IUser } from '../models/User';
