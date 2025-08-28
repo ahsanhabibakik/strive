@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 import { redirect } from 'next/navigation';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
-import { DashboardNav } from '@/components/dashboard/DashboardNav';
+// import { DashboardNav } from '@/components/dashboard/DashboardNav';
 import { DashboardSidebar } from '@/components/dashboard/DashboardSidebar';
 import { DashboardHeader } from '@/components/dashboard/DashboardHeader';
 import { DashboardBreadcrumb } from '@/components/dashboard/DashboardBreadcrumb';

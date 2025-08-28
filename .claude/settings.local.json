@@ -268,7 +268,9 @@
       "Bash(pnpm type-check:*)",
       "Bash(npm run dev:*)",
       "Bash(pnpm lint:*)",
-      "Bash(npm run type-check:*)"
+      "Bash(npm run type-check:*)",
+      "Bash(npm run build:*)",
+      "Bash(npm run:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

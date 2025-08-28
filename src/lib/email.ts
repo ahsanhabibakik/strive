@@ -43,7 +43,7 @@ class EmailService {
         return;
       }
 
-      this.transporter = nodemailer.createTransporter({
+      this.transporter = nodemailer.createTransport({
         host: SMTP_HOST,
         port: parseInt(SMTP_PORT),
         secure: parseInt(SMTP_PORT) === 465,

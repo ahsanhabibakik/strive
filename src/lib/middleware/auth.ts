@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 import jwt from 'jsonwebtoken';
+import crypto from 'crypto';
 import connectToDatabase from '../mongoose';
 import { User, IUser } from '../models/User';
 import { ApiKey } from '../models/ApiKey';
@@ -73,7 +74,7 @@ export async function authenticateRequest(request: NextRequest): Promise<{
  */
 async function authenticateApiKey(apiKey: string) {
   try {
-    const hashedKey = ApiKey.hashKey(apiKey);
+    const hashedKey = crypto.createHash('sha256').update(apiKey).digest('hex');
     
     const keyDoc = await ApiKey.findOne({
       hashedKey,

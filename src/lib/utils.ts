@@ -67,7 +67,7 @@ export function generateSlug(text: string): string {
     .replace(/[^a-z0-9 -]/g, '')
     .replace(/\s+/g, '-')
     .replace(/-+/g, '-')
-    .trim('-');
+    .replace(/^-+|-+$/g, '');
 }
 
 /**
@@ -179,7 +179,7 @@ export function throttle<T extends (...args: any[]) => any>(
   let inThrottle: boolean;
   return function executedFunction(...args: Parameters<T>) {
     if (!inThrottle) {
-      func.apply(this, args);
+      func(...args);
       inThrottle = true;
       setTimeout(() => inThrottle = false, limit);
     }
@@ -325,11 +325,11 @@ export function pick<T, K extends keyof T>(obj: T, keys: K[]): Pick<T, K> {
  * Omit specific keys from an object
  */
 export function omit<T, K extends keyof T>(obj: T, keys: K[]): Omit<T, K> {
-  const result = { ...obj };
+  const result = { ...obj } as any;
   keys.forEach(key => {
     delete result[key];
   });
-  return result;
+  return result as Omit<T, K>;
 }
 
 /**
