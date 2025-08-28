@@ -23,7 +23,7 @@ export async function GET() {
     } else {
       status.checks.database = "not_configured";
     }
-  } catch (error) {
+  } catch {
     status.checks.database = "error";
     status.status = "degraded";
   }
@@ -37,7 +37,7 @@ export async function GET() {
     } else {
       status.checks.sanity = "not_configured";
     }
-  } catch (error) {
+  } catch {
     status.checks.sanity = "error";
   }
 

@@ -10,7 +10,7 @@ export async function POST(request: NextRequest) {
     // - Rate limit requests
     
     // For now, we'll just acknowledge receipt
-    console.log('[MONITORING]', logEntry);
+    console.warn('[MONITORING]', logEntry);
     
     return NextResponse.json({ success: true });
   } catch (error) {

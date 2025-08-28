@@ -6,7 +6,8 @@ export async function GET() {
     // Try to fetch from Sanity first
     const posts = await client.fetch(blogPostsQuery);
     return NextResponse.json({ posts });
-  } catch (error) {
+  } catch {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // If Sanity is not configured, return mock data
     const mockPosts = [
       {
