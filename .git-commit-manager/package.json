@@ -1,0 +1,30 @@
+{
+  "name": "webcloudor-git-commit-manager",
+  "version": "1.0.0",
+  "description": "Git commit management and automation for WebCloudor project",
+  "main": "scripts/auto-commit.js",
+  "scripts": {
+    "analyze": "node scripts/commit-analyzer.js",
+    "commit": "node scripts/auto-commit.js",
+    "commit:interactive": "node scripts/auto-commit.js --interactive",
+    "pre-commit": "node hooks/pre-commit.js",
+    "install-hooks": "cp hooks/pre-commit.js ../.git/hooks/pre-commit && chmod +x ../.git/hooks/pre-commit"
+  },
+  "keywords": [
+    "git",
+    "commit",
+    "automation",
+    "workflow",
+    "webcloudor"
+  ],
+  "author": "WebCloudor Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/delwerhossain/webcloudor-v1.git",
+    "directory": ".git-commit-manager"
+  }
+}

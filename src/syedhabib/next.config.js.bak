@@ -1,0 +1,59 @@
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  output: 'standalone',
+  outputFileTracingRoot: process.cwd(),
+  outputFileTracingExcludes: {
+    '*': [
+      'node_modules/**/*',
+    ],
+  },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+        port: '',
+        pathname: '/**',
+      },
+    ],
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60,
+    deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048],
+  },
+  experimental: {
+    optimizeCss: true,
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+    serverComponentsExternalPackages: ['sharp'],
+    optimizePackageImports: [
+      'lucide-react',
+      'framer-motion',
+      'react-icons',
+      'date-fns',
+    ],
+  },
+  // Improve page load speed with route prefetching
+  reactStrictMode: true,
+  poweredByHeader: false,
+  compress: true,
+  webpack(config) {
+    // Handle SVG files
+    config.module.rules.push({
+      test: /\.svg$/,
+      use: ['@svgr/webpack'],
+    });
+    
+    // Fix for the "next-flight-client-entry-loader" error
+    if (config.name === 'app-client') {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        'next-flight-client-entry-loader': require.resolve('next/dist/build/webpack/loaders/next-flight-client-entry-loader'),
+      };
+    }
+    
+    return config;
+  },
+};
+
+module.exports = nextConfig; 

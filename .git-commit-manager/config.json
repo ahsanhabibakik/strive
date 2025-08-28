@@ -1,0 +1,98 @@
+{
+  "projectName": "Strive",
+  "description": "Comprehensive Next.js prebuild template with authentication, blog, newsletter, and essential components",
+  "defaultBranch": "main",
+  "commitConventions": {
+    "format": "conventional",
+    "types": [
+      "feat",
+      "fix", 
+      "docs",
+      "style",
+      "refactor",
+      "perf",
+      "test",
+      "build",
+      "ci",
+      "chore"
+    ],
+    "scopes": [
+      "ui",
+      "api",
+      "blog",
+      "email",
+      "auth",
+      "cms",
+      "newsletter",
+      "contact",
+      "components",
+      "utils",
+      "config",
+      "deps"
+    ]
+  },
+  "chunkingRules": {
+    "maxFilesPerCommit": 10,
+    "maxLinesPerCommit": 500,
+    "groupBy": [
+      "fileType",
+      "feature",
+      "scope"
+    ],
+    "separateByType": {
+      "newFiles": true,
+      "modifications": true,
+      "deletions": true
+    },
+    "logicalGroups": [
+      {
+        "name": "API Changes",
+        "patterns": ["src/app/api/**", "src/lib/api/**"],
+        "description": "Backend API routes, models, and utilities"
+      },
+      {
+        "name": "UI Components",
+        "patterns": ["src/components/**", "components/**"],
+        "description": "React components and UI elements"
+      },
+      {
+        "name": "Email System",
+        "patterns": ["lib/resend.ts", "src/app/api/**/email/**", "**/newsletter/**"],
+        "description": "Email templates, newsletter, and notifications"
+      },
+      {
+        "name": "Blog System", 
+        "patterns": ["**/blog/**", "sanity/**"],
+        "description": "Blog components, CMS integration, and content"
+      },
+      {
+        "name": "Configuration",
+        "patterns": ["*.config.*", "package.json", "tsconfig.json", ".env*"],
+        "description": "Project configuration and dependencies"
+      },
+      {
+        "name": "Styling",
+        "patterns": ["**/*.css", "**/globals.css", "**/styles/**"],
+        "description": "CSS, Tailwind, and styling changes"
+      }
+    ]
+  },
+  "buildCommand": "npm run build",
+  "testCommand": "npm run lint",
+  "pushStrategy": "after-successful-build",
+  "autoCommit": {
+    "enabled": true,
+    "requireTests": true,
+    "requireBuild": true
+  },
+  "commitTemplate": {
+    "header": "{type}({scope}): {description}",
+    "body": "{detailedDescription}",
+    "footer": "🤖 Generated with [Claude Code](https://claude.ai/code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>"
+  },
+  "notifications": {
+    "onSuccess": true,
+    "onFailure": true,
+    "showProgress": true
+  }
+}
