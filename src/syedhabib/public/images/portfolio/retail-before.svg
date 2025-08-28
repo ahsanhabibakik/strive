@@ -1,0 +1,43 @@
+<svg width="600" height="400" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="600" height="400" fill="#e8e8e8"/>
+  
+  <!-- Header -->
+  <rect x="0" y="0" width="600" height="70" fill="#c0c0c0"/>
+  <rect x="20" y="20" width="150" height="30" fill="#a0a0a0"/>
+  <rect x="400" y="20" width="60" height="30" fill="#a0a0a0"/>
+  <rect x="470" y="20" width="60" height="30" fill="#a0a0a0"/>
+  <rect x="540" y="20" width="40" height="30" fill="#a0a0a0"/>
+  
+  <!-- Sidebar -->
+  <rect x="20" y="90" width="150" height="290" fill="#d0d0d0"/>
+  <rect x="35" y="110" width="120" height="20" fill="#b0b0b0"/>
+  <rect x="35" y="140" width="120" height="20" fill="#b0b0b0"/>
+  <rect x="35" y="170" width="120" height="20" fill="#b0b0b0"/>
+  <rect x="35" y="200" width="120" height="20" fill="#b0b0b0"/>
+  <rect x="35" y="230" width="120" height="20" fill="#b0b0b0"/>
+  <rect x="35" y="260" width="120" height="20" fill="#b0b0b0"/>
+  
+  <!-- Product Grid - Cluttered and Unaligned -->
+  <rect x="190" y="90" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="195" y="170" width="110" height="35" fill="#b0b0b0"/>
+  
+  <rect x="320" y="90" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="325" y="170" width="110" height="35" fill="#b0b0b0"/>
+  
+  <rect x="450" y="90" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="455" y="170" width="110" height="35" fill="#b0b0b0"/>
+  
+  <rect x="190" y="220" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="195" y="300" width="110" height="35" fill="#b0b0b0"/>
+  
+  <rect x="320" y="220" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="325" y="300" width="110" height="35" fill="#b0b0b0"/>
+  
+  <rect x="450" y="220" width="120" height="120" fill="#d0d0d0"/>
+  <rect x="455" y="300" width="110" height="35" fill="#b0b0b0"/>
+  
+  <!-- Overlay Text -->
+  <text x="300" y="200" font-family="Arial" font-size="24" text-anchor="middle" fill="#808080">Retail Store Website (Before)</text>
+  <text x="300" y="230" font-family="Arial" font-size="16" text-anchor="middle" fill="#808080">Cluttered product display with poor filtering</text>
+</svg>
