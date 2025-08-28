@@ -1,0 +1,141 @@
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* Ensure that the TOC sticks to the screen */
+.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100vh - 20px); /* Keeps the TOC visible while scrolling */
+  overflow-y: auto;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+li a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li a:hover {
+  color: #1e40af; /* Hover effect for links */
+}
+
+h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #333;
+}
+
+
+/* blog-post.css */
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+article {
+  font-size: 1.125rem; /* Slightly bigger for readability */
+  line-height: 1.8;
+  color: #333;
+}
+
+h1, h2, h3 {
+  font-weight: 700;
+  color: #2D3748;
+}
+
+h1 {
+  margin-bottom: 1rem;
+}
+
+h2 {
+  margin-top: 1.5rem;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #3182ce;
+  transition: all 0.3s;
+}
+
+a:hover {
+  color: #2b6cb0;
+}
+
+ul li a {
+  padding: 0.5rem 0;
+  display: block;
+  border-left: 4px solid transparent;
+  transition: 0.3s;
+}
+
+ul li a:hover {
+  padding-left: 1rem;
+  border-left: 4px solid #3182ce;
+}
+
+/* Gradient hero */
+section.relative.bg-gradient-to-br {
+  background: linear-gradient(135deg, rgba(66,153,225,1) 0%, rgba(255,255,255,1) 100%);
+}
+
+/* Floating and sticky TOC */
+aside.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .sticky {
+    display: none;
+  }
+  article {
+    padding: 0 1rem;
+  }
+}
+
+
+
+/* src/app/blog/[slug]/blog-post.css */
+
+.prose {
+  max-width: 100%;
+  font-size: 1rem;
+}
+
+.prose a {
+  color: #0070f3;
+  text-decoration: underline;
+}
+
+.prose h1, .prose h2, .prose h3 {
+  color: #333;
+}
+
+.sticky {
+  position: sticky;
+  top: 20px;
+}
