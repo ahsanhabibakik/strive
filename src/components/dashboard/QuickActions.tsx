@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import {
-  PlusIcon,
   UserPlusIcon,
   KeyIcon,
   ChartBarIcon,
@@ -9,6 +8,7 @@ import {
   BellIcon,
   ShieldCheckIcon
 } from '@heroicons/react/24/outline';
+import React from 'react';
 import { IUser } from '@/lib/models/User';
 import { RBAC } from '@/lib/rbac';
 import { cn } from '@/lib/utils';
@@ -21,7 +21,7 @@ interface QuickAction {
   name: string;
   description: string;
   href: string;
-  icon: any;
+  icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
   permission?: string;
   color: 'blue' | 'green' | 'purple' | 'red' | 'yellow';
 }

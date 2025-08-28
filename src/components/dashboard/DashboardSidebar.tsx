@@ -8,17 +8,13 @@ import {
   CalendarIcon,
   ChartPieIcon,
   DocumentDuplicateIcon,
-  FolderIcon,
   HomeIcon,
   UsersIcon,
   XMarkIcon,
   CogIcon,
   KeyIcon,
   BellIcon,
-  ShieldCheckIcon,
   ServerIcon,
-  ChartBarIcon,
-  CogIcon as SettingsIcon,
   ClockIcon as ActivityIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';

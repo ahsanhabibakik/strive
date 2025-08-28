@@ -89,7 +89,7 @@ const severityColors = {
   error: 'bg-red-50 text-red-600',
 };
 
-export function RecentActivity({ user }: RecentActivityProps) {
+export function RecentActivity({ user: _user }: RecentActivityProps) {
   const activities = getMockActivity();
 
   return (

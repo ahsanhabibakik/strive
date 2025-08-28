@@ -6,7 +6,6 @@ import {
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 
-interface SystemHealthProps {}
 
 interface HealthCheck {
   name: string;
@@ -82,7 +81,7 @@ const statusConfig = {
   }
 };
 
-export function SystemHealth({}: SystemHealthProps) {
+export function SystemHealth() {
   const healthChecks = getSystemHealth();
   
   const overallStatus = healthChecks.some(check => check.status === 'error') 

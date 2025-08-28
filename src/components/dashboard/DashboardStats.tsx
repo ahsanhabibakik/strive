@@ -2,7 +2,6 @@ import {
   UsersIcon,
   ShieldCheckIcon,
   CreditCardIcon,
-  ChartBarIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { IUser } from '@/lib/models/User';
