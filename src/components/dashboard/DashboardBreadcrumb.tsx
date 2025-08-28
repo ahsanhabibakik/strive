@@ -3,7 +3,6 @@
 import { ChevronRightIcon, HomeIcon } from '@heroicons/react/20/solid';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { cn } from '@/lib/utils';
 
 interface BreadcrumbItem {
   name: string;

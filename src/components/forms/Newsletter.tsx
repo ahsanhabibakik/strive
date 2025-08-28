@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Mail, Check, X } from "lucide-react";
 import { trackNewsletter } from "@/lib/analytics";
 
@@ -73,7 +73,7 @@ export const Newsletter = ({
         setStatus("error");
         setMessage(data.error || "Something went wrong. Please try again.");
       }
-    } catch (error) {
+    } catch {
       setStatus("error");
       setMessage("Network error. Please try again.");
     }

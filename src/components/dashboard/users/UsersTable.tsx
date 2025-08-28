@@ -41,7 +41,7 @@ const statusColors = {
   inactive: 'bg-gray-50 text-gray-700 ring-gray-600/20',
 };
 
-export function UsersTable({ users, pagination, currentUser, searchParams }: UsersTableProps) {
+export function UsersTable({ users, pagination, currentUser, searchParams: _searchParams }: UsersTableProps) {
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
 
   const canEdit = RBAC.hasPermission(currentUser, 'users:write');

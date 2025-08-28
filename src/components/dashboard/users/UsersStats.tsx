@@ -3,7 +3,6 @@ import {
   CheckCircleIcon,
   XCircleIcon,
   ShieldCheckIcon,
-  UserIcon,
   CalendarIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
