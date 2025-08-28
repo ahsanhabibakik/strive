@@ -22,6 +22,7 @@
     "commit:interactive": "node .git-commit-manager/scripts/auto-commit.js --interactive",
     "commit:analyze": "node .git-commit-manager/scripts/commit-analyzer.js",
     "setup": "node scripts/setup.js",
+    "health-check": "node scripts/health-check.js",
     "health": "node scripts/health-check.js",
     "deploy:preview": "vercel --prod=false",
     "deploy:prod": "vercel --prod",
