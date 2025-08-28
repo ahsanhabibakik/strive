@@ -37,6 +37,8 @@
   ],
   "exclude": [
     "node_modules",
-    "ref/**/*"
+    "ref/**/*",
+    "sanity.config.ts",
+    "sanity/**/*"
   ]
 }

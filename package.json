@@ -45,6 +45,7 @@
     "@radix-ui/react-tooltip": "^1.1.6",
     "@sanity/client": "^6.25.0",
     "@sanity/image-url": "^1.1.0",
+    "@sanity/vision": "^4.6.0",
     "@types/mixpanel-browser": "^2.49.0",
     "@vercel/analytics": "^1.4.1",
     "@vercel/speed-insights": "^1.1.0",
@@ -65,6 +66,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.0",
+    "sanity": "^4.6.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.24.1"
