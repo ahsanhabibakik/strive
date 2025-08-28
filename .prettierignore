@@ -1,0 +1,36 @@
+# Dependencies
+node_modules
+.next
+dist
+build
+
+# Environment files
+.env*
+
+# Logs
+*.log
+
+# Database
+*.db
+*.sqlite
+
+# Generated files
+.coverage
+playwright-report
+test-results
+
+# IDE
+.vscode
+.idea
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Git
+.git
+
+# Package managers
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
