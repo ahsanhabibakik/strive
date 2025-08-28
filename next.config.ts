@@ -18,11 +18,6 @@ const nextConfig: NextConfig = {
     ],
   },
   
-  // Environment variables
-  env: {
-    NEXTAUTH_URL: process.env.NEXTAUTH_URL,
-    NEXTAUTH_SECRET: process.env.NEXTAUTH_SECRET,
-  },
   
   // TypeScript config
   typescript: {
