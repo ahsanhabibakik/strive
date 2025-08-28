@@ -34,9 +34,9 @@ export function WelcomeCard({ user }: WelcomeCardProps) {
                 {userRole?.name || user.role}
               </span>
               
-              {user.subscriptionPlan !== 'free' && (
+              {user.subscription?.plan !== 'free' && (
                 <span className="inline-flex items-center rounded-md bg-green-500/20 px-2 py-1 text-xs font-medium backdrop-blur-sm">
-                  {user.subscriptionPlan} Plan
+                  {user.subscription?.plan} Plan
                 </span>
               )}
               

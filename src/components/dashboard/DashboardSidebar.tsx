@@ -16,10 +16,10 @@ import {
   KeyIcon,
   BellIcon,
   ShieldCheckIcon,
-  DatabaseIcon,
-  BarChart3Icon,
-  SettingsIcon,
-  ActivityIcon
+  ServerIcon,
+  ChartBarIcon,
+  CogIcon as SettingsIcon,
+  ClockIcon as ActivityIcon
 } from '@heroicons/react/24/outline';
 import { cn } from '@/lib/utils';
 import { IUser } from '@/lib/models/User';
@@ -46,7 +46,7 @@ const navigationItems: NavigationItem[] = [
   { name: 'Content', href: '/dashboard/content', icon: DocumentDuplicateIcon, permission: 'content:read' },
   { name: 'API Keys', href: '/dashboard/api-keys', icon: KeyIcon, permission: 'api-keys:read' },
   { name: 'Billing', href: '/dashboard/billing', icon: CalendarIcon, permission: 'billing:read' },
-  { name: 'System Health', href: '/dashboard/system', icon: DatabaseIcon, permission: 'system:admin' },
+  { name: 'System Health', href: '/dashboard/system', icon: ServerIcon, permission: 'system:admin' },
   { name: 'Activity', href: '/dashboard/activity', icon: ActivityIcon },
   { name: 'Notifications', href: '/dashboard/notifications', icon: BellIcon },
   { name: 'Settings', href: '/dashboard/settings', icon: CogIcon, permission: 'settings:read' },
@@ -205,9 +205,9 @@ function SidebarContent({
                   <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
                   <p className="text-xs text-gray-500 truncate">
                     {userRole?.name || user.role}
-                    {user.subscriptionPlan !== 'free' && (
+                    {user.subscription?.plan !== 'free' && (
                       <span className="ml-1 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
-                        {user.subscriptionPlan}
+                        {user.subscription?.plan}
                       </span>
                     )}
                   </p>
