@@ -262,7 +262,13 @@
       "Read(E:\\1code\\passionproject\\ref/**)",
       "Read(E:\\1code\\passionproject/**)",
       "Bash(pnpm update:*)",
-      "Bash(pnpm remove:*)"
+      "Bash(pnpm remove:*)",
+      "Bash(timeout 120 pnpm build)",
+      "Bash(npm install:*)",
+      "Bash(pnpm type-check:*)",
+      "Bash(npm run dev:*)",
+      "Bash(pnpm lint:*)",
+      "Bash(npm run type-check:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
@@ -286,7 +292,8 @@
       ".",
       "..",
       "E:\\e\\test\\other\\my",
-      "E:\\1code\\passionproject"
+      "E:\\1code\\passionproject",
+      "E:\\c\\1code\\passionproject"
     ]
   },
   "settings": {
