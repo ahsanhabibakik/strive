@@ -260,7 +260,9 @@
       "Read(E:\\1code\\passionproject/**)",
       "Read(E:\\1code\\passionproject\\ref\\purebite\\src\\components/**)",
       "Read(E:\\1code\\passionproject\\ref/**)",
-      "Read(E:\\1code\\passionproject/**)"
+      "Read(E:\\1code\\passionproject/**)",
+      "Bash(pnpm update:*)",
+      "Bash(pnpm remove:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
