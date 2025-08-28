@@ -146,11 +146,14 @@ export class ErrorBoundary {
     
     // Track error in analytics
     if (typeof window !== 'undefined') {
-      const { trackEvent } = require('./analytics');
-      trackEvent('React Error', {
-        category: 'error',
-        action: 'boundary_catch',
-        label: error.message,
+      import('./analytics').then(({ trackEvent }) => {
+        trackEvent('React Error', {
+          category: 'error',
+          action: 'boundary_catch',
+          label: error.message,
+        });
+      }).catch(() => {
+        // Ignore analytics errors
       });
     }
   }

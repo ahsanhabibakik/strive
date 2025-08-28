@@ -23,10 +23,10 @@ interface SearchParams {
 }
 
 interface UsersPageProps {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }
 
-async function getUsersData(searchParams: SearchParams, currentUser: any) {
+async function getUsersData(searchParams: SearchParams, _currentUser: any) {
   await connectToDatabase();
   
   const page = parseInt(searchParams.page || '1');
@@ -102,7 +102,8 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
     redirect('/dashboard');
   }
 
-  const { users, pagination, stats } = await getUsersData(searchParams, currentUser);
+  const resolvedSearchParams = await searchParams;
+  const { users, pagination, stats } = await getUsersData(resolvedSearchParams, currentUser);
 
   return (
     <div className="space-y-8">
@@ -119,7 +120,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
 
       {/* Filters and Actions */}
       <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center">
-        <UserFilters searchParams={searchParams} />
+        <UserFilters searchParams={resolvedSearchParams} />
         
         {RBAC.hasPermission(currentUser, 'users:write') && (
           <div className="flex gap-2">
@@ -145,7 +146,7 @@ export default async function UsersPage({ searchParams }: UsersPageProps) {
           users={users} 
           pagination={pagination} 
           currentUser={currentUser}
-          searchParams={searchParams}
+          searchParams={resolvedSearchParams}
         />
       </Suspense>
     </div>

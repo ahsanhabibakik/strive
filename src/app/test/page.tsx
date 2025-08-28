@@ -28,7 +28,7 @@ export default function TestPage() {
         ...prev,
         [testName]: {
           status: "error",
-          error: error.message,
+          error: error instanceof Error ? error.message : String(error),
           timestamp: new Date().toISOString()
         }
       }));
@@ -60,7 +60,7 @@ export default function TestPage() {
         ...prev,
         newsletter: {
           status: "error",
-          error: error.message,
+          error: error instanceof Error ? error.message : String(error),
           timestamp: new Date().toISOString()
         }
       }));
