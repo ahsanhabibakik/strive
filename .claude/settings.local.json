@@ -272,7 +272,9 @@
       "Bash(npm run build:*)",
       "Bash(npm run:*)",
       "Bash(npx tailwindcss:*)",
-      "Bash(timeout 15 pnpm dev)"
+      "Bash(timeout 15 pnpm dev)",
+      "Bash(node:*)",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
@@ -297,7 +299,8 @@
       "..",
       "E:\\e\\test\\other\\my",
       "E:\\1code\\passionproject",
-      "E:\\c\\1code\\passionproject"
+      "E:\\c\\1code\\passionproject",
+      "E:\\e\\1code"
     ]
   },
   "settings": {

@@ -236,7 +236,7 @@ export function rateLimit(options: {
     return async (request: NextRequest) => {
       const key = options.keyGenerator ? 
         options.keyGenerator(request) : 
-        request.ip || 'anonymous';
+        (request as any).ip || 'anonymous';
       
       const now = Date.now();
       const windowStart = now - options.windowMs;
