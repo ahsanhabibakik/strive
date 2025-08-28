@@ -1,11 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Enable experimental features
-  experimental: {
-    // Enable Server Components
-    serverComponentsExternalPackages: ['mongoose'],
-  },
+  // Server external packages (moved from experimental)
+  serverExternalPackages: ['mongoose'],
   
   // Image optimization
   images: {
