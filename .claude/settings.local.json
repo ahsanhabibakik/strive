@@ -274,7 +274,12 @@
       "Bash(npx tailwindcss:*)",
       "Bash(timeout 15 pnpm dev)",
       "Bash(node:*)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm add:*)",
+      "Bash(npx @tailwindcss/upgrade:*)",
+      "Bash(grep:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
