@@ -1,7 +1,18 @@
 import mongoose from 'mongoose';
 import { logger } from './monitoring';
-import { DatabaseHealthMonitor } from './database/health-monitor';
-import { DatabaseMetrics } from './database/metrics';
+
+// Forward declarations to avoid circular dependencies
+interface DatabaseHealthMonitor {
+  start(): void;
+  stop(): void;
+  getHealthStats(): any;
+}
+
+interface DatabaseMetrics {
+  start(): void;
+  stop(): void;
+  getMetrics(): any;
+}
 
 declare global {
   var mongoose: {
@@ -169,17 +180,8 @@ export async function connectToDatabase(retryCount = 0): Promise<typeof mongoose
           environment: NODE_ENV
         });
         
-        // Initialize health monitoring
-        if (!cached.healthMonitor) {
-          cached.healthMonitor = new DatabaseHealthMonitor(mongoose);
-          cached.healthMonitor.start();
-        }
-        
-        // Initialize metrics collection
-        if (!cached.metrics) {
-          cached.metrics = new DatabaseMetrics(mongoose);
-          cached.metrics.start();
-        }
+        // Health monitoring and metrics are initialized separately
+        // through the DatabaseOptimizationSuite to avoid circular dependencies
         
         return mongoose;
       })
@@ -286,23 +288,14 @@ export function getDatabaseHealth() {
     host: mongoose.connection.host,
     port: mongoose.connection.port,
     database: mongoose.connection.db?.databaseName,
-    stats: cached.healthMonitor?.getHealthStats() || {},
-    metrics: cached.metrics?.getMetrics() || {},
+    // Detailed stats are available through DatabaseOptimizationSuite
   };
 }
 
 // Graceful shutdown
 export async function disconnectFromDatabase(): Promise<void> {
   try {
-    if (cached.healthMonitor) {
-      cached.healthMonitor.stop();
-      cached.healthMonitor = undefined;
-    }
-    
-    if (cached.metrics) {
-      cached.metrics.stop();
-      cached.metrics = undefined;
-    }
+    // Monitoring components are managed by DatabaseOptimizationSuite
     
     if (mongoose.connection.readyState !== 0) {
       await mongoose.disconnect();
