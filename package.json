@@ -39,7 +39,14 @@
     "validate": "npm run check && npm run test",
     "prebuild": "npm run check",
     "predev": "npm run type-check",
-    "postinstall": "husky install || true"
+    "postinstall": "husky install || true",
+    "backup": "node scripts/backup-database.js backup",
+    "backup:list": "node scripts/backup-database.js list",
+    "backup:restore": "node scripts/backup-restore.js restore",
+    "backup:schedule": "node scripts/backup-scheduler.js start",
+    "backup:stop": "node scripts/backup-scheduler.js stop",
+    "backup:status": "node scripts/backup-scheduler.js status",
+    "backup:now": "node scripts/backup-scheduler.js run-now"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
