@@ -5,8 +5,16 @@ const envSchema = z.object({
   NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
   NEXT_PUBLIC_APP_NAME: z.string().default('Strive'),
   NEXT_PUBLIC_APP_DESCRIPTION: z.string().default('Achieve Your Goals'),
-  NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
-  NEXT_PUBLIC_API_URL: z.string().url().default('http://localhost:3000/api'),
+  NEXT_PUBLIC_APP_URL: z.string().url().default(
+    process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}` 
+      : 'http://localhost:3000'
+  ),
+  NEXT_PUBLIC_API_URL: z.string().url().default(
+    process.env.VERCEL_URL 
+      ? `https://${process.env.VERCEL_URL}/api` 
+      : 'http://localhost:3000/api'
+  ),
 
   // Database
   MONGODB_URI: z.string().min(1, 'MongoDB URI is required'),
