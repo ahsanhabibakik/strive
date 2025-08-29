@@ -120,29 +120,29 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
                 </dd>
               </div>
               
-              {subscription?.startDate && (
+              {subscription?.currentPeriodStart && (
                 <div className="bg-gray-50 rounded-lg p-4">
                   <dt className="text-sm font-medium text-gray-500">Started</dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {formatDate(subscription.startDate)}
+                    {formatDate(subscription.currentPeriodStart)}
                   </dd>
                 </div>
               )}
               
-              {subscription?.endDate && subscription.status !== 'cancelled' && (
+              {subscription?.currentPeriodEnd && subscription.status !== 'cancelled' && (
                 <div className="bg-gray-50 rounded-lg p-4">
                   <dt className="text-sm font-medium text-gray-500">Next billing</dt>
                   <dd className="mt-1 text-sm text-gray-900">
-                    {formatDate(subscription.endDate)}
+                    {formatDate(subscription.currentPeriodEnd)}
                   </dd>
                 </div>
               )}
               
-              {subscription?.endDate && subscription.status === 'cancelled' && (
+              {subscription?.currentPeriodEnd && subscription.status === 'cancelled' && (
                 <div className="bg-red-50 rounded-lg p-4">
                   <dt className="text-sm font-medium text-red-600">Expires</dt>
                   <dd className="mt-1 text-sm text-red-900">
-                    {formatDate(subscription.endDate)}
+                    {formatDate(subscription.currentPeriodEnd)}
                   </dd>
                 </div>
               )}
@@ -200,7 +200,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
         </div>
 
         {/* Alerts or Notifications */}
-        {subscription?.status === 'past_due' && (
+        {(subscription?.status as any) === 'past_due' && (
           <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <div className="flex">
               <ExclamationTriangleIcon className="h-5 w-5 text-yellow-400" />
