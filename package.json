@@ -3,8 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "node scripts/dev.js",
+    "dev:next": "next dev",
+    "dev:fast": "node scripts/dev.js --skip-checks",
+    "dev:setup": "node scripts/dev.js --setup-db",
+    "dev:monitor": "node scripts/dev.js --monitor",
+    "build": "node scripts/build.js",
+    "build:next": "next build",
+    "build:analyze": "cross-env ANALYZE=true node scripts/build.js",
     "start": "next start",
     "lint": "next lint",
     "lint:fix": "next lint --fix",
@@ -26,7 +32,14 @@
     "health": "node scripts/health-check.js",
     "deploy:preview": "vercel --prod=false",
     "deploy:prod": "vercel --prod",
-    "analyze": "cross-env ANALYZE=true npm run build"
+    "analyze": "cross-env ANALYZE=true npm run build:next",
+    "clean": "rm -rf .next out dist coverage",
+    "fresh": "npm run clean && pnpm install && npm run dev",
+    "check": "npm run lint && npm run type-check",
+    "validate": "npm run check && npm run test",
+    "prebuild": "npm run check",
+    "predev": "npm run type-check",
+    "postinstall": "husky install || true"
   },
   "dependencies": {
     "@auth/mongodb-adapter": "^3.7.4",
