@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef } from 'react'
-import { QRCodeSVG } from 'qrcode.react'
+import { useState, useRef, useEffect } from 'react'
+import QRCode from 'qrcode'
 import { Copy, Download, Shield, Smartphone, Check, RefreshCw } from 'lucide-react'
 import { useTranslation } from '@/lib/i18n/context'
 import { Button } from '@/components/ui/button'
@@ -34,6 +34,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
   const [showBackupCodes, setShowBackupCodes] = useState(false)
   const [step, setStep] = useState<'initial' | 'setup' | 'verify' | 'backup' | 'complete'>('initial')
   const [error, setError] = useState('')
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('')
   
   const backupCodesRef = useRef<HTMLDivElement>(null)
 
@@ -53,6 +54,15 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
       }
 
       setSetupData(data)
+      
+      // Generate QR code
+      try {
+        const qrDataUrl = await QRCode.toDataURL(data.qrCodeUrl)
+        setQrCodeDataUrl(qrDataUrl)
+      } catch (qrError) {
+        console.error('QR code generation error:', qrError)
+      }
+      
       setStep('setup')
     } catch (error) {
       console.error('2FA setup error:', error)
@@ -261,12 +271,13 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
         <CardContent className="space-y-6">
           <div className="text-center">
             <div className="bg-white p-4 rounded-lg inline-block">
-              <QRCodeSVG
-                value={setupData.qrCodeUrl}
-                size={200}
-                level="M"
-                includeMargin={true}
-              />
+              {qrCodeDataUrl ? (
+                <img src={qrCodeDataUrl} alt="2FA QR Code" className="w-48 h-48" />
+              ) : (
+                <div className="w-48 h-48 bg-gray-100 flex items-center justify-center rounded">
+                  Loading QR Code...
+                </div>
+              )}
             </div>
           </div>
 

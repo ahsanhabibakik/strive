@@ -15,10 +15,10 @@ interface EmailVerificationProps {
 }
 
 export function EmailVerification({ token }: EmailVerificationProps) {
-  const { t } = useTranslation()
+  const _t = useTranslation()
   const router = useRouter()
   const { data: session, update } = useSession()
-  const searchParams = useSearchParams()
+  const _searchParams = useSearchParams()
   
   const [status, setStatus] = useState<'loading' | 'success' | 'error' | 'expired' | 'pending'>('loading')
   const [isResending, setIsResending] = useState(false)

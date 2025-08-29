@@ -8,7 +8,6 @@ import {
   TrashIcon,
   EyeIcon,
   EyeSlashIcon,
-  DocumentDuplicateIcon,
   CalendarIcon,
   ExclamationTriangleIcon,
   ClipboardDocumentIcon
