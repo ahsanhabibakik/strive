@@ -16,7 +16,7 @@ export async function GET() {
     };
 
     return NextResponse.json(status);
-  } catch (error) {
+  } catch {
     return NextResponse.json({
       timestamp: new Date().toISOString(),
       service: "Strive API",
