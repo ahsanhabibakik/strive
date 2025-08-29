@@ -282,7 +282,9 @@
       "Bash(grep:*)",
       "Bash(git reset:*)",
       "Bash(npx next build:*)",
-      "Bash(npx eslint:*)"
+      "Bash(npx eslint:*)",
+      "Bash(timeout 30 npm run build)",
+      "Bash(timeout 60 npm run build)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

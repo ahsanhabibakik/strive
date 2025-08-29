@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 import { getToken } from 'next-auth/jwt'
 import { applySecurityHeaders } from '@/lib/security/headers'
+import { createRateLimit } from '@/lib/middleware/rate-limit'
+import { findRateLimitConfig, adjustForEnvironment, getSpecialRateLimit } from '@/lib/middleware/rate-limit-config'
+import { logger } from '@/lib/monitoring'
 
 // Routes that require authentication
 const protectedRoutes = [
@@ -58,9 +61,68 @@ function isPublicRoute(pathname: string): boolean {
   return publicRoutes.some(route => pathname === route || pathname.startsWith(route + '/'))
 }
 
+async function applyRateLimit(req: NextRequest): Promise<NextResponse | null> {
+  const { pathname } = req.nextUrl;
+  
+  // Skip rate limiting for static assets and non-API routes in development
+  if (process.env.NODE_ENV === 'development' && !pathname.startsWith('/api/')) {
+    return null;
+  }
+
+  // Find matching rate limit configuration
+  const config = findRateLimitConfig(pathname);
+  if (!config) {
+    return null;
+  }
+
+  try {
+    // Apply environment-specific adjustments
+    let rateLimitOptions = adjustForEnvironment(config.options);
+
+    // Check for special rate limits (bots, mobile apps, etc.)
+    const specialLimits = getSpecialRateLimit(req);
+    if (specialLimits) {
+      rateLimitOptions = { ...rateLimitOptions, ...specialLimits };
+    }
+
+    // Create rate limit middleware
+    const rateLimitMiddleware = createRateLimit(rateLimitOptions);
+    
+    // Apply rate limiting
+    const rateLimitResult = await new Promise<NextResponse | null>((resolve) => {
+      const handler = rateLimitMiddleware(async () => {
+        resolve(null); // No rate limit exceeded
+        return NextResponse.next();
+      });
+      
+      handler(req).then((response) => {
+        if (response.status === 429) {
+          resolve(response); // Rate limit exceeded
+        } else {
+          resolve(null); // Continue processing
+        }
+      }).catch(() => {
+        resolve(null); // Continue on error
+      });
+    });
+
+    return rateLimitResult;
+  } catch (error) {
+    logger.error('Rate limiting error in middleware:', error);
+    return null; // Continue without rate limiting on error
+  }
+}
+
 export default withAuth(
   async function middleware(req: NextRequest) {
     const { pathname } = req.nextUrl
+    
+    // Apply rate limiting first
+    const rateLimitResponse = await applyRateLimit(req);
+    if (rateLimitResponse) {
+      return rateLimitResponse;
+    }
+    
     const token = await getToken({ req, secret: process.env.NEXTAUTH_SECRET })
 
     // Allow access to public routes
