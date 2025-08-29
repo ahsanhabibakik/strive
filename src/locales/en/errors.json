@@ -1,0 +1,58 @@
+{
+  "pageNotFound": {
+    "title": "Page Not Found",
+    "message": "The page you're looking for doesn't exist.",
+    "action": "Go Home"
+  },
+  "serverError": {
+    "title": "Server Error",
+    "message": "Something went wrong on our end. Please try again later.",
+    "action": "Try Again"
+  },
+  "networkError": {
+    "title": "Network Error",
+    "message": "Unable to connect to the server. Please check your internet connection.",
+    "action": "Retry"
+  },
+  "unauthorized": {
+    "title": "Unauthorized",
+    "message": "You don't have permission to access this resource.",
+    "action": "Sign In"
+  },
+  "forbidden": {
+    "title": "Forbidden",
+    "message": "Access to this resource is forbidden.",
+    "action": "Contact Support"
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "minLength": "Minimum {{count}} characters required",
+    "maxLength": "Maximum {{count}} characters allowed",
+    "pattern": "Please enter a valid format",
+    "numeric": "Please enter a valid number",
+    "positive": "Please enter a positive number",
+    "integer": "Please enter a whole number",
+    "url": "Please enter a valid URL",
+    "phone": "Please enter a valid phone number",
+    "date": "Please enter a valid date",
+    "time": "Please enter a valid time",
+    "future": "Date must be in the future",
+    "past": "Date must be in the past"
+  },
+  "api": {
+    "timeout": "Request timed out. Please try again.",
+    "badRequest": "Invalid request. Please check your input.",
+    "conflict": "A conflict occurred. Please refresh and try again.",
+    "tooManyRequests": "Too many requests. Please wait a moment before trying again.",
+    "maintenanceMode": "The service is temporarily unavailable for maintenance."
+  },
+  "generic": {
+    "title": "Something went wrong",
+    "message": "An unexpected error occurred. Please try again.",
+    "action": "Try Again",
+    "details": "Error Details",
+    "reportIssue": "Report Issue",
+    "contactSupport": "Contact Support"
+  }
+}

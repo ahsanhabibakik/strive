@@ -1,0 +1,54 @@
+{
+  "goals": "Goals",
+  "goal": "Goal",
+  "createGoal": "Create Goal",
+  "editGoal": "Edit Goal",
+  "deleteGoal": "Delete Goal",
+  "goalTitle": "Goal Title",
+  "goalDescription": "Goal Description",
+  "goalCategory": "Category",
+  "goalPriority": "Priority",
+  "goalStatus": "Status",
+  "goalDeadline": "Deadline",
+  "goalProgress": "Progress",
+  "goalMilestones": "Milestones",
+  "goalTasks": "Tasks",
+  "goalNotes": "Notes",
+  "priorities": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "urgent": "Urgent"
+  },
+  "statuses": {
+    "notStarted": "Not Started",
+    "inProgress": "In Progress",
+    "onHold": "On Hold",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "categories": {
+    "personal": "Personal",
+    "career": "Career",
+    "health": "Health",
+    "finance": "Finance",
+    "education": "Education",
+    "relationships": "Relationships",
+    "hobbies": "Hobbies",
+    "travel": "Travel",
+    "other": "Other"
+  },
+  "messages": {
+    "goalCreated": "Goal created successfully",
+    "goalUpdated": "Goal updated successfully",
+    "goalDeleted": "Goal deleted successfully",
+    "goalCompleted": "Congratulations! Goal completed!",
+    "noGoals": "No goals yet. Create your first goal to get started!",
+    "confirmDelete": "Are you sure you want to delete this goal?"
+  },
+  "placeholders": {
+    "title": "Enter your goal title...",
+    "description": "Describe your goal in detail...",
+    "notes": "Add any additional notes..."
+  }
+}

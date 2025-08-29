@@ -1,0 +1,50 @@
+{
+  "notifications": "Notifications",
+  "notification": "Notification",
+  "markAsRead": "Mark as Read",
+  "markAllAsRead": "Mark All as Read",
+  "clearAll": "Clear All",
+  "noNotifications": "No notifications",
+  "unreadNotifications": "You have {{count}} unread notifications",
+  "types": {
+    "goalDeadline": "Goal Deadline",
+    "habitReminder": "Habit Reminder",
+    "achievement": "Achievement",
+    "system": "System",
+    "security": "Security",
+    "billing": "Billing",
+    "team": "Team",
+    "general": "General"
+  },
+  "settings": {
+    "title": "Notification Settings",
+    "subtitle": "Manage how you receive notifications",
+    "emailNotifications": "Email Notifications",
+    "pushNotifications": "Push Notifications",
+    "smsNotifications": "SMS Notifications",
+    "inAppNotifications": "In-App Notifications",
+    "frequency": "Notification Frequency",
+    "frequencies": {
+      "immediately": "Immediately",
+      "hourly": "Hourly",
+      "daily": "Daily",
+      "weekly": "Weekly",
+      "never": "Never"
+    },
+    "categories": {
+      "goals": "Goal Updates",
+      "habits": "Habit Reminders",
+      "achievements": "Achievements",
+      "social": "Social Activity",
+      "system": "System Updates",
+      "marketing": "Marketing & Tips",
+      "security": "Security Alerts"
+    }
+  },
+  "messages": {
+    "settingsUpdated": "Notification settings updated successfully",
+    "allMarkedAsRead": "All notifications marked as read",
+    "notificationCleared": "Notification cleared",
+    "allCleared": "All notifications cleared"
+  }
+}
