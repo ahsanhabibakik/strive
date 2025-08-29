@@ -99,52 +99,7 @@ export default function RootLayout({
           <CookieConsent />
         </AnalyticsProvider>
         
-        {/* High contrast mode styles */}
-        <style jsx global>{`
-          @media (prefers-contrast: high) {
-            * {
-              outline: 2px solid transparent;
-            }
-            *:focus {
-              outline: 3px solid currentColor !important;
-              outline-offset: 2px;
-            }
-          }
-          
-          @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-              animation-duration: 0.01ms !important;
-              animation-iteration-count: 1 !important;
-              transition-duration: 0.01ms !important;
-              scroll-behavior: auto !important;
-            }
-          }
-          
-          /* Screen reader only class */
-          .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-          }
-          
-          /* High contrast theme variables */
-          @media (prefers-contrast: high) {
-            :root {
-              --color-bg: Canvas;
-              --color-text: CanvasText;
-              --color-border: CanvasText;
-              --color-link: LinkText;
-              --color-button-bg: ButtonFace;
-              --color-button-text: ButtonText;
-            }
-          }
-        `}</style>
+        {/* Accessibility styles are now in globals.css */}
       </body>
     </html>
   );
