@@ -1,212 +1,212 @@
-'use client'
+"use client";
 
-import { useState, useRef, useEffect } from 'react'
-import QRCode from 'qrcode'
-import { Copy, Download, Shield, Smartphone, Check, RefreshCw } from 'lucide-react'
-import { useTranslation } from '@/lib/i18n/context'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Alert, AlertDescription } from '@/components/ui/alert'
-import { Badge } from '@/components/ui/badge'
-import { Separator } from '@/components/ui/separator'
-import { showToast } from '@/lib/utils/toast'
+import { useState, useRef } from "react";
+import QRCode from "qrcode";
+import Image from "next/image";
+import { Copy, Download, Shield, Smartphone, Check, RefreshCw } from "lucide-react";
+import { useTranslation } from "@/lib/i18n/context";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { showToast } from "@/lib/utils/toast";
 
 interface TwoFactorSetupProps {
-  isEnabled: boolean
-  onStatusChange: (enabled: boolean) => void
+  isEnabled: boolean;
+  onStatusChange: (enabled: boolean) => void;
 }
 
 interface SetupData {
-  secret: string
-  qrCodeUrl: string
-  backupCodes: string[]
+  secret: string;
+  qrCodeUrl: string;
+  backupCodes: string[];
 }
 
 export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProps) {
-  const { t } = useTranslation()
-  
-  const [isLoading, setIsLoading] = useState(false)
-  const [setupData, setSetupData] = useState<SetupData | null>(null)
-  const [verificationCode, setVerificationCode] = useState('')
-  const [backupCodes, setBackupCodes] = useState<string[]>([])
-  const [showBackupCodes, setShowBackupCodes] = useState(false)
-  const [step, setStep] = useState<'initial' | 'setup' | 'verify' | 'backup' | 'complete'>('initial')
-  const [error, setError] = useState('')
-  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>('')
-  
-  const backupCodesRef = useRef<HTMLDivElement>(null)
+  const { t: _t } = useTranslation();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [setupData, setSetupData] = useState<SetupData | null>(null);
+  const [verificationCode, setVerificationCode] = useState("");
+  const [backupCodes, setBackupCodes] = useState<string[]>([]);
+  const [showBackupCodes, setShowBackupCodes] = useState(false);
+  const [step, setStep] = useState<"initial" | "setup" | "verify" | "backup" | "complete">(
+    "initial"
+  );
+  const [error, setError] = useState("");
+  const [qrCodeDataUrl, setQrCodeDataUrl] = useState<string>("");
+
+  const backupCodesRef = useRef<HTMLDivElement>(null);
 
   const startSetup = async () => {
-    setIsLoading(true)
-    setError('')
+    setIsLoading(true);
+    setError("");
 
     try {
-      const response = await fetch('/api/auth/2fa/setup', {
-        method: 'POST',
-      })
+      const response = await fetch("/api/auth/2fa/setup", {
+        method: "POST",
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to start 2FA setup')
+        throw new Error(data.message || "Failed to start 2FA setup");
       }
 
-      setSetupData(data)
-      
+      setSetupData(data);
+
       // Generate QR code
       try {
-        const qrDataUrl = await QRCode.toDataURL(data.qrCodeUrl)
-        setQrCodeDataUrl(qrDataUrl)
+        const qrDataUrl = await QRCode.toDataURL(data.qrCodeUrl);
+        setQrCodeDataUrl(qrDataUrl);
       } catch (qrError) {
-        console.error('QR code generation error:', qrError)
+        console.error("QR code generation error:", qrError);
       }
-      
-      setStep('setup')
+
+      setStep("setup");
     } catch (error) {
-      console.error('2FA setup error:', error)
-      setError(error instanceof Error ? error.message : 'Setup failed')
+      console.error("2FA setup error:", error);
+      setError(error instanceof Error ? error.message : "Setup failed");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const verifyAndEnable = async () => {
     if (!verificationCode || verificationCode.length !== 6) {
-      setError('Please enter a valid 6-digit code')
-      return
+      setError("Please enter a valid 6-digit code");
+      return;
     }
 
-    setIsLoading(true)
-    setError('')
+    setIsLoading(true);
+    setError("");
 
     try {
-      const response = await fetch('/api/auth/2fa/verify', {
-        method: 'POST',
+      const response = await fetch("/api/auth/2fa/verify", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           code: verificationCode,
           secret: setupData?.secret,
         }),
-      })
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Verification failed')
+        throw new Error(data.message || "Verification failed");
       }
 
-      setBackupCodes(data.backupCodes)
-      setStep('backup')
-      showToast.success('2FA enabled successfully!')
-      
+      setBackupCodes(data.backupCodes);
+      setStep("backup");
+      showToast.success("2FA enabled successfully!");
     } catch (error) {
-      console.error('2FA verification error:', error)
-      setError(error instanceof Error ? error.message : 'Verification failed')
+      console.error("2FA verification error:", error);
+      setError(error instanceof Error ? error.message : "Verification failed");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const disable2FA = async () => {
-    setIsLoading(true)
-    setError('')
+    setIsLoading(true);
+    setError("");
 
     try {
-      const response = await fetch('/api/auth/2fa/disable', {
-        method: 'POST',
-      })
+      const response = await fetch("/api/auth/2fa/disable", {
+        method: "POST",
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to disable 2FA')
+        throw new Error(data.message || "Failed to disable 2FA");
       }
 
-      onStatusChange(false)
-      setStep('initial')
-      setSetupData(null)
-      setVerificationCode('')
-      setBackupCodes([])
-      showToast.success('2FA disabled successfully')
-      
+      onStatusChange(false);
+      setStep("initial");
+      setSetupData(null);
+      setVerificationCode("");
+      setBackupCodes([]);
+      showToast.success("2FA disabled successfully");
     } catch (error) {
-      console.error('2FA disable error:', error)
-      setError(error instanceof Error ? error.message : 'Failed to disable 2FA')
+      console.error("2FA disable error:", error);
+      setError(error instanceof Error ? error.message : "Failed to disable 2FA");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const regenerateBackupCodes = async () => {
-    setIsLoading(true)
+    setIsLoading(true);
 
     try {
-      const response = await fetch('/api/auth/2fa/backup-codes', {
-        method: 'POST',
-      })
+      const response = await fetch("/api/auth/2fa/backup-codes", {
+        method: "POST",
+      });
 
-      const data = await response.json()
+      const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.message || 'Failed to generate backup codes')
+        throw new Error(data.message || "Failed to generate backup codes");
       }
 
-      setBackupCodes(data.backupCodes)
-      setShowBackupCodes(true)
-      showToast.success('New backup codes generated')
-      
+      setBackupCodes(data.backupCodes);
+      setShowBackupCodes(true);
+      showToast.success("New backup codes generated");
     } catch (error) {
-      console.error('Backup codes error:', error)
-      showToast.error('Failed to generate backup codes')
+      console.error("Backup codes error:", error);
+      showToast.error("Failed to generate backup codes");
     } finally {
-      setIsLoading(false)
+      setIsLoading(false);
     }
-  }
+  };
 
   const copyToClipboard = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(text)
-      showToast.success('Copied to clipboard')
+      await navigator.clipboard.writeText(text);
+      showToast.success("Copied to clipboard");
     } catch (error) {
-      console.error('Copy error:', error)
-      showToast.error('Failed to copy')
+      console.error("Copy error:", error);
+      showToast.error("Failed to copy");
     }
-  }
+  };
 
   const downloadBackupCodes = () => {
     const content = [
-      'Two-Factor Authentication Backup Codes',
-      '==========================================',
-      '',
-      'Store these codes in a safe place. Each code can only be used once.',
-      '',
+      "Two-Factor Authentication Backup Codes",
+      "==========================================",
+      "",
+      "Store these codes in a safe place. Each code can only be used once.",
+      "",
       ...backupCodes.map((code, index) => `${index + 1}. ${code}`),
-      '',
-      'Generated on: ' + new Date().toLocaleString(),
-    ].join('\n')
+      "",
+      "Generated on: " + new Date().toLocaleString(),
+    ].join("\n");
 
-    const blob = new Blob([content], { type: 'text/plain' })
-    const url = URL.createObjectURL(blob)
-    const a = document.createElement('a')
-    a.href = url
-    a.download = '2fa-backup-codes.txt'
-    document.body.appendChild(a)
-    a.click()
-    document.body.removeChild(a)
-    URL.revokeObjectURL(url)
-  }
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "2fa-backup-codes.txt";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  };
 
   const completeSetup = () => {
-    setStep('complete')
-    onStatusChange(true)
-  }
+    setStep("complete");
+    onStatusChange(true);
+  };
 
   // Initial state - 2FA not enabled
-  if (step === 'initial' && !isEnabled) {
+  if (step === "initial" && !isEnabled) {
     return (
       <Card>
         <CardHeader>
@@ -214,20 +214,18 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
             <Shield className="w-6 h-6 text-muted-foreground" />
             <div>
               <CardTitle>Two-Factor Authentication</CardTitle>
-              <CardDescription>
-                Add an extra layer of security to your account
-              </CardDescription>
+              <CardDescription>Add an extra layer of security to your account</CardDescription>
             </div>
           </div>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
           <div className="flex items-start space-x-3">
             <Badge variant="outline">Disabled</Badge>
             <div className="flex-1">
               <p className="text-sm text-muted-foreground">
-                Two-factor authentication is not enabled for your account. 
-                Enable it to add an extra layer of security.
+                Two-factor authentication is not enabled for your account. Enable it to add an extra
+                layer of security.
               </p>
             </div>
           </div>
@@ -250,29 +248,33 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
 
           <Button onClick={startSetup} disabled={isLoading}>
             <Shield className="w-4 h-4 mr-2" />
-            {isLoading ? 'Setting up...' : 'Enable 2FA'}
+            {isLoading ? "Setting up..." : "Enable 2FA"}
           </Button>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   // Setup state - show QR code and manual entry
-  if (step === 'setup' && setupData) {
+  if (step === "setup" && setupData) {
     return (
       <Card>
         <CardHeader>
           <CardTitle>Set up Two-Factor Authentication</CardTitle>
-          <CardDescription>
-            Step 1: Add your account to an authenticator app
-          </CardDescription>
+          <CardDescription>Step 1: Add your account to an authenticator app</CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-6">
           <div className="text-center">
             <div className="bg-white p-4 rounded-lg inline-block">
               {qrCodeDataUrl ? (
-                <img src={qrCodeDataUrl} alt="2FA QR Code" className="w-48 h-48" />
+                <Image
+                  src={qrCodeDataUrl}
+                  alt="2FA QR Code"
+                  width={192}
+                  height={192}
+                  className="w-48 h-48"
+                />
               ) : (
                 <div className="w-48 h-48 bg-gray-100 flex items-center justify-center rounded">
                   Loading QR Code...
@@ -299,32 +301,28 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
               <code className="flex-1 bg-muted px-3 py-2 rounded text-sm font-mono">
                 {setupData.secret}
               </code>
-              <Button
-                size="sm"
-                variant="outline"
-                onClick={() => copyToClipboard(setupData.secret)}
-              >
+              <Button size="sm" variant="outline" onClick={() => copyToClipboard(setupData.secret)}>
                 <Copy className="w-4 h-4" />
               </Button>
             </div>
           </div>
 
           <div className="flex space-x-2">
-            <Button onClick={() => setStep('verify')} className="flex-1">
+            <Button onClick={() => setStep("verify")} className="flex-1">
               <Smartphone className="w-4 h-4 mr-2" />
               Continue
             </Button>
-            <Button variant="outline" onClick={() => setStep('initial')}>
+            <Button variant="outline" onClick={() => setStep("initial")}>
               Cancel
             </Button>
           </div>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   // Verification state
-  if (step === 'verify') {
+  if (step === "verify") {
     return (
       <Card>
         <CardHeader>
@@ -333,7 +331,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
             Step 2: Enter the 6-digit code from your authenticator app
           </CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
           {error && (
             <Alert variant="destructive">
@@ -348,10 +346,10 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
               type="text"
               placeholder="123456"
               value={verificationCode}
-              onChange={(e) => {
-                const value = e.target.value.replace(/\D/g, '').slice(0, 6)
-                setVerificationCode(value)
-                setError('')
+              onChange={e => {
+                const value = e.target.value.replace(/\D/g, "").slice(0, 6);
+                setVerificationCode(value);
+                setError("");
               }}
               disabled={isLoading}
               className="text-center text-lg tracking-widest"
@@ -363,38 +361,36 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
           </div>
 
           <div className="flex space-x-2">
-            <Button 
-              onClick={verifyAndEnable} 
+            <Button
+              onClick={verifyAndEnable}
               disabled={isLoading || verificationCode.length !== 6}
               className="flex-1"
             >
-              {isLoading ? 'Verifying...' : 'Verify & Enable'}
+              {isLoading ? "Verifying..." : "Verify & Enable"}
             </Button>
-            <Button variant="outline" onClick={() => setStep('setup')}>
+            <Button variant="outline" onClick={() => setStep("setup")}>
               Back
             </Button>
           </div>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   // Backup codes state
-  if (step === 'backup' && backupCodes.length > 0) {
+  if (step === "backup" && backupCodes.length > 0) {
     return (
       <Card>
         <CardHeader>
           <CardTitle className="text-green-600">2FA Enabled Successfully!</CardTitle>
-          <CardDescription>
-            Step 3: Save your backup codes in a secure location
-          </CardDescription>
+          <CardDescription>Step 3: Save your backup codes in a secure location</CardDescription>
         </CardHeader>
-        
+
         <CardContent className="space-y-6">
           <Alert>
             <Shield className="h-4 w-4" />
             <AlertDescription>
-              <strong>Important:</strong> Save these backup codes now. They're your only way to 
+              <strong>Important:</strong> Save these backup codes now. They're your only way to
               access your account if you lose your authenticator device.
             </AlertDescription>
           </Alert>
@@ -405,7 +401,9 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
               <div className="grid grid-cols-1 gap-2 font-mono text-sm">
                 {backupCodes.map((code, index) => (
                   <div key={code} className="flex justify-between items-center">
-                    <span>{index + 1}. {code}</span>
+                    <span>
+                      {index + 1}. {code}
+                    </span>
                   </div>
                 ))}
               </div>
@@ -416,16 +414,12 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
             <Button
               size="sm"
               variant="outline"
-              onClick={() => copyToClipboard(backupCodes.join('\n'))}
+              onClick={() => copyToClipboard(backupCodes.join("\n"))}
             >
               <Copy className="w-4 h-4 mr-2" />
               Copy All
             </Button>
-            <Button
-              size="sm"
-              variant="outline"
-              onClick={downloadBackupCodes}
-            >
+            <Button size="sm" variant="outline" onClick={downloadBackupCodes}>
               <Download className="w-4 h-4 mr-2" />
               Download
             </Button>
@@ -437,7 +431,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
           </Button>
         </CardContent>
       </Card>
-    )
+    );
   }
 
   // 2FA enabled state
@@ -450,9 +444,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
               <Shield className="w-6 h-6 text-green-600" />
               <div>
                 <CardTitle>Two-Factor Authentication</CardTitle>
-                <CardDescription>
-                  Your account is protected with 2FA
-                </CardDescription>
+                <CardDescription>Your account is protected with 2FA</CardDescription>
               </div>
             </div>
             <Badge variant="default" className="bg-green-100 text-green-800">
@@ -461,11 +453,11 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
             </Badge>
           </div>
         </CardHeader>
-        
+
         <CardContent className="space-y-4">
           <p className="text-sm text-muted-foreground">
-            Two-factor authentication is active on your account. You'll need to enter 
-            a code from your authenticator app when signing in.
+            Two-factor authentication is active on your account. You'll need to enter a code from
+            your authenticator app when signing in.
           </p>
 
           {error && (
@@ -490,16 +482,12 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
                 <Button
                   size="sm"
                   variant="outline"
-                  onClick={() => copyToClipboard(backupCodes.join('\n'))}
+                  onClick={() => copyToClipboard(backupCodes.join("\n"))}
                 >
                   <Copy className="w-4 h-4 mr-2" />
                   Copy
                 </Button>
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={downloadBackupCodes}
-                >
+                <Button size="sm" variant="outline" onClick={downloadBackupCodes}>
                   <Download className="w-4 h-4 mr-2" />
                   Download
                 </Button>
@@ -508,35 +496,27 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
           )}
 
           <div className="flex flex-wrap gap-2">
-            <Button
-              variant="outline"
-              onClick={regenerateBackupCodes}
-              disabled={isLoading}
-            >
+            <Button variant="outline" onClick={regenerateBackupCodes} disabled={isLoading}>
               <RefreshCw className="w-4 h-4 mr-2" />
-              {isLoading ? 'Generating...' : 'Generate New Backup Codes'}
+              {isLoading ? "Generating..." : "Generate New Backup Codes"}
             </Button>
-            <Button
-              variant="destructive"
-              onClick={disable2FA}
-              disabled={isLoading}
-            >
-              {isLoading ? 'Disabling...' : 'Disable 2FA'}
+            <Button variant="destructive" onClick={disable2FA} disabled={isLoading}>
+              {isLoading ? "Disabling..." : "Disable 2FA"}
             </Button>
           </div>
 
           <Alert>
             <AlertDescription className="text-xs">
-              <strong>Security tip:</strong> Keep your backup codes in a secure location 
-              separate from your authenticator device. Each code can only be used once.
+              <strong>Security tip:</strong> Keep your backup codes in a secure location separate
+              from your authenticator device. Each code can only be used once.
             </AlertDescription>
           </Alert>
         </CardContent>
       </Card>
-    )
+    );
   }
 
-  return null
+  return null;
 }
 
-export default TwoFactorSetup
+export default TwoFactorSetup;

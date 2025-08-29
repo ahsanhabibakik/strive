@@ -1,6 +1,6 @@
-import { NextRequest } from 'next/server';
-import { logger } from '../monitoring';
-import { RateLimitResult } from './rate-limit';
+import { NextRequest } from "next/server";
+import { logger } from "../monitoring";
+import { RateLimitResult } from "./rate-limit";
 
 export interface RateLimitViolation {
   timestamp: Date;
@@ -11,7 +11,7 @@ export interface RateLimitViolation {
   limit: number;
   used: number;
   resetTime: number;
-  violationType: 'ip' | 'user' | 'endpoint';
+  violationType: "ip" | "user" | "endpoint";
 }
 
 export interface RateLimitStats {
@@ -31,7 +31,7 @@ const stats: RateLimitStats = {
   violationsByEndpoint: {},
   violationsByIP: {},
   violationsByUser: {},
-  topViolators: []
+  topViolators: [],
 };
 
 /**
@@ -40,13 +40,14 @@ const stats: RateLimitStats = {
 export function logRateLimitViolation(
   request: NextRequest,
   result: RateLimitResult,
-  violationType: 'ip' | 'user' | 'endpoint' = 'ip',
+  violationType: "ip" | "user" | "endpoint" = "ip",
   userId?: string
 ): void {
-  const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ||
-            request.headers.get('x-real-ip') || 
-            'unknown';
-  const userAgent = request.headers.get('user-agent') || 'unknown';
+  const ip =
+    request.headers.get("x-forwarded-for")?.split(",")[0] ||
+    request.headers.get("x-real-ip") ||
+    "unknown";
+  const userAgent = request.headers.get("user-agent") || "unknown";
   const pathname = request.nextUrl.pathname;
 
   const violation: RateLimitViolation = {
@@ -58,7 +59,7 @@ export function logRateLimitViolation(
     limit: result.limit,
     used: result.used,
     resetTime: result.resetTime,
-    violationType
+    violationType,
   };
 
   // Store violation
@@ -67,20 +68,20 @@ export function logRateLimitViolation(
   // Update statistics
   stats.totalRequests++;
   stats.violations++;
-  
+
   // Track by endpoint
   stats.violationsByEndpoint[pathname] = (stats.violationsByEndpoint[pathname] || 0) + 1;
-  
+
   // Track by IP
   stats.violationsByIP[ip] = (stats.violationsByIP[ip] || 0) + 1;
-  
+
   // Track by user if available
   if (userId) {
     stats.violationsByUser[userId] = (stats.violationsByUser[userId] || 0) + 1;
   }
 
   // Log the violation
-  logger.warn('Rate limit violation', {
+  logger.warn("Rate limit violation", {
     ip,
     pathname,
     userAgent: userAgent.substring(0, 200), // Truncate user agent
@@ -89,7 +90,7 @@ export function logRateLimitViolation(
     limit: result.limit,
     used: result.used,
     remaining: result.remaining,
-    resetTime: new Date(result.resetTime).toISOString()
+    resetTime: new Date(result.resetTime).toISOString(),
   });
 
   // Check for suspicious patterns
@@ -104,27 +105,25 @@ export function logRateLimitViolation(
 /**
  * Log successful request for monitoring
  */
-export function logRateLimitSuccess(
-  request: NextRequest,
-  result: RateLimitResult
-): void {
+export function logRateLimitSuccess(request: NextRequest, result: RateLimitResult): void {
   stats.totalRequests++;
 
   // Log high usage warnings
   const usagePercentage = (result.used / result.limit) * 100;
-  
+
   if (usagePercentage > 80) {
-    const ip = request.headers.get('x-forwarded-for')?.split(',')[0] ||
-              request.headers.get('x-real-ip') || 
-              'unknown';
-    
-    logger.warn('High rate limit usage detected', {
+    const ip =
+      request.headers.get("x-forwarded-for")?.split(",")[0] ||
+      request.headers.get("x-real-ip") ||
+      "unknown";
+
+    logger.warn("High rate limit usage detected", {
       ip,
       pathname: request.nextUrl.pathname,
       usagePercentage: Math.round(usagePercentage),
       used: result.used,
       limit: result.limit,
-      remaining: result.remaining
+      remaining: result.remaining,
     });
   }
 }
@@ -140,42 +139,41 @@ function detectSuspiciousActivity(violation: RateLimitViolation): void {
   // Check for multiple violations from same IP
   const ipViolations = recentViolations.filter(v => v.ip === violation.ip);
   if (ipViolations.length >= 5) {
-    logger.error('Potential attack detected - multiple violations from same IP', {
+    logger.error("Potential attack detected - multiple violations from same IP", {
       ip: violation.ip,
       violations: ipViolations.length,
       endpoints: [...new Set(ipViolations.map(v => v.pathname))],
-      timespan: '5 minutes'
+      timespan: "5 minutes",
     });
   }
 
   // Check for distributed attack (same user agent, different IPs)
   const userAgentViolations = recentViolations.filter(
-    v => v.userAgent === violation.userAgent && v.userAgent !== 'unknown'
+    v => v.userAgent === violation.userAgent && v.userAgent !== "unknown"
   );
   if (userAgentViolations.length >= 5) {
     const uniqueIPs = new Set(userAgentViolations.map(v => v.ip));
     if (uniqueIPs.size >= 3) {
-      logger.error('Potential distributed attack detected', {
+      logger.error("Potential distributed attack detected", {
         userAgent: violation.userAgent.substring(0, 200),
         violations: userAgentViolations.length,
         uniqueIPs: uniqueIPs.size,
         ips: Array.from(uniqueIPs).slice(0, 10), // Log first 10 IPs
-        timespan: '5 minutes'
+        timespan: "5 minutes",
       });
     }
   }
 
   // Check for rapid-fire violations
   const rapidViolations = recentViolations.filter(
-    v => v.ip === violation.ip && 
-         Date.now() - v.timestamp.getTime() < 30 * 1000 // Last 30 seconds
+    v => v.ip === violation.ip && Date.now() - v.timestamp.getTime() < 30 * 1000 // Last 30 seconds
   );
   if (rapidViolations.length >= 3) {
-    logger.error('Rapid-fire violation detected', {
+    logger.error("Rapid-fire violation detected", {
       ip: violation.ip,
       violations: rapidViolations.length,
-      timespan: '30 seconds',
-      endpoints: [...new Set(rapidViolations.map(v => v.pathname))]
+      timespan: "30 seconds",
+      endpoints: [...new Set(rapidViolations.map(v => v.pathname))],
     });
   }
 }
@@ -186,26 +184,24 @@ function detectSuspiciousActivity(violation: RateLimitViolation): void {
 export function getRateLimitStats(): RateLimitStats {
   // Update top violators
   const allViolators: Array<{ key: string; count: number; type: string }> = [];
-  
+
   // Add IP violators
   Object.entries(stats.violationsByIP).forEach(([ip, count]) => {
-    allViolators.push({ key: ip, count, type: 'ip' });
+    allViolators.push({ key: ip, count, type: "ip" });
   });
-  
+
   // Add endpoint violators
   Object.entries(stats.violationsByEndpoint).forEach(([endpoint, count]) => {
-    allViolators.push({ key: endpoint, count, type: 'endpoint' });
+    allViolators.push({ key: endpoint, count, type: "endpoint" });
   });
-  
+
   // Add user violators
   Object.entries(stats.violationsByUser).forEach(([userId, count]) => {
-    allViolators.push({ key: userId, count, type: 'user' });
+    allViolators.push({ key: userId, count, type: "user" });
   });
-  
+
   // Sort and limit top violators
-  stats.topViolators = allViolators
-    .sort((a, b) => b.count - a.count)
-    .slice(0, 20);
+  stats.topViolators = allViolators.sort((a, b) => b.count - a.count).slice(0, 20);
 
   return { ...stats };
 }
@@ -214,7 +210,7 @@ export function getRateLimitStats(): RateLimitStats {
  * Get recent violations (last 24 hours)
  */
 export function getRecentViolations(hours: number = 24): RateLimitViolation[] {
-  const cutoff = Date.now() - (hours * 60 * 60 * 1000);
+  const cutoff = Date.now() - hours * 60 * 60 * 1000;
   return violations.filter(v => v.timestamp.getTime() > cutoff);
 }
 
@@ -234,8 +230,8 @@ export function generateRateLimitReport(): {
   recentPatterns: string[];
 } {
   const recentViolations = getRecentViolations(24);
-  const violationRate = stats.totalRequests > 0 ? 
-    (stats.violations / stats.totalRequests * 100) : 0;
+  const violationRate =
+    stats.totalRequests > 0 ? (stats.violations / stats.totalRequests) * 100 : 0;
 
   // Top endpoints by violations
   const topEndpoints = Object.entries(stats.violationsByEndpoint)
@@ -257,19 +253,23 @@ export function generateRateLimitReport(): {
 
   // Analyze patterns
   const patterns: string[] = [];
-  
+
   if (recentViolations.length > 10) {
     patterns.push(`${recentViolations.length} violations in last 24 hours`);
   }
-  
+
   const commonUserAgent = findMostCommonUserAgent(recentViolations);
   if (commonUserAgent.count > 5) {
-    patterns.push(`Common user agent: ${commonUserAgent.userAgent} (${commonUserAgent.count} violations)`);
+    patterns.push(
+      `Common user agent: ${commonUserAgent.userAgent} (${commonUserAgent.count} violations)`
+    );
   }
-  
+
   const timeDistribution = analyzeTimeDistribution(recentViolations);
   if (timeDistribution.peakHour) {
-    patterns.push(`Peak violation time: ${timeDistribution.peakHour}:00-${timeDistribution.peakHour + 1}:00 UTC`);
+    patterns.push(
+      `Peak violation time: ${timeDistribution.peakHour}:00-${timeDistribution.peakHour + 1}:00 UTC`
+    );
   }
 
   return {
@@ -277,12 +277,12 @@ export function generateRateLimitReport(): {
       totalRequests: stats.totalRequests,
       totalViolations: stats.violations,
       violationRate: Math.round(violationRate * 100) / 100,
-      timeRange: 'All time'
+      timeRange: "All time",
     },
     topEndpoints,
     topIPs,
     topUsers,
-    recentPatterns: patterns
+    recentPatterns: patterns,
   };
 }
 
@@ -294,18 +294,17 @@ function findMostCommonUserAgent(violations: RateLimitViolation[]): {
   count: number;
 } {
   const userAgentCounts: Record<string, number> = {};
-  
+
   violations.forEach(v => {
     const ua = v.userAgent.substring(0, 100); // Truncate for grouping
     userAgentCounts[ua] = (userAgentCounts[ua] || 0) + 1;
   });
-  
-  const sorted = Object.entries(userAgentCounts)
-    .sort(([, a], [, b]) => b - a);
-  
-  return sorted.length > 0 ? 
-    { userAgent: sorted[0][0], count: sorted[0][1] } :
-    { userAgent: 'unknown', count: 0 };
+
+  const sorted = Object.entries(userAgentCounts).sort(([, a], [, b]) => b - a);
+
+  return sorted.length > 0
+    ? { userAgent: sorted[0][0], count: sorted[0][1] }
+    : { userAgent: "unknown", count: 0 };
 }
 
 /**
@@ -316,18 +315,17 @@ function analyzeTimeDistribution(violations: RateLimitViolation[]): {
   hourlyDistribution: Record<number, number>;
 } {
   const hourlyDistribution: Record<number, number> = {};
-  
+
   violations.forEach(v => {
     const hour = v.timestamp.getUTCHours();
     hourlyDistribution[hour] = (hourlyDistribution[hour] || 0) + 1;
   });
-  
-  const peakHour = Object.entries(hourlyDistribution)
-    .sort(([, a], [, b]) => b - a)[0]?.[0];
-  
+
+  const peakHour = Object.entries(hourlyDistribution).sort(([, a], [, b]) => b - a)[0]?.[0];
+
   return {
     peakHour: peakHour ? parseInt(peakHour) : null,
-    hourlyDistribution
+    hourlyDistribution,
   };
 }
 
@@ -342,8 +340,8 @@ export function resetRateLimitStats(): void {
   stats.violationsByIP = {};
   stats.violationsByUser = {};
   stats.topViolators = [];
-  
-  logger.info('Rate limit statistics reset');
+
+  logger.info("Rate limit statistics reset");
 }
 
 /**
@@ -351,10 +349,9 @@ export function resetRateLimitStats(): void {
  */
 export function shouldBlockIP(ip: string): boolean {
   const recentViolations = violations.filter(
-    v => v.ip === ip && 
-         Date.now() - v.timestamp.getTime() < 15 * 60 * 1000 // Last 15 minutes
+    v => v.ip === ip && Date.now() - v.timestamp.getTime() < 15 * 60 * 1000 // Last 15 minutes
   );
-  
+
   // Block if more than 10 violations in 15 minutes
   return recentViolations.length > 10;
 }
@@ -362,12 +359,14 @@ export function shouldBlockIP(ip: string): boolean {
 /**
  * Export monitoring functions
  */
-export default {
+const rateLimitMonitor = {
   logRateLimitViolation,
   logRateLimitSuccess,
   getRateLimitStats,
   getRecentViolations,
   generateRateLimitReport,
   resetRateLimitStats,
-  shouldBlockIP
+  shouldBlockIP,
 };
+
+export default rateLimitMonitor;

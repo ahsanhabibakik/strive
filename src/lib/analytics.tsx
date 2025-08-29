@@ -183,7 +183,7 @@ export const trackEvent = (
 
   // Console log in development
   if (process.env.NODE_ENV === "development") {
-    console.log("Analytics Event:", eventName, properties);
+    console.warn("Analytics Event:", eventName, properties);
   }
 };
 

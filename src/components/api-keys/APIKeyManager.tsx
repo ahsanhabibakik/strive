@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { 
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import {
   KeyIcon,
   PlusIcon,
   TrashIcon,
@@ -10,8 +10,8 @@ import {
   EyeSlashIcon,
   CalendarIcon,
   ExclamationTriangleIcon,
-  ClipboardDocumentIcon
-} from '@heroicons/react/24/outline';
+  ClipboardDocumentIcon,
+} from "@heroicons/react/24/outline";
 
 interface APIKey {
   id: string;
@@ -44,104 +44,110 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
   const [showCreateForm, setShowCreateForm] = useState(false);
   const [visibleKeys, setVisibleKeys] = useState<Set<string>>(new Set());
   const [newKey, setNewKey] = useState({
-    name: '',
+    name: "",
     permissions: [] as string[],
-    expiresIn: '0' // 0 = never, 30, 90, 365 days
+    expiresIn: "0", // 0 = never, 30, 90, 365 days
   });
 
   const availablePermissions = [
-    { id: 'read', name: 'Read Access', description: 'Read data from the API' },
-    { id: 'write', name: 'Write Access', description: 'Create and update data' },
-    { id: 'delete', name: 'Delete Access', description: 'Delete data (requires approval)' },
-    { id: 'admin', name: 'Admin Access', description: 'Full administrative access' }
+    { id: "read", name: "Read Access", description: "Read data from the API" },
+    { id: "write", name: "Write Access", description: "Create and update data" },
+    { id: "delete", name: "Delete Access", description: "Delete data (requires approval)" },
+    { id: "admin", name: "Admin Access", description: "Full administrative access" },
   ];
 
   useEffect(() => {
     fetchApiKeys();
-  }, [userId]);
+  }, [fetchApiKeys]);
 
-  const fetchApiKeys = async () => {
+  const fetchApiKeys = useCallback(async () => {
     try {
       const response = await fetch(`/api/user/api-keys?userId=${userId}`);
-      
+
       if (!response.ok) {
-        throw new Error('Failed to fetch API keys');
+        throw new Error("Failed to fetch API keys");
       }
-      
+
       const data = await response.json();
       setApiKeys(data.apiKeys || []);
     } catch (error) {
-      console.error('Error fetching API keys:', error);
+      console.error("Error fetching API keys:", error);
     } finally {
       setLoading(false);
     }
-  };
+  }, [userId]);
 
   const createApiKey = async () => {
     if (!newKey.name.trim()) {
-      alert('Please provide a name for the API key');
+      alert("Please provide a name for the API key");
       return;
     }
 
     if (newKey.permissions.length === 0) {
-      alert('Please select at least one permission');
+      alert("Please select at least one permission");
       return;
     }
 
     setCreating(true);
-    
+
     try {
-      const response = await fetch('/api/user/api-keys', {
-        method: 'POST',
+      const response = await fetch("/api/user/api-keys", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           name: newKey.name,
           permissions: newKey.permissions,
-          expiresIn: newKey.expiresIn === '0' ? null : parseInt(newKey.expiresIn)
+          expiresIn: newKey.expiresIn === "0" ? null : parseInt(newKey.expiresIn),
         }),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.message || 'Failed to create API key');
+        throw new Error(error.message || "Failed to create API key");
       }
 
       const data = await response.json();
-      
+
       // Show the new key in a modal or alert
-      alert(`API Key created successfully!\n\nKey: ${data.apiKey.key}\n\nPlease copy this key now as it won't be shown again.`);
-      
-      setNewKey({ name: '', permissions: [], expiresIn: '0' });
+      alert(
+        `API Key created successfully!\n\nKey: ${data.apiKey.key}\n\nPlease copy this key now as it won't be shown again.`
+      );
+
+      setNewKey({ name: "", permissions: [], expiresIn: "0" });
       setShowCreateForm(false);
       fetchApiKeys();
     } catch (error) {
-      console.error('Error creating API key:', error);
-      alert(error instanceof Error ? error.message : 'Failed to create API key');
+      console.error("Error creating API key:", error);
+      alert(error instanceof Error ? error.message : "Failed to create API key");
     } finally {
       setCreating(false);
     }
   };
 
   const deleteApiKey = async (keyId: string, keyName: string) => {
-    if (!confirm(`Are you sure you want to delete the API key "${keyName}"? This action cannot be undone.`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete the API key "${keyName}"? This action cannot be undone.`
+      )
+    ) {
       return;
     }
 
     try {
       const response = await fetch(`/api/user/api-keys/${keyId}`, {
-        method: 'DELETE',
+        method: "DELETE",
       });
 
       if (!response.ok) {
-        throw new Error('Failed to delete API key');
+        throw new Error("Failed to delete API key");
       }
 
       setApiKeys(prev => prev.filter(key => key.id !== keyId));
     } catch (error) {
-      console.error('Error deleting API key:', error);
-      alert('Failed to delete API key');
+      console.error("Error deleting API key:", error);
+      alert("Failed to delete API key");
     }
   };
 
@@ -163,10 +169,10 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
   };
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      year: 'numeric',
-      month: 'short',
-      day: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
     });
   };
 
@@ -182,7 +188,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
         </div>
         <div className="p-6">
           <div className="animate-pulse space-y-4">
-            {[1, 2, 3].map((i) => (
+            {[1, 2, 3].map(i => (
               <div key={i} className="h-16 bg-gray-200 rounded"></div>
             ))}
           </div>
@@ -204,7 +210,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
               </p>
             </div>
           </div>
-          
+
           {canCreate && (
             <Button
               onClick={() => setShowCreateForm(true)}
@@ -222,37 +228,33 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
         {showCreateForm && (
           <div className="mb-6 p-4 bg-gray-50 rounded-lg border border-gray-200">
             <h4 className="text-sm font-medium text-gray-900 mb-4">Create New API Key</h4>
-            
+
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Key Name
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Key Name</label>
                 <input
                   type="text"
                   value={newKey.name}
-                  onChange={(e) => setNewKey(prev => ({ ...prev, name: e.target.value }))}
+                  onChange={e => setNewKey(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g., Production API, Development Key"
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Permissions
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Permissions</label>
                 <div className="space-y-2">
-                  {availablePermissions.map((permission) => (
+                  {availablePermissions.map(permission => (
                     <label key={permission.id} className="flex items-start">
                       <input
                         type="checkbox"
                         checked={newKey.permissions.includes(permission.id)}
-                        onChange={(e) => {
+                        onChange={e => {
                           setNewKey(prev => ({
                             ...prev,
-                            permissions: e.target.checked 
+                            permissions: e.target.checked
                               ? [...prev.permissions, permission.id]
-                              : prev.permissions.filter(p => p !== permission.id)
+                              : prev.permissions.filter(p => p !== permission.id),
                           }));
                         }}
                         className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
@@ -267,12 +269,10 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Expiration
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">Expiration</label>
                 <select
                   value={newKey.expiresIn}
-                  onChange={(e) => setNewKey(prev => ({ ...prev, expiresIn: e.target.value }))}
+                  onChange={e => setNewKey(prev => ({ ...prev, expiresIn: e.target.value }))}
                   className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
                 >
                   <option value="0">Never expires</option>
@@ -288,12 +288,12 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                   disabled={creating}
                   className="bg-green-600 hover:bg-green-700 text-white"
                 >
-                  {creating ? 'Creating...' : 'Create API Key'}
+                  {creating ? "Creating..." : "Create API Key"}
                 </Button>
                 <Button
                   onClick={() => {
                     setShowCreateForm(false);
-                    setNewKey({ name: '', permissions: [], expiresIn: '0' });
+                    setNewKey({ name: "", permissions: [], expiresIn: "0" });
                   }}
                   variant="outline"
                 >
@@ -324,27 +324,27 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
           </div>
         ) : (
           <div className="space-y-4">
-            {apiKeys.map((apiKey) => (
+            {apiKeys.map(apiKey => (
               <div
                 key={apiKey.id}
                 className={`p-4 border rounded-lg ${
                   !apiKey.isActive || isExpired(apiKey.expiresAt)
-                    ? 'border-red-200 bg-red-50' 
-                    : 'border-gray-200 hover:bg-gray-50'
+                    ? "border-red-200 bg-red-50"
+                    : "border-gray-200 hover:bg-gray-50"
                 } transition-colors`}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-x-3 mb-2">
                       <h4 className="text-sm font-medium text-gray-900">{apiKey.name}</h4>
-                      
+
                       {!apiKey.isActive && (
                         <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
                           <ExclamationTriangleIcon className="h-3 w-3" />
                           Disabled
                         </span>
                       )}
-                      
+
                       {isExpired(apiKey.expiresAt) && (
                         <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
                           <ExclamationTriangleIcon className="h-3 w-3" />
@@ -361,7 +361,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                         <button
                           onClick={() => toggleKeyVisibility(apiKey.id)}
                           className="text-gray-400 hover:text-gray-600"
-                          title={visibleKeys.has(apiKey.id) ? 'Hide key' : 'Show key'}
+                          title={visibleKeys.has(apiKey.id) ? "Hide key" : "Show key"}
                         >
                           {visibleKeys.has(apiKey.id) ? (
                             <EyeSlashIcon className="h-4 w-4" />
@@ -384,24 +384,20 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                         <CalendarIcon className="h-4 w-4" />
                         Created {formatDate(apiKey.createdAt)}
                       </div>
-                      
+
                       {apiKey.expiresAt && (
                         <div className="flex items-center gap-x-1">
                           <CalendarIcon className="h-4 w-4" />
                           Expires {formatDate(apiKey.expiresAt)}
                         </div>
                       )}
-                      
-                      {apiKey.lastUsed && (
-                        <div>
-                          Last used {formatDate(apiKey.lastUsed)}
-                        </div>
-                      )}
+
+                      {apiKey.lastUsed && <div>Last used {formatDate(apiKey.lastUsed)}</div>}
                     </div>
 
                     <div className="mt-2">
                       <div className="flex flex-wrap gap-1">
-                        {apiKey.permissions.map((permission) => (
+                        {apiKey.permissions.map(permission => (
                           <span
                             key={permission}
                             className="inline-flex items-center rounded-md bg-indigo-50 px-2 py-1 text-xs font-medium text-indigo-700 ring-1 ring-inset ring-indigo-700/10"
@@ -432,16 +428,22 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm">
                     <div>
                       <span className="text-gray-500">Total Requests</span>
-                      <p className="font-medium text-gray-900">{apiKey.usage.totalRequests.toLocaleString()}</p>
+                      <p className="font-medium text-gray-900">
+                        {apiKey.usage.totalRequests.toLocaleString()}
+                      </p>
                     </div>
                     <div>
                       <span className="text-gray-500">This Month</span>
-                      <p className="font-medium text-gray-900">{apiKey.usage.monthlyRequests.toLocaleString()}</p>
+                      <p className="font-medium text-gray-900">
+                        {apiKey.usage.monthlyRequests.toLocaleString()}
+                      </p>
                     </div>
                     {apiKey.usage.lastRequest && (
                       <div>
                         <span className="text-gray-500">Last Request</span>
-                        <p className="font-medium text-gray-900">{formatDate(apiKey.usage.lastRequest)}</p>
+                        <p className="font-medium text-gray-900">
+                          {formatDate(apiKey.usage.lastRequest)}
+                        </p>
                       </div>
                     )}
                   </div>

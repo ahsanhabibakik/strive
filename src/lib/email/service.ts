@@ -1,5 +1,5 @@
-import { Resend } from 'resend';
-import { logger } from '../monitoring';
+import { Resend } from "resend";
+import { logger } from "../monitoring";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
@@ -13,7 +13,7 @@ export interface EmailOptions {
 
 export class EmailService {
   private static instance: EmailService;
-  
+
   public static getInstance(): EmailService {
     if (!EmailService.instance) {
       EmailService.instance = new EmailService();
@@ -21,18 +21,20 @@ export class EmailService {
     return EmailService.instance;
   }
 
-  async send(options: EmailOptions): Promise<{ success: boolean; messageId?: string; error?: string }> {
+  async send(
+    options: EmailOptions
+  ): Promise<{ success: boolean; messageId?: string; error?: string }> {
     try {
       const { to, subject, html, text, from } = options;
-      
+
       if (!process.env.RESEND_API_KEY) {
-        logger.warn('RESEND_API_KEY not configured, logging email instead');
-        console.log('📧 Email would be sent:', { to, subject });
-        return { success: true, messageId: 'dev-mode' };
+        logger.warn("RESEND_API_KEY not configured, logging email instead");
+        console.warn("📧 Email would be sent:", { to, subject });
+        return { success: true, messageId: "dev-mode" };
       }
 
       const result = await resend.emails.send({
-        from: from || process.env.EMAIL_FROM || 'noreply@strive.com',
+        from: from || process.env.EMAIL_FROM || "noreply@strive.com",
         to: Array.isArray(to) ? to : [to],
         subject,
         html,
@@ -40,50 +42,57 @@ export class EmailService {
       });
 
       if (result.error) {
-        logger.error('Failed to send email', { error: result.error, to, subject });
+        logger.error("Failed to send email", { error: result.error, to, subject });
         return { success: false, error: result.error.message };
       }
 
-      logger.info('Email sent successfully', { messageId: result.data?.id, to, subject });
+      logger.info("Email sent successfully", { messageId: result.data?.id, to, subject });
       return { success: true, messageId: result.data?.id };
-
     } catch (error) {
-      logger.error('Email service error', { error, options });
-      return { 
-        success: false, 
-        error: error instanceof Error ? error.message : 'Unknown error' 
+      logger.error("Email service error", { error, options });
+      return {
+        success: false,
+        error: error instanceof Error ? error.message : "Unknown error",
       };
     }
   }
 
   async sendWelcome(to: string, name: string): Promise<{ success: boolean; error?: string }> {
     const { html, text } = this.getWelcomeEmailTemplate(name);
-    
+
     return this.send({
       to,
-      subject: 'Welcome to Strive!',
+      subject: "Welcome to Strive!",
       html,
       text,
     });
   }
 
-  async sendPasswordReset(to: string, name: string, resetUrl: string): Promise<{ success: boolean; error?: string }> {
+  async sendPasswordReset(
+    to: string,
+    name: string,
+    resetUrl: string
+  ): Promise<{ success: boolean; error?: string }> {
     const { html, text } = this.getPasswordResetTemplate(name, resetUrl);
-    
+
     return this.send({
       to,
-      subject: 'Reset Your Password - Strive',
+      subject: "Reset Your Password - Strive",
       html,
       text,
     });
   }
 
-  async sendEmailVerification(to: string, name: string, verificationUrl: string): Promise<{ success: boolean; error?: string }> {
+  async sendEmailVerification(
+    to: string,
+    name: string,
+    verificationUrl: string
+  ): Promise<{ success: boolean; error?: string }> {
     const { html, text } = this.getEmailVerificationTemplate(name, verificationUrl);
-    
+
     return this.send({
       to,
-      subject: 'Verify Your Email - Strive',
+      subject: "Verify Your Email - Strive",
       html,
       text,
     });
@@ -176,7 +185,10 @@ The Strive Team`;
     return { html, text };
   }
 
-  private getEmailVerificationTemplate(name: string, verificationUrl: string): { html: string; text: string } {
+  private getEmailVerificationTemplate(
+    name: string,
+    verificationUrl: string
+  ): { html: string; text: string } {
     const html = `
       <!DOCTYPE html>
       <html>

@@ -303,7 +303,13 @@
       "Bash(timeout 60 pnpm run type-check)",
       "Bash(NODE_ENV=production pnpm run build:next)",
       "Bash(NODE_ENV=production timeout 90 pnpm run build:next)",
-      "Bash(NODE_ENV=production timeout 60 pnpm run build:next)"
+      "Bash(NODE_ENV=production timeout 60 pnpm run build:next)",
+      "Bash(timeout 30 node:*)",
+      "Bash(timeout 30 npm run lint)",
+      "Bash(MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-chars-minimum\" NODE_ENV=production node scripts/build.js)",
+      "Bash(NODE_ENV=production timeout 120 node scripts/build.js)",
+      "Bash(timeout 20 npm run lint)",
+      "Bash(timeout 180 pnpm build)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

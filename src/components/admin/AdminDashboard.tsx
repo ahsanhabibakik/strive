@@ -16,7 +16,6 @@ import {
   Clock,
   Server,
   BarChart3,
-  Settings,
   RefreshCw,
 } from "lucide-react";
 

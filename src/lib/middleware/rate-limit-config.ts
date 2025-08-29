@@ -1,5 +1,5 @@
-import { NextRequest } from 'next/server';
-import { RateLimitOptions } from './rate-limit';
+import { NextRequest } from "next/server";
+import { RateLimitOptions } from "./rate-limit";
 
 /**
  * Rate limit configuration for different endpoint patterns
@@ -21,24 +21,24 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 5,
-      message: 'Too many authentication attempts, please try again later',
+      message: "Too many authentication attempts, please try again later",
       standardHeaders: true,
       legacyHeaders: false,
     },
-    description: 'Authentication endpoints',
+    description: "Authentication endpoints",
     authRequired: false,
   },
-  
+
   // Password reset endpoints
   {
     pattern: /^\/api\/auth\/(forgot-password|reset-password)/,
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 3,
-      message: 'Too many password reset attempts, please try again later',
+      message: "Too many password reset attempts, please try again later",
       standardHeaders: true,
     },
-    description: 'Password reset endpoints',
+    description: "Password reset endpoints",
     authRequired: false,
   },
 
@@ -48,10 +48,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 3,
-      message: 'Too many verification attempts, please try again later',
+      message: "Too many verification attempts, please try again later",
       standardHeaders: true,
     },
-    description: 'Email verification endpoints',
+    description: "Email verification endpoints",
     authRequired: false,
   },
 
@@ -61,16 +61,16 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 10,
-      message: 'Upload limit exceeded, please wait before uploading more files',
+      message: "Upload limit exceeded, please wait before uploading more files",
       standardHeaders: true,
       keyGenerator: (req: NextRequest) => {
         // Use user ID if authenticated, otherwise IP
         const userId = (req as any).user?.id;
-        const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+        const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
         return `rate_limit:upload:${userId || ip}`;
       },
     },
-    description: 'File upload endpoints',
+    description: "File upload endpoints",
     authRequired: true,
   },
 
@@ -80,10 +80,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 50,
-      message: 'Search rate limit exceeded, please wait before searching again',
+      message: "Search rate limit exceeded, please wait before searching again",
       standardHeaders: true,
     },
-    description: 'Search endpoints',
+    description: "Search endpoints",
     authRequired: false,
   },
 
@@ -93,10 +93,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 10,
-      message: 'API key management rate limit exceeded',
+      message: "API key management rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'API key management',
+    description: "API key management",
     authRequired: true,
   },
 
@@ -106,10 +106,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 30,
-      message: 'Admin API rate limit exceeded',
+      message: "Admin API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'Admin endpoints',
+    description: "Admin endpoints",
     authRequired: true,
   },
 
@@ -119,10 +119,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 15,
-      message: 'Payment API rate limit exceeded',
+      message: "Payment API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'Payment endpoints',
+    description: "Payment endpoints",
     authRequired: true,
   },
 
@@ -132,10 +132,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 30,
-      message: 'User API rate limit exceeded',
+      message: "User API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'User profile endpoints',
+    description: "User profile endpoints",
     authRequired: true,
   },
 
@@ -145,10 +145,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 60,
-      message: 'Goals/Habits API rate limit exceeded',
+      message: "Goals/Habits API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'Goals and habits endpoints',
+    description: "Goals and habits endpoints",
     authRequired: true,
   },
 
@@ -158,10 +158,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 5,
-      message: 'Contact form submission limit exceeded',
+      message: "Contact form submission limit exceeded",
       standardHeaders: true,
     },
-    description: 'Contact and support endpoints',
+    description: "Contact and support endpoints",
     authRequired: false,
   },
 
@@ -171,10 +171,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 100,
-      message: 'Health check rate limit exceeded',
+      message: "Health check rate limit exceeded",
       standardHeaders: false,
     },
-    description: 'Health check endpoint',
+    description: "Health check endpoint",
     authRequired: false,
   },
 
@@ -184,15 +184,15 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 1000, // 1 minute
       max: 100,
-      message: 'Webhook rate limit exceeded',
+      message: "Webhook rate limit exceeded",
       standardHeaders: true,
       keyGenerator: (req: NextRequest) => {
-        const webhookType = req.nextUrl.pathname.split('/').pop();
-        const ip = req.headers.get('x-forwarded-for') || req.headers.get('x-real-ip') || 'unknown';
+        const webhookType = req.nextUrl.pathname.split("/").pop();
+        const ip = req.headers.get("x-forwarded-for") || req.headers.get("x-real-ip") || "unknown";
         return `rate_limit:webhook:${webhookType}:${ip}`;
       },
     },
-    description: 'Webhook endpoints',
+    description: "Webhook endpoints",
     authRequired: false,
   },
 
@@ -202,10 +202,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 100,
-      message: 'Public API rate limit exceeded',
+      message: "Public API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'Public API endpoints',
+    description: "Public API endpoints",
     authRequired: false,
   },
 
@@ -215,10 +215,10 @@ export const RATE_LIMIT_CONFIGS: RateLimitConfig[] = [
     options: {
       windowMs: 60 * 60 * 1000, // 1 hour
       max: 100,
-      message: 'API rate limit exceeded',
+      message: "API rate limit exceeded",
       standardHeaders: true,
     },
-    description: 'General API endpoints',
+    description: "General API endpoints",
     authRequired: false,
   },
 ];
@@ -231,35 +231,35 @@ export const CUSTOM_RATE_LIMITS = {
   AUTH_BURST: {
     windowMs: 10 * 1000, // 10 seconds
     max: 3,
-    message: 'Too many rapid requests, please slow down',
+    message: "Too many rapid requests, please slow down",
   },
 
   // Strict limits for sensitive operations
   SENSITIVE_OPERATIONS: {
     windowMs: 5 * 60 * 1000, // 5 minutes
     max: 1,
-    message: 'This operation has a strict rate limit for security',
+    message: "This operation has a strict rate limit for security",
   },
 
   // Development/testing - more lenient
   DEVELOPMENT: {
     windowMs: 60 * 1000, // 1 minute
     max: 1000,
-    message: 'Development rate limit exceeded',
+    message: "Development rate limit exceeded",
   },
 
   // Premium users - higher limits
   PREMIUM_USER: {
     windowMs: 60 * 60 * 1000, // 1 hour
     max: 500,
-    message: 'Premium user rate limit exceeded',
+    message: "Premium user rate limit exceeded",
   },
 
   // Mobile app - optimized for mobile usage patterns
   MOBILE_APP: {
     windowMs: 60 * 1000, // 1 minute
     max: 120,
-    message: 'Mobile app rate limit exceeded',
+    message: "Mobile app rate limit exceeded",
   },
 } as const;
 
@@ -304,28 +304,28 @@ export function getUserRateLimit(
   const baseConfig: Partial<RateLimitOptions> = {};
 
   switch (userType) {
-    case 'admin':
+    case "admin":
       return {
         ...baseConfig,
         max: 1000,
         windowMs: 60 * 60 * 1000, // 1 hour
       };
 
-    case 'premium':
+    case "premium":
       return {
         ...baseConfig,
         max: 500,
         windowMs: 60 * 60 * 1000, // 1 hour
       };
 
-    case 'pro':
+    case "pro":
       return {
         ...baseConfig,
         max: 300,
         windowMs: 60 * 60 * 1000, // 1 hour
       };
 
-    case 'free':
+    case "free":
     default:
       return {
         ...baseConfig,
@@ -340,23 +340,23 @@ export function getUserRateLimit(
  */
 export function adjustForEnvironment(
   config: RateLimitOptions,
-  environment: string = process.env.NODE_ENV || 'development'
+  environment: string = process.env.NODE_ENV || "development"
 ): RateLimitOptions {
   const adjusted = { ...config };
 
   switch (environment) {
-    case 'development':
+    case "development":
       // More lenient in development
       adjusted.max = Math.max(adjusted.max * 10, 1000);
       break;
 
-    case 'test':
+    case "test":
       // Even more lenient for testing
       adjusted.max = 10000;
       adjusted.windowMs = 1000; // 1 second
       break;
 
-    case 'production':
+    case "production":
       // Use config as-is for production
       break;
 
@@ -371,20 +371,20 @@ export function adjustForEnvironment(
  * Special rate limits for specific IP ranges or user agents
  */
 export function getSpecialRateLimit(request: NextRequest): Partial<RateLimitOptions> | null {
-  const userAgent = request.headers.get('user-agent') || '';
-  const ip = request.headers.get('x-forwarded-for') || request.headers.get('x-real-ip') || '';
+  const userAgent = request.headers.get("user-agent") || "";
+  const ip = request.headers.get("x-forwarded-for") || request.headers.get("x-real-ip") || "";
 
   // Bot detection - stricter limits
   if (/bot|crawler|spider|scraper/i.test(userAgent)) {
     return {
       max: 10,
       windowMs: 60 * 1000, // 1 minute
-      message: 'Bot rate limit applied',
+      message: "Bot rate limit applied",
     };
   }
 
   // Internal tools - more lenient
-  if (userAgent.includes('Internal-Tool') || ip.startsWith('10.') || ip.startsWith('192.168.')) {
+  if (userAgent.includes("Internal-Tool") || ip.startsWith("10.") || ip.startsWith("192.168.")) {
     return {
       max: 1000,
       windowMs: 60 * 1000, // 1 minute
@@ -392,7 +392,7 @@ export function getSpecialRateLimit(request: NextRequest): Partial<RateLimitOpti
   }
 
   // Mobile apps - optimized limits
-  if (userAgent.includes('Mobile') || userAgent.includes('Strive-App')) {
+  if (userAgent.includes("Mobile") || userAgent.includes("Strive-App")) {
     return {
       max: 120,
       windowMs: 60 * 1000, // 1 minute
@@ -402,7 +402,7 @@ export function getSpecialRateLimit(request: NextRequest): Partial<RateLimitOpti
   return null;
 }
 
-export default {
+const rateLimitConfig = {
   RATE_LIMIT_CONFIGS,
   CUSTOM_RATE_LIMITS,
   findRateLimitConfig,
@@ -410,3 +410,5 @@ export default {
   adjustForEnvironment,
   getSpecialRateLimit,
 };
+
+export default rateLimitConfig;

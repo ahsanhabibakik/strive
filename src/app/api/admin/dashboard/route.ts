@@ -139,7 +139,7 @@ async function getProjectStatistics(startDate: Date) {
         return acc;
       }, {}),
     };
-  } catch (error) {
+  } catch (_error) {
     // Handle case where Project model might not exist yet
     return {
       total: 0,
@@ -194,7 +194,7 @@ async function getTaskStatistics(startDate: Date) {
         return acc;
       }, {}),
     };
-  } catch (error) {
+  } catch (_error) {
     // Handle case where Task model might not exist yet
     return {
       total: 0,
@@ -230,7 +230,7 @@ async function getEmailStatistics(startDate: Date) {
         .map(([date, count]) => ({ date, count }))
         .sort((a, b) => a.date.localeCompare(b.date)),
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       totalSent: 0,
       totalDelivered: 0,
@@ -350,7 +350,7 @@ async function getRecentActivity() {
         timestamp: email.sentAt,
       })),
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       users: [],
       projects: [],
@@ -405,7 +405,7 @@ async function getGrowthMetrics(startDate: Date) {
       userGrowth,
       totalGrowth: userGrowth.reduce((sum, day) => sum + day.users, 0),
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       userGrowth: [],
       totalGrowth: 0,
@@ -413,7 +413,7 @@ async function getGrowthMetrics(startDate: Date) {
   }
 }
 
-async function getRevenueData(startDate: Date) {
+async function getRevenueData(_startDate: Date) {
   try {
     // Revenue calculation based on subscription plans
     const subscriptionData = await User.aggregate([
@@ -457,7 +457,7 @@ async function getRevenueData(startDate: Date) {
       byPlan: revenueByPlan,
       totalSubscribers: subscriptionData.reduce((sum, plan) => sum + plan.count, 0),
     };
-  } catch (error) {
+  } catch (_error) {
     return {
       mrr: 0,
       arr: 0,

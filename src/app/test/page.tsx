@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useSession } from "next-auth/react";
@@ -10,7 +10,7 @@ export default function TestPage() {
   const [tests, setTests] = useState<Record<string, any>>({});
   const [loading, setLoading] = useState(false);
 
-  const runTest = async (testName: string, url: string) => {
+  const runTest = useCallback(async (testName: string, url: string) => {
     setLoading(true);
     try {
       const response = await fetch(url);
@@ -20,8 +20,8 @@ export default function TestPage() {
         [testName]: {
           status: response.ok ? "success" : "error",
           data,
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       }));
     } catch (error) {
       setTests(prev => ({
@@ -29,14 +29,14 @@ export default function TestPage() {
         [testName]: {
           status: "error",
           error: error instanceof Error ? error.message : String(error),
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       }));
     }
     setLoading(false);
-  };
+  }, []);
 
-  const testNewsletter = async () => {
+  const testNewsletter = useCallback(async () => {
     setLoading(true);
     try {
       const response = await fetch("/api/newsletter/subscribe", {
@@ -52,8 +52,8 @@ export default function TestPage() {
         newsletter: {
           status: response.ok ? "success" : "error",
           data,
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       }));
     } catch (error) {
       setTests(prev => ({
@@ -61,39 +61,42 @@ export default function TestPage() {
         newsletter: {
           status: "error",
           error: error instanceof Error ? error.message : String(error),
-          timestamp: new Date().toISOString()
-        }
+          timestamp: new Date().toISOString(),
+        },
       }));
     }
     setLoading(false);
-  };
+  }, []);
 
-  const runAllTests = async () => {
+  const runAllTests = useCallback(async () => {
     await runTest("health", "/api/health");
     await runTest("blog", "/api/blog");
     await testNewsletter();
-  };
+  }, [runTest, testNewsletter]);
 
   useEffect(() => {
     runAllTests();
-  }, []);
+  }, [runAllTests]);
 
   const TestResult = ({ name, result }: { name: string; result: any }) => (
     <Card className="mb-4">
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
-          <span className={`w-3 h-3 rounded-full ${
-            result?.status === "success" ? "bg-green-500" : "bg-red-500"
-          }`} />
+          <span
+            className={`w-3 h-3 rounded-full ${
+              result?.status === "success" ? "bg-green-500" : "bg-red-500"
+            }`}
+          />
           {name}
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div className="space-y-2">
           <p className="text-sm text-gray-600">
-            Status: <span className={
-              result?.status === "success" ? "text-green-600" : "text-red-600"
-            }>{result?.status}</span>
+            Status:{" "}
+            <span className={result?.status === "success" ? "text-green-600" : "text-red-600"}>
+              {result?.status}
+            </span>
           </p>
           {result?.timestamp && (
             <p className="text-xs text-gray-500">
@@ -108,9 +111,7 @@ export default function TestPage() {
               </pre>
             </details>
           )}
-          {result?.error && (
-            <p className="text-red-600 text-sm">Error: {result.error}</p>
-          )}
+          {result?.error && <p className="text-red-600 text-sm">Error: {result.error}</p>}
         </div>
       </CardContent>
     </Card>
@@ -120,9 +121,7 @@ export default function TestPage() {
     <div className="space-y-6">
       <div className="text-center">
         <h1 className="text-3xl font-bold text-gray-900 mb-4">API Test Dashboard</h1>
-        <p className="text-gray-600 mb-4">
-          Test all the API endpoints and functionality
-        </p>
+        <p className="text-gray-600 mb-4">Test all the API endpoints and functionality</p>
         <Button onClick={runAllTests} disabled={loading}>
           {loading ? "Testing..." : "Run All Tests"}
         </Button>
@@ -141,9 +140,9 @@ export default function TestPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <span className={`w-3 h-3 rounded-full ${
-                  session ? "bg-green-500" : "bg-yellow-500"
-                }`} />
+                <span
+                  className={`w-3 h-3 rounded-full ${session ? "bg-green-500" : "bg-yellow-500"}`}
+                />
                 Auth Status
               </CardTitle>
             </CardHeader>
@@ -151,9 +150,7 @@ export default function TestPage() {
               {session ? (
                 <div>
                   <p className="text-green-600 text-sm">Authenticated</p>
-                  <p className="text-xs text-gray-600 mt-1">
-                    User: {session.user?.email}
-                  </p>
+                  <p className="text-xs text-gray-600 mt-1">User: {session.user?.email}</p>
                   <p className="text-xs text-gray-600">
                     Name: {session.user?.name || "Not provided"}
                   </p>
@@ -179,7 +176,11 @@ export default function TestPage() {
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
                   <span>MongoDB URI:</span>
-                  <span className={process.env.NEXT_PUBLIC_MONGODB_URI ? "text-green-600" : "text-red-600"}>
+                  <span
+                    className={
+                      process.env.NEXT_PUBLIC_MONGODB_URI ? "text-green-600" : "text-red-600"
+                    }
+                  >
                     {process.env.NEXT_PUBLIC_MONGODB_URI ? "✓" : "✗"}
                   </span>
                 </div>
@@ -191,7 +192,13 @@ export default function TestPage() {
                 </div>
                 <div className="flex justify-between">
                   <span>Sanity Project ID:</span>
-                  <span className={process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ? "text-green-600" : "text-yellow-600"}>
+                  <span
+                    className={
+                      process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
+                        ? "text-green-600"
+                        : "text-yellow-600"
+                    }
+                  >
                     {process.env.NEXT_PUBLIC_SANITY_PROJECT_ID ? "✓" : "Optional"}
                   </span>
                 </div>

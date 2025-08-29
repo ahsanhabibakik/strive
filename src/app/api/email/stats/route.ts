@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
       default:
         return NextResponse.json({ error: "Invalid stats type" }, { status: 400 });
     }
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

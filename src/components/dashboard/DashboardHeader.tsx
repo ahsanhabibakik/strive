@@ -1,36 +1,37 @@
-'use client';
+"use client";
 
-import { Fragment } from 'react';
-import { Menu, Transition } from '@headlessui/react';
-import { 
-  BellIcon, 
-  UserIcon, 
-  CogIcon, 
+import { Fragment } from "react";
+import Image from "next/image";
+import { Menu, Transition } from "@headlessui/react";
+import {
+  BellIcon,
+  UserIcon,
+  CogIcon,
   ArrowRightOnRectangleIcon,
   KeyIcon,
-  ChartBarIcon
-} from '@heroicons/react/24/outline';
-import { signOut } from 'next-auth/react';
-import Link from 'next/link';
-import { cn } from '@/lib/utils';
-import { IUser } from '@/lib/models/User';
-import { RBAC } from '@/lib/rbac';
+  ChartBarIcon,
+} from "@heroicons/react/24/outline";
+import { signOut } from "next-auth/react";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { IUser } from "@/lib/models/User";
+import { RBAC } from "@/lib/rbac";
 
 interface DashboardHeaderProps {
   user: IUser;
 }
 
 const userNavigation = [
-  { name: 'Your Profile', href: '/dashboard/profile', icon: UserIcon },
-  { name: 'API Keys', href: '/dashboard/api-keys', icon: KeyIcon },
-  { name: 'Settings', href: '/dashboard/settings', icon: CogIcon },
+  { name: "Your Profile", href: "/dashboard/profile", icon: UserIcon },
+  { name: "API Keys", href: "/dashboard/api-keys", icon: KeyIcon },
+  { name: "Settings", href: "/dashboard/settings", icon: CogIcon },
 ];
 
 export function DashboardHeader({ user }: DashboardHeaderProps) {
   const userRole = RBAC.getUserRole(user);
 
   const handleSignOut = () => {
-    signOut({ callbackUrl: '/' });
+    signOut({ callbackUrl: "/" });
   };
 
   return (
@@ -65,10 +66,10 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
             />
           </div>
         </form>
-        
+
         <div className="flex items-center gap-x-4 lg:gap-x-6">
           {/* Quick Stats */}
-          {RBAC.hasPermission(user, 'analytics:read') && (
+          {RBAC.hasPermission(user, "analytics:read") && (
             <Link
               href="/dashboard/analytics"
               className="hidden sm:flex items-center gap-x-2 rounded-md bg-indigo-50 px-3 py-2 text-sm font-medium text-indigo-700 hover:bg-indigo-100"
@@ -100,27 +101,27 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
               <span className="sr-only">Open user menu</span>
               <div className="flex items-center gap-x-3">
                 {user.image ? (
-                  <img
+                  <Image
                     className="h-8 w-8 rounded-full bg-gray-50"
                     src={user.image}
-                    alt={user.name || 'User'}
+                    alt={user.name || "User"}
+                    width={32}
+                    height={32}
                   />
                 ) : (
                   <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center">
                     <span className="text-sm font-medium text-white">
-                      {user.name?.charAt(0).toUpperCase() || 'U'}
+                      {user.name?.charAt(0).toUpperCase() || "U"}
                     </span>
                   </div>
                 )}
                 <div className="hidden lg:flex lg:flex-col lg:items-start">
                   <p className="text-sm font-semibold text-gray-900">{user.name}</p>
-                  <p className="text-xs text-gray-500 capitalize">
-                    {userRole?.name || user.role}
-                  </p>
+                  <p className="text-xs text-gray-500 capitalize">{userRole?.name || user.role}</p>
                 </div>
               </div>
             </Menu.Button>
-            
+
             <Transition
               as={Fragment}
               enter="transition ease-out duration-100"
@@ -136,17 +137,19 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                   <p className="text-sm font-medium text-gray-900">{user.name}</p>
                   <p className="text-sm text-gray-500">{user.email}</p>
                   <div className="flex items-center gap-2 mt-2">
-                    <span className={cn(
-                      "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset",
-                      userRole?.name === 'admin' 
-                        ? "bg-red-50 text-red-700 ring-red-600/10"
-                        : userRole?.name === 'moderator'
-                        ? "bg-yellow-50 text-yellow-700 ring-yellow-600/10" 
-                        : "bg-blue-50 text-blue-700 ring-blue-600/10"
-                    )}>
+                    <span
+                      className={cn(
+                        "inline-flex items-center rounded-md px-2 py-1 text-xs font-medium ring-1 ring-inset",
+                        userRole?.name === "admin"
+                          ? "bg-red-50 text-red-700 ring-red-600/10"
+                          : userRole?.name === "moderator"
+                            ? "bg-yellow-50 text-yellow-700 ring-yellow-600/10"
+                            : "bg-blue-50 text-blue-700 ring-blue-600/10"
+                      )}
+                    >
                       {userRole?.name || user.role}
                     </span>
-                    {user.subscription?.plan !== 'free' && (
+                    {user.subscription?.plan !== "free" && (
                       <span className="inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                         {user.subscription?.plan}
                       </span>
@@ -155,14 +158,14 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                 </div>
 
                 {/* Navigation items */}
-                {userNavigation.map((item) => (
+                {userNavigation.map(item => (
                   <Menu.Item key={item.name}>
                     {({ active }) => (
                       <Link
                         href={item.href}
                         className={cn(
-                          active ? 'bg-gray-50' : '',
-                          'flex items-center gap-x-3 px-4 py-2 text-sm text-gray-700'
+                          active ? "bg-gray-50" : "",
+                          "flex items-center gap-x-3 px-4 py-2 text-sm text-gray-700"
                         )}
                       >
                         <item.icon className="h-5 w-5 text-gray-400" />
@@ -171,15 +174,15 @@ export function DashboardHeader({ user }: DashboardHeaderProps) {
                     )}
                   </Menu.Item>
                 ))}
-                
+
                 <div className="border-t border-gray-100 mt-2 pt-2">
                   <Menu.Item>
                     {({ active }) => (
                       <button
                         onClick={handleSignOut}
                         className={cn(
-                          active ? 'bg-gray-50' : '',
-                          'flex w-full items-center gap-x-3 px-4 py-2 text-sm text-gray-700'
+                          active ? "bg-gray-50" : "",
+                          "flex w-full items-center gap-x-3 px-4 py-2 text-sm text-gray-700"
                         )}
                       >
                         <ArrowRightOnRectangleIcon className="h-5 w-5 text-gray-400" />

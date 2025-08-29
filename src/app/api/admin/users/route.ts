@@ -117,7 +117,7 @@ export async function GET(request: NextRequest) {
       },
       stats,
     });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -225,7 +225,7 @@ export async function DELETE(request: NextRequest) {
       success: true,
       message: "User deleted successfully",
     });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -257,7 +257,7 @@ export async function POST(request: NextRequest) {
       { error: "Single user creation not implemented via admin API" },
       { status: 400 }
     );
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -49,7 +49,7 @@ export async function GET(request: NextRequest) {
       templates: templateList,
       count: templateList.length,
     });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
@@ -154,7 +154,7 @@ export async function POST(request: NextRequest) {
       error: result.error,
       sentTo: user.email,
     });
-  } catch (error) {
+  } catch (_error) {
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
