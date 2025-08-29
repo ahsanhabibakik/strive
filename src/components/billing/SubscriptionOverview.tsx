@@ -234,7 +234,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
                   Subscription Cancelled
                 </h3>
                 <p className="mt-2 text-sm text-red-700">
-                  Your subscription has been cancelled and will expire on {formatDate(subscription.endDate)}. 
+                  Your subscription has been cancelled and will expire on {formatDate(subscription.currentPeriodEnd)}. 
                   You can reactivate it anytime before then.
                 </p>
               </div>

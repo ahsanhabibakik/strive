@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { 
   CogIcon,
   ServerIcon,
-  DatabaseIcon,
+  CircleStackIcon,
   ShieldCheckIcon,
   ExclamationTriangleIcon,
   InformationCircleIcon,
@@ -198,7 +198,7 @@ export function SystemSettings({ canEdit }: SystemSettingsProps) {
         {/* User Registration */}
         <div>
           <div className="flex items-center gap-x-3 mb-4">
-            <DatabaseIcon className="h-5 w-5 text-gray-400" />
+            <CircleStackIcon className="h-5 w-5 text-gray-400" />
             <h4 className="text-sm font-medium text-gray-900">User Registration</h4>
           </div>
           
@@ -418,7 +418,7 @@ export function SystemSettings({ canEdit }: SystemSettingsProps) {
               className="justify-start"
               disabled={!canEdit}
             >
-              <DatabaseIcon className="h-4 w-4 mr-2" />
+              <CircleStackIcon className="h-4 w-4 mr-2" />
               Backup Database
             </Button>
             
