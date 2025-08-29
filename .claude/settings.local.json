@@ -284,7 +284,16 @@
       "Bash(npx next build:*)",
       "Bash(npx eslint:*)",
       "Bash(timeout 30 npm run build)",
-      "Bash(timeout 60 npm run build)"
+      "Bash(timeout 60 npm run build)",
+      "Bash(MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" npm run build:next)",
+      "Bash(NODE_ENV=production npx next build --no-lint)",
+      "Bash(timeout 30 npm run build:next)",
+      "Bash(pnpm commit:*)",
+      "Bash(timeout 300 pnpm build:next)",
+      "Bash(pnpm dev:*)",
+      "Bash(MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" pnpm build:next)",
+      "Bash(npx next dev:*)",
+      "Bash(NODE_ENV=production MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" pnpm build:next)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

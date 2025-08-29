@@ -7,7 +7,6 @@ export async function GET() {
     const posts = await client.fetch(blogPostsQuery);
     return NextResponse.json({ posts });
   } catch {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // If Sanity is not configured, return mock data
     const mockPosts = [
       {
@@ -50,9 +49,9 @@ export async function GET() {
       },
     ];
 
-    return NextResponse.json({ 
+    return NextResponse.json({
       posts: mockPosts,
-      message: "Using mock data - configure Sanity for dynamic content"
+      message: "Using mock data - configure Sanity for dynamic content",
     });
   }
 }

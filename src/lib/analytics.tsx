@@ -1,3 +1,7 @@
+"use client";
+
+import React, { createContext, useContext, useEffect, ReactNode } from "react";
+
 // Google Analytics (gtag) functions
 declare global {
   interface Window {
@@ -116,8 +120,8 @@ export const trackPerformance = (metric: string, value: number, page: string) =>
 };
 
 // Mixpanel integration
-let mixpanel: { 
-  track: (name: string, props?: Record<string, unknown>) => void; 
+let mixpanel: {
+  track: (name: string, props?: Record<string, unknown>) => void;
   init: (token: string, config?: Record<string, unknown>) => void;
   identify: (userId: string) => void;
   people: { set: (props: Record<string, unknown>) => void };
@@ -125,7 +129,7 @@ let mixpanel: {
 
 export const initMixpanel = () => {
   if (typeof window !== "undefined" && process.env.NEXT_PUBLIC_MIXPANEL_TOKEN) {
-    import("mixpanel-browser").then((mp) => {
+    import("mixpanel-browser").then(mp => {
       mixpanel = mp.default;
       mixpanel.init(process.env.NEXT_PUBLIC_MIXPANEL_TOKEN!, {
         debug: process.env.NODE_ENV === "development",
@@ -196,7 +200,11 @@ export const ecommerceTracking = {
     mixpanelTrack("Purchase Initiated", { items, value });
   },
 
-  purchaseCompleted: (transactionId: string, items: { id: string; name: string; price: number }[], value: number) => {
+  purchaseCompleted: (
+    transactionId: string,
+    items: { id: string; name: string; price: number }[],
+    value: number
+  ) => {
     if (typeof window !== "undefined" && window.gtag) {
       window.gtag("event", "purchase", {
         transaction_id: transactionId,
@@ -217,9 +225,9 @@ export const handleCookieConsent = (consent: boolean) => {
       ad_storage: consent ? "granted" : "denied",
     });
   }
-  
+
   localStorage.setItem("cookie_consent", consent.toString());
-  
+
   if (consent) {
     initMixpanel();
   }
@@ -243,13 +251,13 @@ export const initAnalytics = () => {
 export const measurePerformance = () => {
   if (typeof window !== "undefined" && "performance" in window) {
     const navigation = performance.getEntriesByType("navigation")[0] as PerformanceNavigationTiming;
-    
+
     if (navigation) {
       // Core Web Vitals and other metrics
       const ttfb = navigation.responseStart - navigation.fetchStart;
       const domLoad = navigation.domContentLoadedEventEnd - navigation.domContentLoadedEventStart;
       const pageLoad = navigation.loadEventEnd - navigation.loadEventStart;
-      
+
       trackPerformance("TTFB", ttfb, window.location.pathname);
       trackPerformance("DOM_LOAD", domLoad, window.location.pathname);
       trackPerformance("PAGE_LOAD", pageLoad, window.location.pathname);
@@ -257,10 +265,14 @@ export const measurePerformance = () => {
 
     // Track FCP and LCP if available
     if ("PerformanceObserver" in window) {
-      const observer = new PerformanceObserver((list) => {
+      const observer = new PerformanceObserver(list => {
         for (const entry of list.getEntries()) {
           if (entry.entryType === "paint") {
-            trackPerformance(entry.name.toUpperCase().replace("-", "_"), entry.startTime, window.location.pathname);
+            trackPerformance(
+              entry.name.toUpperCase().replace("-", "_"),
+              entry.startTime,
+              window.location.pathname
+            );
           } else if (entry.entryType === "largest-contentful-paint") {
             trackPerformance("LCP", entry.startTime, window.location.pathname);
           }
@@ -309,4 +321,87 @@ export const universalTracking = {
       context,
     });
   },
+};
+
+// Export analytics object for easier importing
+export const analytics = {
+  ...universalTracking,
+  trackSignUp,
+  trackLogin,
+  trackNewsletter,
+  trackContactForm,
+  trackSearch,
+  trackDownload,
+  trackShare,
+  trackAPIUsage,
+  trackPerformance,
+  ecommerceTracking,
+  measurePerformance,
+  trackEvent,
+  initAnalytics,
+};
+
+// React hook for analytics
+export const useAnalytics = () => {
+  const hasConsent = hasAnalyticsConsent();
+
+  return {
+    hasConsent,
+    grantConsent: () => handleCookieConsent(true),
+    revokeConsent: () => handleCookieConsent(false),
+    track: trackEvent,
+    analytics,
+  };
+};
+
+// React component for analytics provider
+
+interface AnalyticsContextType {
+  hasConsent: boolean;
+  grantConsent: () => void;
+  revokeConsent: () => void;
+  track: typeof trackEvent;
+}
+
+const AnalyticsContext = createContext<AnalyticsContextType | null>(null);
+
+export const AnalyticsProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [hasConsent, setHasConsent] = React.useState<boolean>(false);
+
+  useEffect(() => {
+    // Check consent on mount
+    setHasConsent(hasAnalyticsConsent());
+
+    // Initialize analytics if consent is already given
+    if (hasAnalyticsConsent()) {
+      initAnalytics();
+    }
+  }, []);
+
+  const grantConsent = () => {
+    handleCookieConsent(true);
+    setHasConsent(true);
+  };
+
+  const revokeConsent = () => {
+    handleCookieConsent(false);
+    setHasConsent(false);
+  };
+
+  const value: AnalyticsContextType = {
+    hasConsent,
+    grantConsent,
+    revokeConsent,
+    track: trackEvent,
+  };
+
+  return <AnalyticsContext.Provider value={value}>{children}</AnalyticsContext.Provider>;
+};
+
+export const useAnalyticsContext = () => {
+  const context = useContext(AnalyticsContext);
+  if (!context) {
+    throw new Error("useAnalyticsContext must be used within an AnalyticsProvider");
+  }
+  return context;
 };

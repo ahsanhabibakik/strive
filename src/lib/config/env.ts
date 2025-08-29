@@ -1,26 +1,28 @@
-import { z } from 'zod'
+import { z } from "zod";
 
 const envSchema = z.object({
   // App Configuration
-  NODE_ENV: z.enum(['development', 'production', 'test']).default('development'),
-  NEXT_PUBLIC_APP_NAME: z.string().default('Strive'),
-  NEXT_PUBLIC_APP_DESCRIPTION: z.string().default('Achieve Your Goals'),
-  NEXT_PUBLIC_APP_URL: z.string().url().default(
-    process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}` 
-      : 'http://localhost:3000'
-  ),
-  NEXT_PUBLIC_API_URL: z.string().url().default(
-    process.env.VERCEL_URL 
-      ? `https://${process.env.VERCEL_URL}/api` 
-      : 'http://localhost:3000/api'
-  ),
+  NODE_ENV: z.enum(["development", "production", "test"]).default("development"),
+  NEXT_PUBLIC_APP_NAME: z.string().default("Strive"),
+  NEXT_PUBLIC_APP_DESCRIPTION: z.string().default("Achieve Your Goals"),
+  NEXT_PUBLIC_APP_URL: z
+    .string()
+    .url()
+    .default(
+      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000"
+    ),
+  NEXT_PUBLIC_API_URL: z
+    .string()
+    .url()
+    .default(
+      process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}/api` : "http://localhost:3000/api"
+    ),
 
   // Database
-  MONGODB_URI: z.string().min(1, 'MongoDB URI is required'),
-  
+  MONGODB_URI: z.string().min(1, "MongoDB URI is required"),
+
   // Authentication
-  NEXTAUTH_SECRET: z.string().min(32, 'NextAuth secret must be at least 32 characters'),
+  NEXTAUTH_SECRET: z.string().min(32, "NextAuth secret must be at least 32 characters"),
   NEXTAUTH_URL: z.string().url().optional(),
 
   // OAuth Providers
@@ -54,12 +56,12 @@ const envSchema = z.object({
   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY: z.string().optional(),
 
   // Security
-  ENCRYPTION_KEY: z.string().min(32, 'Encryption key must be at least 32 characters').optional(),
-  JWT_SECRET: z.string().min(32, 'JWT secret must be at least 32 characters').optional(),
-  
+  ENCRYPTION_KEY: z.string().min(32, "Encryption key must be at least 32 characters").optional(),
+  JWT_SECRET: z.string().min(32, "JWT secret must be at least 32 characters").optional(),
+
   // Monitoring & Logging
-  SENTRY_DSN: z.string().url().optional(),
-  LOG_LEVEL: z.enum(['error', 'warn', 'info', 'debug']).default('info'),
+  SENTRY_DSN: z.string().url().optional().or(z.literal("")),
+  LOG_LEVEL: z.enum(["error", "warn", "info", "debug"]).default("info"),
 
   // Rate Limiting
   RATE_LIMIT_MAX: z.coerce.number().default(100),
@@ -75,24 +77,24 @@ const envSchema = z.object({
   // Cache
   REDIS_URL: z.string().url().optional(),
   CACHE_TTL: z.coerce.number().default(3600), // 1 hour
-})
+});
 
 // Parse and validate environment variables
 function parseEnv() {
   try {
-    return envSchema.parse(process.env)
+    return envSchema.parse(process.env);
   } catch (error) {
-    console.error('❌ Invalid environment variables:', error)
-    throw new Error('Invalid environment configuration')
+    console.error("❌ Invalid environment variables:", error);
+    throw new Error("Invalid environment configuration");
   }
 }
 
-export const env = parseEnv()
+export const env = parseEnv();
 
 // Environment checks
-export const isDevelopment = env.NODE_ENV === 'development'
-export const isProduction = env.NODE_ENV === 'production'
-export const isTest = env.NODE_ENV === 'test'
+export const isDevelopment = env.NODE_ENV === "development";
+export const isProduction = env.NODE_ENV === "production";
+export const isTest = env.NODE_ENV === "test";
 
 // Client-safe environment variables (only those with NEXT_PUBLIC_)
 export const clientEnv = {
@@ -108,6 +110,6 @@ export const clientEnv = {
   ENABLE_SOCIAL_SHARING: env.NEXT_PUBLIC_ENABLE_SOCIAL_SHARING,
   ENABLE_NOTIFICATIONS: env.NEXT_PUBLIC_ENABLE_NOTIFICATIONS,
   ENABLE_DARK_MODE: env.NEXT_PUBLIC_ENABLE_DARK_MODE,
-}
+};
 
-export type ClientEnv = typeof clientEnv
+export type ClientEnv = typeof clientEnv;

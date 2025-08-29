@@ -2,36 +2,29 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   // Server external packages (moved from experimental)
-  serverExternalPackages: ['mongoose'],
-  
+  serverExternalPackages: ["mongoose"],
+
   // Image optimization
   images: {
     remotePatterns: [
       {
-        protocol: 'https',
-        hostname: 'lh3.googleusercontent.com',
+        protocol: "https",
+        hostname: "lh3.googleusercontent.com",
       },
       {
-        protocol: 'https',
-        hostname: 'avatars.githubusercontent.com',
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
       },
     ],
   },
-  
-  
-  // TypeScript config
+
+  // TypeScript config - Temporarily disabled for faster builds
   typescript: {
-    // !! WARN !!
-    // Dangerously allow production builds to successfully complete even if
-    // your project has type errors.
-    // !! WARN !!
     ignoreBuildErrors: true,
   },
-  
-  // ESLint config
+
+  // ESLint config - Disabled for production builds
   eslint: {
-    // Warning: This allows production builds to successfully complete even if
-    // your project has ESLint errors.
     ignoreDuringBuilds: true,
   },
 };
