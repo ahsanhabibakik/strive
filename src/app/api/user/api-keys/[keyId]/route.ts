@@ -6,7 +6,26 @@ import { User } from '@/lib/models/User';
 import { RBAC } from '@/lib/rbac';
 
 // Mock API Keys storage - same reference as in the main route
-let apiKeys: any[] = [];
+const apiKeys: APIKey[] = [];
+
+interface APIKey {
+  id: string;
+  userId: string;
+  name: string;
+  key: string;
+  prefix: string;
+  masked: string;
+  permissions: string[];
+  isActive: boolean;
+  createdAt: Date;
+  expiresAt?: Date;
+  lastUsed?: Date;
+  usage: {
+    totalRequests: number;
+    monthlyRequests: number;
+    lastRequest?: Date;
+  };
+}
 
 export async function DELETE(
   req: NextRequest,

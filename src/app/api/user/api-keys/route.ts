@@ -27,7 +27,7 @@ interface APIKey {
 }
 
 // This would normally be stored in a database
-let apiKeys: APIKey[] = [];
+const apiKeys: APIKey[] = [];
 
 function generateAPIKey(): { key: string; prefix: string; masked: string } {
   const prefix = 'sk_';
