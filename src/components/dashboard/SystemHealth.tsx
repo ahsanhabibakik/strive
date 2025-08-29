@@ -93,7 +93,7 @@ export function SystemHealth() {
   const overallConfig = statusConfig[overallStatus];
 
   return (
-    <div className="bg-white shadow-sm rounded-lg">
+    <div className="bg-white shadow-xs rounded-lg">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div>
@@ -168,7 +168,7 @@ export function SystemHealth() {
           </p>
           <button
             type="button"
-            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="rounded-md border border-gray-300 bg-white px-3 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             Refresh Status
           </button>

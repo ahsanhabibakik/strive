@@ -55,7 +55,7 @@ export function UserFilters({ searchParams }: UserFiltersProps) {
           type="text"
           placeholder="Search users..."
           defaultValue={searchParams.search || ''}
-          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+          className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-hidden focus:placeholder-gray-400 focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
           onChange={(e) => {
             const timeoutId = setTimeout(() => handleSearch(e.target.value), 300);
             return () => clearTimeout(timeoutId);
@@ -67,7 +67,7 @@ export function UserFilters({ searchParams }: UserFiltersProps) {
       <select
         defaultValue={searchParams.role || 'all'}
         onChange={(e) => handleRoleFilter(e.target.value)}
-        className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       >
         <option value="all">All Roles</option>
         <option value="admin">Administrators</option>
@@ -79,7 +79,7 @@ export function UserFilters({ searchParams }: UserFiltersProps) {
       <select
         defaultValue={searchParams.status || 'all'}
         onChange={(e) => handleStatusFilter(e.target.value)}
-        className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+        className="block w-full px-3 py-2 border border-gray-300 bg-white rounded-md shadow-xs focus:outline-hidden focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
       >
         <option value="all">All Status</option>
         <option value="active">Active</option>

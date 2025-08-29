@@ -93,7 +93,7 @@ export function RecentActivity({ user: _user }: RecentActivityProps) {
   const activities = getMockActivity();
 
   return (
-    <div className="bg-white shadow-sm rounded-lg">
+    <div className="bg-white shadow-xs rounded-lg">
       <div className="px-6 py-4 border-b border-gray-200">
         <h3 className="text-lg font-medium text-gray-900">Recent Activity</h3>
         <p className="mt-1 text-sm text-gray-500">
@@ -159,7 +159,7 @@ export function RecentActivity({ user: _user }: RecentActivityProps) {
         <div className="mt-6">
           <button
             type="button"
-            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+            className="w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-xs hover:bg-gray-50 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
           >
             View all activity
           </button>

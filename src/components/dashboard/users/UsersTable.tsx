@@ -76,7 +76,7 @@ export function UsersTable({ users, pagination, currentUser, searchParams: _sear
   };
 
   return (
-    <div className="bg-white shadow-sm rounded-lg overflow-hidden">
+    <div className="bg-white shadow-xs rounded-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-gray-900">
@@ -213,12 +213,12 @@ export function UsersTable({ users, pagination, currentUser, searchParams: _sear
                   
                   <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                     <Menu as="div" className="relative inline-block text-left">
-                      <Menu.Button className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
+                      <Menu.Button className="flex items-center rounded-full bg-gray-100 text-gray-400 hover:text-gray-600 focus:outline-hidden focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100">
                         <span className="sr-only">Open options</span>
                         <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
                       </Menu.Button>
 
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow ring-3 ring-black ring-opacity-5 focus:outline-hidden">
                         <div className="py-1">
                           {canViewDetails && (
                             <Menu.Item>
@@ -313,7 +313,7 @@ export function UsersTable({ users, pagination, currentUser, searchParams: _sear
             </p>
           </div>
           <div>
-            <nav className="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+            <nav className="relative z-0 inline-flex rounded-md shadow-xs -space-x-px" aria-label="Pagination">
               <button
                 disabled={!pagination.hasPrev}
                 className="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"

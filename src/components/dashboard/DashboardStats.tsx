@@ -90,7 +90,7 @@ export function DashboardStats({ stats, user }: DashboardStatsProps) {
         return (
           <div
             key={stat.name}
-            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow hover:shadow-md transition-shadow sm:px-6 sm:py-6"
+            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow-sm hover:shadow-md transition-shadow sm:px-6 sm:py-6"
           >
             <dt>
               <div className={cn('absolute rounded-md p-3', colorClass.bg)}>

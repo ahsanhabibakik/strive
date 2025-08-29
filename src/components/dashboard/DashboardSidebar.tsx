@@ -123,7 +123,7 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
       </div>
 
       {/* Mobile menu button */}
-      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-sm sm:px-6 lg:hidden">
+      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-xs sm:px-6 lg:hidden">
         <button
           type="button"
           className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
