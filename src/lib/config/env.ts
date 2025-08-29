@@ -37,6 +37,7 @@ const envSchema = z.object({
   EMAIL_SERVER_USER: z.string().optional(),
   EMAIL_SERVER_PASSWORD: z.string().optional(),
   EMAIL_FROM: z.string().email().optional(),
+  RESEND_API_KEY: z.string().optional(),
 
   // File Storage
   NEXT_PUBLIC_UPLOAD_MAX_SIZE: z.coerce.number().default(5242880), // 5MB

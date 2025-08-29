@@ -293,7 +293,12 @@
       "Bash(pnpm dev:*)",
       "Bash(MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" pnpm build:next)",
       "Bash(npx next dev:*)",
-      "Bash(NODE_ENV=production MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" pnpm build:next)"
+      "Bash(NODE_ENV=production MONGODB_URI=\"mongodb://localhost:27017/test\" NEXTAUTH_SECRET=\"test-secret-32-characters-minimum\" pnpm build:next)",
+      "Bash(timeout 15 pnpm dev --skip-checks)",
+      "Bash(timeout 15 pnpm dev:next)",
+      "Bash(pnpm audit:*)",
+      "Bash(pnpm update:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
