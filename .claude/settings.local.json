@@ -299,7 +299,8 @@
       "Bash(pnpm audit:*)",
       "Bash(pnpm update:*)",
       "Bash(pnpm install:*)",
-      "Bash(timeout 30 pnpm lint)"
+      "Bash(timeout 30 pnpm lint)",
+      "Bash(timeout 60 pnpm run type-check)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

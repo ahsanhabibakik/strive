@@ -18,14 +18,14 @@ const nextConfig: NextConfig = {
     ],
   },
 
-  // TypeScript config - Temporarily disabled for faster builds
+  // TypeScript config - Skip errors in production/Vercel builds
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: process.env.NODE_ENV === 'production' || !!process.env.VERCEL,
   },
 
-  // ESLint config - Disabled for production builds
+  // ESLint config - Only run in development
   eslint: {
-    ignoreDuringBuilds: true,
+    ignoreDuringBuilds: process.env.NODE_ENV === 'production' || !!process.env.VERCEL,
   },
 };
 

@@ -146,10 +146,14 @@ function runLinting() {
 }
 
 function runTypeCheck() {
-  // Skip type checking in production builds for now
-  // TODO: Fix TypeScript errors and re-enable type checking
-  log("⚠️  Skipping TypeScript type checking in production build", colors.yellow);
-  // execCommand("pnpm run type-check", "TypeScript type checking");
+  // Skip type checking in Vercel builds to allow deployment while fixing TS errors
+  if (process.env.VERCEL) {
+    log("⚠️  Skipping TypeScript type checking in Vercel build environment", colors.yellow);
+    log("   TypeScript errors should be fixed in development", colors.yellow);
+    return;
+  }
+  
+  execCommand("pnpm run type-check", "TypeScript type checking");
 }
 
 function runTests() {
