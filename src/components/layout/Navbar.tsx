@@ -18,8 +18,17 @@ export const Navbar = () => {
           </div>
           
           <div className="flex items-center space-x-4">
+            <Link href="/about" className="text-gray-600 hover:text-gray-900">
+              About
+            </Link>
             <Link href="/blog" className="text-gray-600 hover:text-gray-900">
               Blog
+            </Link>
+            <Link href="/support" className="text-gray-600 hover:text-gray-900">
+              Support
+            </Link>
+            <Link href="/contact" className="text-gray-600 hover:text-gray-900">
+              Contact
             </Link>
             
             {session ? (
