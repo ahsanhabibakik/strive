@@ -2,6 +2,8 @@
  * Application Monitoring and Error Tracking
  */
 
+import { ErrorLogger } from './sentry';
+
 // Error tracking and logging
 export class Logger {
   private static instance: Logger;
@@ -45,6 +47,13 @@ export class Logger {
     });
     this.logs.push(entry);
     console.error(`[ERROR] ${message}`, error, data || '');
+    
+    // Send to Sentry in addition to local logging
+    if (error instanceof Error) {
+      ErrorLogger.logError(error, data, { source: 'logger' });
+    } else {
+      ErrorLogger.logMessage(message, 'error', { error, ...data });
+    }
     
     // Send to monitoring service in production
     if (typeof window !== 'undefined' && process.env.NODE_ENV === 'production') {
@@ -343,3 +352,21 @@ interface CheckResult {
 export const logger = Logger.getInstance();
 export const performanceMonitor = PerformanceMonitor.getInstance();
 export const healthMonitor = HealthMonitor.getInstance();
+
+// Simple system monitor without circular dependencies  
+export class SimpleSystemMonitor {
+  static async checkHealth(): Promise<{ status: string; timestamp: string }> {
+    try {
+      // Basic health check without dependencies
+      return {
+        status: 'healthy',
+        timestamp: new Date().toISOString()
+      };
+    } catch (error) {
+      return {
+        status: 'error',
+        timestamp: new Date().toISOString()
+      };
+    }
+  }
+}

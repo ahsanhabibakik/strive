@@ -109,6 +109,11 @@ export default function SignInPage() {
                 onChange={(e) => setPassword(e.target.value)}
                 required
               />
+              <div className="text-right mt-2">
+                <Link href="/auth/forgot-password" className="text-sm text-primary hover:underline">
+                  Forgot password?
+                </Link>
+              </div>
             </div>
             {error && (
               <p className="text-red-600 text-sm">{error}</p>

@@ -1,5 +1,6 @@
 import { Schema, model, models, Document } from 'mongoose';
 import bcrypt from 'bcryptjs';
+import crypto from 'crypto';
 
 export interface IUser extends Document {
   _id: string;
@@ -9,8 +10,14 @@ export interface IUser extends Document {
   image?: string;
   role: 'user' | 'admin' | 'moderator';
   emailVerified?: Date;
+  emailVerificationToken?: string;
+  emailVerificationExpires?: Date;
+  passwordResetToken?: string;
+  passwordResetExpires?: Date;
   isActive: boolean;
+  isEmailVerified: boolean;
   lastLoginAt?: Date;
+  loginCount: number;
   subscription?: {
     plan: 'free' | 'pro' | 'enterprise';
     status: 'active' | 'inactive' | 'cancelled';
@@ -37,6 +44,9 @@ export interface IUser extends Document {
   createdAt: Date;
   updatedAt: Date;
   comparePassword(candidatePassword: string): Promise<boolean>;
+  generateEmailVerificationToken(): string;
+  generatePasswordResetToken(): string;
+  verifyEmail(): Promise<IUser>;
   toJSON(): any;
 }
 
@@ -66,11 +76,23 @@ const userSchema = new Schema<IUser>({
     default: 'user'
   },
   emailVerified: Date,
+  emailVerificationToken: String,
+  emailVerificationExpires: Date,
+  passwordResetToken: String,
+  passwordResetExpires: Date,
   isActive: {
     type: Boolean,
     default: true
   },
+  isEmailVerified: {
+    type: Boolean,
+    default: false
+  },
   lastLoginAt: Date,
+  loginCount: {
+    type: Number,
+    default: 0
+  },
   subscription: {
     plan: {
       type: String,
@@ -143,10 +165,37 @@ userSchema.methods.comparePassword = async function (candidatePassword: string):
   return bcrypt.compare(candidatePassword, this.password);
 };
 
+// Method to generate email verification token
+userSchema.methods.generateEmailVerificationToken = function (): string {
+  const token = crypto.randomBytes(32).toString('hex');
+  this.emailVerificationToken = token;
+  this.emailVerificationExpires = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
+  return token;
+};
+
+// Method to generate password reset token
+userSchema.methods.generatePasswordResetToken = function (): string {
+  const token = crypto.randomBytes(32).toString('hex');
+  this.passwordResetToken = token;
+  this.passwordResetExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 hour
+  return token;
+};
+
+// Method to verify email
+userSchema.methods.verifyEmail = async function (): Promise<IUser> {
+  this.isEmailVerified = true;
+  this.emailVerified = new Date();
+  this.emailVerificationToken = undefined;
+  this.emailVerificationExpires = undefined;
+  return this.save();
+};
+
 // Override toJSON to remove sensitive fields
 userSchema.methods.toJSON = function () {
   const userObject = this.toObject();
   delete userObject.password;
+  delete userObject.emailVerificationToken;
+  delete userObject.passwordResetToken;
   delete userObject.__v;
   return userObject;
 };

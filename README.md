@@ -1,50 +1,56 @@
-# 🚀 Strive - Production-Ready Project Template
+# 🚀 Strive - Complete SaaS Starter Template
 
-> **Million-User Ready** • A comprehensive Next.js 15 project template with authentication, analytics, CMS, newsletter, and essential components pre-configured for scale.
+A production-ready Next.js SaaS starter template with authentication, billing, analytics, and everything you need to launch your application quickly.
 
-## ⚡ Features
+![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?logo=typescript)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?logo=tailwind-css)
+![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green?logo=mongodb)
+![Stripe](https://img.shields.io/badge/Stripe-Billing-635BFF?logo=stripe)
 
-### 🔐 **Authentication System**
-- NextAuth.js with Google OAuth + Custom credentials
-- Protected routes and session management  
-- MongoDB user storage with proper indexing
+## ✨ Features
 
-### 📊 **Analytics & Tracking (Million-User Ready)**
-- Google Analytics 4 with enhanced events
-- Google Tag Manager integration
-- Vercel Analytics & Speed Insights
-- Mixpanel for advanced user tracking
-- Core Web Vitals monitoring
-- Performance tracking with real-time metrics
-- Cookie consent management (GDPR compliant)
+### 🔐 Authentication & Security
+- **Complete authentication system** with NextAuth.js
+- **Email/password and OAuth** (Google, GitHub) support
+- **Email verification** and password reset flows
+- **Role-based access control (RBAC)** system
+- **Two-factor authentication** ready
 
-### 📝 **Content Management (Sanity CMS)**
-- Complete Sanity Studio integration
-- Blog post management with rich content
-- Author and category management
-- SEO optimization built-in
-- Image optimization and CDN integration
+### 💳 Billing & Subscriptions
+- **Stripe integration** with subscription management
+- **Multiple pricing tiers** (Free, Pro, Enterprise)
+- **Customer billing portal** for subscription management
+- **Webhook handling** for real-time payment updates
+- **Invoice history** and receipt generation
 
-### 📧 **Newsletter & Communications**
-- Advanced newsletter subscription system
-- Email validation and error handling
-- MongoDB subscriber storage
-- Analytics tracking for conversions
+### 📊 Analytics & Monitoring
+- **Comprehensive analytics dashboard** with charts
+- **User metrics** and engagement tracking
+- **Revenue analytics** and subscription insights
+- **Error tracking** with Sentry integration
+- **Performance monitoring** and health checks
 
-### 🎨 **UI Components (Universal)**
-- Complete shadcn/ui component library
-- Responsive design with mobile-first approach
-- Dark mode support with system detection
-- Accessibility compliant (WCAG 2.1)
-- TypeScript interfaces for all components
-- Customizable theming system
+### 🛠 Admin & Management
+- **API key management** with usage tracking
+- **User management** with admin controls
+- **System settings** and configuration panels
+- **Notification system** with email integration
+- **Content management** capabilities
 
-### ⚙️ **API Architecture**
-- RESTful API design with proper error handling
-- Input validation with Zod schemas
-- Rate limiting ready (Redis integration)
-- Health checks and monitoring
-- MongoDB integration with connection pooling
+### 🎨 Modern UI/UX
+- **Beautiful landing page** with testimonials and pricing
+- **Responsive dashboard** with sidebar navigation
+- **Component library** with Tailwind CSS v4
+- **Dark/light mode** ready (extendable)
+- **Mobile-first design** approach
+
+### 🔧 Developer Experience
+- **TypeScript** throughout the application
+- **ESLint and Prettier** configured
+- **Comprehensive error handling**
+- **Database monitoring** and optimization
+- **Health check endpoints**
 
 ## 🛠️ Tech Stack
 
