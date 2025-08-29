@@ -4,7 +4,7 @@ import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { SkipLink } from "@/components/accessibility/SkipLink";
 import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo";
-import { GoogleAnalytics } from "@/lib/analytics/google-analytics";
+import { AnalyticsProvider } from "@/lib/analytics";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
 
 const inter = Inter({ 
@@ -88,17 +88,16 @@ export default function RootLayout({
         {/* Screen reader announcements */}
         <div id="announcement-region" aria-live="polite" aria-atomic="true" className="sr-only" />
         
-        <Providers>
-          <main id="main-content" tabIndex={-1}>
-            {children}
-          </main>
-        </Providers>
-        
-        {/* Google Analytics */}
-        <GoogleAnalytics />
-        
-        {/* Cookie Consent */}
-        <CookieConsent />
+        <AnalyticsProvider>
+          <Providers>
+            <main id="main-content" tabIndex={-1}>
+              {children}
+            </main>
+          </Providers>
+          
+          {/* Cookie Consent */}
+          <CookieConsent />
+        </AnalyticsProvider>
         
         {/* High contrast mode styles */}
         <style jsx global>{`
