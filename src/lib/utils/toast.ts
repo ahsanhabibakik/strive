@@ -47,7 +47,7 @@ export const showToast = {
     return sonnerToast.promise(promise, messages, options)
   },
 
-  custom: (jsx: (id: string | number) => React.ReactElement, options?: { duration?: number; position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center' }): string | number => {
+  custom: (jsx: (id: string | number) => React.ReactElement, options?: { duration?: number }): string | number => {
     return sonnerToast.custom(jsx, options)
   },
 

@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { SkipLink } from "@/components/accessibility/SkipLink";
 import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo";
+import { GoogleAnalytics } from "@/lib/analytics/google-analytics";
+import { CookieConsent } from "@/components/cookies/CookieConsent";
 
 const inter = Inter({ 
   subsets: ["latin"],
@@ -91,6 +93,12 @@ export default function RootLayout({
             {children}
           </main>
         </Providers>
+        
+        {/* Google Analytics */}
+        <GoogleAnalytics />
+        
+        {/* Cookie Consent */}
+        <CookieConsent />
         
         {/* High contrast mode styles */}
         <style jsx global>{`

@@ -47,7 +47,7 @@ export function verifyPasswordResetToken(token: string): { userId: string } | nu
  * Generate TOTP secret for 2FA
  */
 export function generateTOTPSecret(): string {
-  return crypto.randomBytes(20).toString('base32')
+  return crypto.randomBytes(20).toString('hex')
 }
 
 /**
