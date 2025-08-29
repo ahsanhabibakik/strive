@@ -16,7 +16,7 @@ export const metadata = {
   description: 'Analytics and metrics dashboard for your application',
 };
 
-async function getAnalyticsData(user: any) {
+async function getAnalyticsData(_user: any) {
   await connectToDatabase();
   
   // Get user statistics

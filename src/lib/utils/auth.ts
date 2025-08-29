@@ -38,7 +38,7 @@ export function verifyPasswordResetToken(token: string): { userId: string } | nu
       return null
     }
     return { userId: decoded.userId }
-  } catch (error) {
+  } catch {
     return null
   }
 }

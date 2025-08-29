@@ -11,7 +11,7 @@ export const metadata = {
   description: 'Manage your notifications and alerts',
 };
 
-async function getNotifications(userId: string) {
+async function getNotifications(_userId: string) {
   // Mock notifications - In a real app, this would come from a database
   return [
     {
@@ -75,7 +75,7 @@ async function getNotifications(userId: string) {
   ];
 }
 
-async function getNotificationStats(userId: string) {
+async function getNotificationStats(_userId: string) {
   return {
     total: 24,
     unread: 2,

@@ -1,6 +1,6 @@
 'use client'
 
-import { Metadata } from 'next'
+// import { Metadata } from 'next' // Not needed in client components
 import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 
