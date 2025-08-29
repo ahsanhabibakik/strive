@@ -71,9 +71,6 @@ importers:
       '@tanstack/react-query':
         specifier: ^5.85.5
         version: 5.85.5(react@19.1.1)
-      '@types/mixpanel-browser':
-        specifier: ^2.49.0
-        version: 2.66.0
       '@types/qrcode':
         specifier: ^1.5.5
         version: 1.5.5
@@ -166,14 +163,11 @@ importers:
         version: 2.6.0
       tailwindcss-animate:
         specifier: ^1.0.7
-        version: 1.0.7
+        version: 1.0.7(tailwindcss@4.1.12)
       zod:
         specifier: ^3.24.1
         version: 3.25.76
     devDependencies:
-      '@eslint/eslintrc':
-        specifier: ^3.3.1
-        version: 3.3.1
       '@playwright/test':
         specifier: ^1.49.1
         version: 1.55.0
@@ -210,9 +204,6 @@ importers:
       '@types/react-dom':
         specifier: ^19.0.2
         version: 19.1.9(@types/react@19.1.12)
-      '@types/redis':
-        specifier: ^4.0.11
-        version: 4.0.11
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -240,6 +231,9 @@ importers:
       prettier:
         specifier: ^3.4.2
         version: 3.6.2
+      tailwindcss:
+        specifier: ^4.1.12
+        version: 4.1.12
       typescript:
         specifier: ^5.7.2
         version: 5.9.2
@@ -3782,10 +3776,6 @@ packages:
   '@types/minimist@1.2.5':
     resolution: {integrity: sha512-hov8bUuiLiyFPGyFPE1lwWhmzYbirOXQNNo40+y3zow8aFVTeyn3VWL0VFFfdNddA8S4Vf0Tc062rzyNr7Paag==}
 
-  '@types/mixpanel-browser@2.66.0':
-    resolution: {integrity: sha512-07zYZZ9ZVHc7R4ktM+3a2clZvKkj+EJcYZ/FevTs011Fr9tdp59lVgAskMf6ZQUp3lOHLqi7K3f+9QtmEsqh1w==}
-    deprecated: This is a stub types definition. mixpanel-browser provides its own type definitions, so you do not need this installed.
-
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
 
@@ -3823,10 +3813,6 @@ packages:
 
   '@types/react@19.1.12':
     resolution: {integrity: sha512-cMoR+FoAf/Jyq6+Df2/Z41jISvGZZ2eTlnsaJRptmZ76Caldwy1odD4xTr/gNV9VLj0AWgg/nmkevIyUfIIq5w==}
-
-  '@types/redis@4.0.11':
-    resolution: {integrity: sha512-bI+gth8La8Wg/QCR1+V1fhrL9+LZUSWfcqpOj2Kc80ZQ4ffbdL173vQd5wovmoV9i071FU9oP2g6etLuEwb6Rg==}
-    deprecated: This is a stub types definition. redis provides its own type definitions, so you do not need this installed.
 
   '@types/shallow-equals@1.0.3':
     resolution: {integrity: sha512-xZx/hZsf1p9J5lGN/nGTsuW/chJCdlyGxilwg1TS78rygBCU5bpY50zZiFcIimlnl0p41kAyaASsy0bqU7WyBA==}
@@ -13663,10 +13649,6 @@ snapshots:
 
   '@types/minimist@1.2.5': {}
 
-  '@types/mixpanel-browser@2.66.0':
-    dependencies:
-      mixpanel-browser: 2.69.1
-
   '@types/ms@2.1.0': {}
 
   '@types/mysql@2.15.27':
@@ -13713,10 +13695,6 @@ snapshots:
   '@types/react@19.1.12':
     dependencies:
       csstype: 3.1.3
-
-  '@types/redis@4.0.11':
-    dependencies:
-      redis: 4.7.1
 
   '@types/shallow-equals@1.0.3': {}
 
@@ -18935,7 +18913,9 @@ snapshots:
 
   tailwind-merge@2.6.0: {}
 
-  tailwindcss-animate@1.0.7: {}
+  tailwindcss-animate@1.0.7(tailwindcss@4.1.12):
+    dependencies:
+      tailwindcss: 4.1.12
 
   tailwindcss@4.1.12: {}
 
