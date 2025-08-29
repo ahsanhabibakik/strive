@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Link from "next/link";
 import { Calendar, Clock, User, Search, Filter } from "lucide-react";
-import { blogPosts, categories, getFeaturedPosts, getRecentPosts } from "@/lib/blog/data";
+import { blogPosts, categories, getFeaturedPosts } from "@/lib/blog/data";
 
 export const metadata: Metadata = {
   title: 'Blog - Strive',
