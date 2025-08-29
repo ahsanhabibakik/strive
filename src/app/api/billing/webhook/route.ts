@@ -133,8 +133,8 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
       ...user.subscription,
       subscriptionId: subscription.id,
       status: subscription.status as any,
-      startDate: new Date(subscription.current_period_start * 1000),
-      endDate: new Date(subscription.current_period_end * 1000),
+      startDate: new Date((subscription as any).current_period_start * 1000),
+      endDate: new Date((subscription as any).current_period_end * 1000),
     };
 
     await user.save();
@@ -170,7 +170,7 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
       ...user.subscription,
       plan: planId as any,
       status: subscription.status as any,
-      endDate: new Date(subscription.current_period_end * 1000),
+      endDate: new Date((subscription as any).current_period_end * 1000),
     };
 
     await user.save();
