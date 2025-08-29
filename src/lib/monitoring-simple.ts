@@ -90,4 +90,3 @@ SystemMonitor.registerHealthCheck('basic', async () => {
   return true;
 });
 
-export { DatabaseMonitor };

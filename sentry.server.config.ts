@@ -17,10 +17,10 @@ Sentry.init({
 
   // Configure error filtering for server-side
   beforeSend(event, hint) {
-    const error = hint.originalException;
+    const error = hint.originalException as Error | undefined;
     
     // Filter out known non-critical server errors
-    if (error && typeof error.message === 'string') {
+    if (error && error.message) {
       // Ignore expected database connection errors during startup
       if (error.message.includes('ECONNREFUSED') && error.message.includes('MongoDB')) {
         return null;

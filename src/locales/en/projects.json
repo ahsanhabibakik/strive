@@ -1,0 +1,53 @@
+{
+  "projects": "Projects",
+  "project": "Project",
+  "createProject": "Create Project",
+  "editProject": "Edit Project",
+  "deleteProject": "Delete Project",
+  "projectName": "Project Name",
+  "projectDescription": "Description",
+  "projectStatus": "Status",
+  "projectPriority": "Priority",
+  "projectDeadline": "Deadline",
+  "projectProgress": "Progress",
+  "projectTasks": "Tasks",
+  "projectMembers": "Members",
+  "projectFiles": "Files",
+  "projectNotes": "Notes",
+  "priorities": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "urgent": "Urgent"
+  },
+  "statuses": {
+    "planning": "Planning",
+    "inProgress": "In Progress",
+    "onHold": "On Hold",
+    "completed": "Completed",
+    "cancelled": "Cancelled"
+  },
+  "categories": {
+    "development": "Development",
+    "marketing": "Marketing",
+    "design": "Design",
+    "research": "Research",
+    "support": "Support",
+    "sales": "Sales",
+    "operations": "Operations",
+    "other": "Other"
+  },
+  "messages": {
+    "projectCreated": "Project created successfully",
+    "projectUpdated": "Project updated successfully",
+    "projectDeleted": "Project deleted successfully",
+    "projectCompleted": "Congratulations! Project completed!",
+    "noProjects": "No projects yet. Create your first project to get started!",
+    "confirmDelete": "Are you sure you want to delete this project?"
+  },
+  "placeholders": {
+    "name": "Enter project name...",
+    "description": "Describe your project in detail...",
+    "notes": "Add any additional notes..."
+  }
+}

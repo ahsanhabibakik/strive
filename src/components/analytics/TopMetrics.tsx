@@ -2,7 +2,7 @@ import {
   UsersIcon,
   ChartBarIcon,
   CurrencyDollarIcon,
-  TrendingUpIcon
+  ArrowTrendingUpIcon
 } from '@heroicons/react/24/outline';
 
 interface TopMetricsProps {
@@ -26,7 +26,7 @@ const metrics = [
   {
     name: 'New This Month',
     key: 'newUsersThisMonth' as const,
-    icon: TrendingUpIcon,
+    icon: ArrowTrendingUpIcon,
     color: 'text-green-600',
     bgColor: 'bg-green-50',
     format: (value: number) => `+${value.toLocaleString()}`,

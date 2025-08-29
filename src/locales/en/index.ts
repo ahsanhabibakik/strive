@@ -3,8 +3,9 @@ import auth from './auth.json'
 import dashboard from './dashboard.json'
 import landing from './landing.json'
 import errors from './errors.json'
-import goals from './goals.json'
-import habits from './habits.json'
+import projects from './projects.json'
+import tasks from './tasks.json'
+import general from './general.json'
 import navigation from './navigation.json'
 import notifications from './notifications.json'
 
@@ -14,8 +15,9 @@ export const en = {
   dashboard,
   landing,
   errors,
-  goals,
-  habits,
+  projects,
+  tasks,
+  general,
   navigation,
   notifications,
 }

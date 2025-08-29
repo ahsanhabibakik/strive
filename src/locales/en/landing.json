@@ -1,38 +1,38 @@
 {
   "hero": {
-    "title": "Achieve Your Goals with Strive",
-    "subtitle": "Transform your ambitions into achievements with our powerful goal-tracking platform",
-    "description": "Join thousands of successful people who use Strive to set, track, and accomplish their most important goals.",
+    "title": "Build Your SaaS Application Faster",
+    "subtitle": "The complete Next.js starter template with authentication, payments, and dashboard",
+    "description": "Launch your SaaS business in days, not months. Built with Next.js 15, TypeScript, and modern tools.",
     "ctaPrimary": "Get Started Free",
     "ctaSecondary": "View Demo",
-    "trustedBy": "Trusted by over 10,000+ users worldwide"
+    "trustedBy": "Trusted by 1,000+ developers worldwide"
   },
   "features": {
-    "title": "Everything you need to succeed",
-    "subtitle": "Powerful features designed to help you achieve your goals",
-    "goalTracking": {
-      "title": "Smart Goal Tracking",
-      "description": "Set SMART goals and track your progress with visual charts and milestones"
+    "title": "Everything you need to launch",
+    "subtitle": "Production-ready features that save you months of development",
+    "authentication": {
+      "title": "Authentication & Security",
+      "description": "Complete auth system with JWT, OAuth, 2FA, and advanced security headers"
     },
-    "habitBuilding": {
-      "title": "Habit Building",
-      "description": "Build lasting habits with streak tracking and gentle reminders"
+    "payments": {
+      "title": "Stripe Integration",
+      "description": "Ready-to-use payment processing with subscriptions, invoices, and webhooks"
     },
-    "analytics": {
-      "title": "Progress Analytics",
-      "description": "Gain insights into your progress with detailed analytics and reports"
+    "dashboard": {
+      "title": "Admin Dashboard",
+      "description": "Beautiful dashboard with analytics, user management, and business metrics"
     },
-    "collaboration": {
-      "title": "Team Collaboration",
-      "description": "Share goals with friends and teammates for accountability and support"
+    "database": {
+      "title": "Database & API",
+      "description": "MongoDB integration with Mongoose ODM and type-safe API routes"
     },
-    "integrations": {
-      "title": "Integrations",
-      "description": "Connect with your favorite apps and tools to streamline your workflow"
+    "deployment": {
+      "title": "Production Ready",
+      "description": "Optimized build process, monitoring, error tracking, and deployment guides"
     },
-    "mobile": {
-      "title": "Mobile Ready",
-      "description": "Access your goals anywhere with our responsive mobile-first design"
+    "customizable": {
+      "title": "Fully Customizable",
+      "description": "Modern UI components, themes, and responsive design system"
     }
   },
   "pricing": {

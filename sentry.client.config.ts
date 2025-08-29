@@ -17,10 +17,10 @@ Sentry.init({
 
   // Configure error filtering
   beforeSend(event, hint) {
-    const error = hint.originalException;
+    const error = hint.originalException as Error | undefined;
     
     // Filter out known non-critical errors
-    if (error && typeof error.message === 'string') {
+    if (error && error.message) {
       // Ignore network errors that are expected
       if (error.message.includes('NetworkError') || error.message.includes('Failed to fetch')) {
         return null;

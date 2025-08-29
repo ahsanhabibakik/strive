@@ -89,6 +89,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe not configured' },
+        { status: 500 }
+      );
+    }
+
     const checkoutSession = await stripe.checkout.sessions.create({
       mode: 'subscription',
       payment_method_types: ['card'],

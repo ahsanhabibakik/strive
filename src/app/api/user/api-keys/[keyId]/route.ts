@@ -10,8 +10,9 @@ let apiKeys: any[] = [];
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { keyId: string } }
+  context: { params: Promise<{ keyId: string }> }
 ) {
+  const params = await context.params;
   try {
     const session = await getServerSession(authOptions);
     
@@ -80,8 +81,9 @@ export async function DELETE(
 
 export async function PUT(
   req: NextRequest,
-  { params }: { params: { keyId: string } }
+  context: { params: Promise<{ keyId: string }> }
 ) {
+  const params = await context.params;
   try {
     const session = await getServerSession(authOptions);
     

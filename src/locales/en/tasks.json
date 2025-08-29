@@ -1,0 +1,53 @@
+{
+  "tasks": "Tasks",
+  "task": "Task",
+  "createTask": "Create Task",
+  "editTask": "Edit Task",
+  "deleteTask": "Delete Task",
+  "taskTitle": "Task Title",
+  "taskDescription": "Description",
+  "taskStatus": "Status",
+  "taskPriority": "Priority",
+  "taskDueDate": "Due Date",
+  "taskAssignee": "Assignee",
+  "taskProject": "Project",
+  "taskLabels": "Labels",
+  "taskAttachments": "Attachments",
+  "markComplete": "Mark Complete",
+  "markIncomplete": "Mark Incomplete",
+  "assignToMe": "Assign to Me",
+  "statuses": {
+    "todo": "To Do",
+    "inProgress": "In Progress",
+    "review": "In Review",
+    "done": "Done",
+    "blocked": "Blocked"
+  },
+  "priorities": {
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "urgent": "Urgent"
+  },
+  "filters": {
+    "all": "All Tasks",
+    "myTasks": "My Tasks",
+    "overdue": "Overdue",
+    "dueToday": "Due Today",
+    "completed": "Completed"
+  },
+  "messages": {
+    "taskCreated": "Task created successfully",
+    "taskUpdated": "Task updated successfully",
+    "taskDeleted": "Task deleted successfully",
+    "taskCompleted": "Great job! Task completed!",
+    "taskAssigned": "Task assigned successfully",
+    "noTasks": "No tasks yet. Create your first task to get organized!",
+    "confirmDelete": "Are you sure you want to delete this task?"
+  },
+  "placeholders": {
+    "title": "Enter task title...",
+    "description": "Describe the task...",
+    "search": "Search tasks..."
+  }
+}

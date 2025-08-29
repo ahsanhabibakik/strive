@@ -1,0 +1,91 @@
+{
+  "application": {
+    "name": "SaaS Starter",
+    "tagline": "Launch Your SaaS Faster",
+    "description": "The complete Next.js starter template for building SaaS applications"
+  },
+  "business": {
+    "features": "Features",
+    "benefits": "Benefits",
+    "solutions": "Solutions",
+    "services": "Services",
+    "products": "Products",
+    "customers": "Customers",
+    "testimonials": "Testimonials",
+    "caseStudies": "Case Studies",
+    "resources": "Resources",
+    "blog": "Blog",
+    "newsroom": "Newsroom",
+    "events": "Events",
+    "webinars": "Webinars",
+    "partnerships": "Partnerships",
+    "affiliates": "Affiliates"
+  },
+  "content": {
+    "posts": "Posts",
+    "articles": "Articles",
+    "pages": "Pages",
+    "categories": "Categories",
+    "tags": "Tags",
+    "comments": "Comments",
+    "media": "Media",
+    "files": "Files",
+    "documents": "Documents",
+    "templates": "Templates",
+    "layouts": "Layouts",
+    "themes": "Themes"
+  },
+  "ecommerce": {
+    "shop": "Shop",
+    "store": "Store",
+    "catalog": "Catalog",
+    "products": "Products",
+    "categories": "Categories",
+    "brands": "Brands",
+    "collections": "Collections",
+    "cart": "Shopping Cart",
+    "checkout": "Checkout",
+    "orders": "Orders",
+    "shipping": "Shipping",
+    "returns": "Returns",
+    "reviews": "Reviews",
+    "wishlist": "Wishlist",
+    "compare": "Compare"
+  },
+  "workflow": {
+    "processes": "Processes",
+    "workflows": "Workflows",
+    "automation": "Automation",
+    "triggers": "Triggers",
+    "actions": "Actions",
+    "conditions": "Conditions",
+    "templates": "Templates",
+    "schedules": "Schedules",
+    "queues": "Queues",
+    "jobs": "Jobs"
+  },
+  "communication": {
+    "messages": "Messages",
+    "conversations": "Conversations",
+    "chats": "Chats",
+    "threads": "Threads",
+    "channels": "Channels",
+    "groups": "Groups",
+    "broadcasts": "Broadcasts",
+    "announcements": "Announcements",
+    "newsletters": "Newsletters",
+    "campaigns": "Campaigns"
+  },
+  "organization": {
+    "departments": "Departments",
+    "teams": "Teams",
+    "roles": "Roles",
+    "permissions": "Permissions",
+    "hierarchy": "Hierarchy",
+    "structure": "Structure",
+    "positions": "Positions",
+    "locations": "Locations",
+    "branches": "Branches",
+    "divisions": "Divisions"
+  }
+}

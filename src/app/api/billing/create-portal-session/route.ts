@@ -44,6 +44,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe not configured' },
+        { status: 500 }
+      );
+    }
+
     // Create Stripe customer portal session
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: user.subscription.customerId,

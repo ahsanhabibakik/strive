@@ -106,7 +106,7 @@ export class PerformanceMonitor {
    * Start a performance transaction
    */
   static startTransaction(name: string, op: string) {
-    return Sentry.startTransaction({ name, op });
+    return Sentry.startSpan({ name, op }, () => {});
   }
 
   /**
@@ -130,18 +130,9 @@ export class PerformanceMonitor {
     fn: () => Promise<T>,
     op: string = 'function'
   ): Promise<T> {
-    const transaction = Sentry.startTransaction({ name, op });
-    
-    try {
-      const result = await fn();
-      transaction.setStatus('ok');
-      return result;
-    } catch (error) {
-      transaction.setStatus('internal_error');
-      throw error;
-    } finally {
-      transaction.finish();
-    }
+    return Sentry.startSpan({ name, op }, async () => {
+      return await fn();
+    });
   }
 }
 

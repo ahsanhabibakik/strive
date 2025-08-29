@@ -31,6 +31,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
         );
       case 'cancelled':
       case 'canceled':
+      case 'cancelled' as any:
         return (
           <span className="inline-flex items-center gap-x-1.5 rounded-md bg-red-100 px-2 py-1 text-xs font-medium text-red-800">
             <ExclamationTriangleIcon className="h-4 w-4" />
@@ -38,6 +39,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
           </span>
         );
       case 'past_due':
+      case 'past_due' as any:
         return (
           <span className="inline-flex items-center gap-x-1.5 rounded-md bg-yellow-100 px-2 py-1 text-xs font-medium text-yellow-800">
             <ExclamationTriangleIcon className="h-4 w-4" />
@@ -45,6 +47,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
           </span>
         );
       case 'trialing':
+      case 'trialing' as any:
         return (
           <span className="inline-flex items-center gap-x-1.5 rounded-md bg-blue-100 px-2 py-1 text-xs font-medium text-blue-800">
             <ClockIcon className="h-4 w-4" />

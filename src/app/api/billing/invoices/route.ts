@@ -40,6 +40,13 @@ export async function GET(req: NextRequest) {
       );
     }
 
+    if (!stripe) {
+      return NextResponse.json(
+        { error: 'Stripe not configured' },
+        { status: 500 }
+      );
+    }
+
     // Fetch invoices from Stripe
     const invoices = await stripe.invoices.list({
       customer: customerId,

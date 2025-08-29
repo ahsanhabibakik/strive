@@ -162,7 +162,7 @@ export default withAuth(
     }
 
     const response = NextResponse.next()
-    return applySecurityHeaders(response, request)
+    return applySecurityHeaders(response, req)
   },
   {
     callbacks: {
