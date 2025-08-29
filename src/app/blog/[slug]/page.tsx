@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { getPostBySlug, getRecentPosts, blogPosts } from "@/lib/blog/data";
-import { Analytics } from "@/lib/analytics/google-analytics";
+import { BlogTracker } from "@/components/analytics/BlogTracker";
 
 interface BlogPostPageProps {
   params: {
@@ -66,13 +66,11 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
 
   const recentPosts = getRecentPosts(3).filter(p => p.slug !== post.slug);
 
-  // Track blog view
-  if (typeof window !== 'undefined') {
-    Analytics.trackBlogView(post.title);
-  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <>
+      <BlogTracker title={post.title} />
+      <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
       <div className="bg-white border-b">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -286,6 +284,7 @@ export default function BlogPostPage({ params }: BlogPostPageProps) {
           </aside>
         </div>
       </div>
-    </div>
+      </div>
+    </>
   );
 }
