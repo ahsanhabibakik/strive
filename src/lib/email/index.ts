@@ -408,6 +408,5 @@ class EmailService {
 // Export singleton instance
 export const emailService = new EmailService();
 
-// Export types and utilities
-export type { EmailData, EmailResult, EmailTemplate, EmailAttachment };
+// Export types and utilities  
 export { EmailService };

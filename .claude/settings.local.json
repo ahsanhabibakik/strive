@@ -300,7 +300,10 @@
       "Bash(pnpm update:*)",
       "Bash(pnpm install:*)",
       "Bash(timeout 30 pnpm lint)",
-      "Bash(timeout 60 pnpm run type-check)"
+      "Bash(timeout 60 pnpm run type-check)",
+      "Bash(NODE_ENV=production pnpm run build:next)",
+      "Bash(NODE_ENV=production timeout 90 pnpm run build:next)",
+      "Bash(NODE_ENV=production timeout 60 pnpm run build:next)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
