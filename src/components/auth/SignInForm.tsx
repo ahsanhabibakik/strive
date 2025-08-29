@@ -13,6 +13,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from '@/components/ui/separator'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { showToast } from '@/lib/utils/toast'
+import { clientLogger } from '@/lib/utils/client-logger'
 import { z } from 'zod'
 
 const signInSchema = z.object({
@@ -100,7 +101,7 @@ export function SignInForm({ callbackUrl }: SignInFormProps) {
         router.refresh()
       }
     } catch (error) {
-      console.error('Sign in error:', error)
+      clientLogger.error('Sign in error:', error)
       setAuthError('An unexpected error occurred')
     } finally {
       setIsLoading(false)
@@ -112,7 +113,7 @@ export function SignInForm({ callbackUrl }: SignInFormProps) {
     try {
       await signIn(provider, { callbackUrl: callbackUrl || '/dashboard' })
     } catch (error) {
-      console.error(`${provider} sign in error:`, error)
+      clientLogger.error(`${provider} sign in error:`, error)
       showToast.error(`Failed to sign in with ${provider}`)
       setIsLoading(false)
     }

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { X, Cookie, Settings } from 'lucide-react';
+import { useAnalytics } from '@/lib/analytics';
 import Link from 'next/link';
 
 interface CookiePreferences {
@@ -19,6 +20,7 @@ const COOKIE_PREFERENCES_KEY = 'cookie-preferences';
 export function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
   const [showPreferences, setShowPreferences] = useState(false);
+  const { hasConsent, grantConsent, revokeConsent } = useAnalytics();
   const [preferences, setPreferences] = useState<CookiePreferences>({
     necessary: true,
     analytics: false,
@@ -55,9 +57,12 @@ export function CookieConsent() {
     localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(allAccepted));
     setShowBanner(false);
     
-    // Initialize analytics if accepted
-    if (window.gtag) {
-      window.gtag('consent', 'update', {
+    // Grant analytics consent (this will initialize all analytics tools)
+    grantConsent();
+    
+    // Initialize Google Analytics consent if available
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('consent', 'update', {
         analytics_storage: 'granted',
         ad_storage: 'granted',
       });
@@ -77,9 +82,12 @@ export function CookieConsent() {
     localStorage.setItem(COOKIE_PREFERENCES_KEY, JSON.stringify(onlyNecessary));
     setShowBanner(false);
     
-    // Deny analytics
-    if (window.gtag) {
-      window.gtag('consent', 'update', {
+    // Revoke analytics consent (this will prevent analytics tools from loading)
+    revokeConsent();
+    
+    // Deny Google Analytics
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('consent', 'update', {
         analytics_storage: 'denied',
         ad_storage: 'denied',
       });
@@ -92,9 +100,16 @@ export function CookieConsent() {
     setShowBanner(false);
     setShowPreferences(false);
     
-    // Update analytics consent
-    if (window.gtag) {
-      window.gtag('consent', 'update', {
+    // Grant or revoke analytics consent based on user preferences
+    if (preferences.analytics || preferences.marketing) {
+      grantConsent();
+    } else {
+      revokeConsent();
+    }
+    
+    // Update Google Analytics consent
+    if (typeof window !== 'undefined' && (window as any).gtag) {
+      (window as any).gtag('consent', 'update', {
         analytics_storage: preferences.analytics ? 'granted' : 'denied',
         ad_storage: preferences.marketing ? 'granted' : 'denied',
       });
