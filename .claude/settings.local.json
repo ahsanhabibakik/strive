@@ -280,7 +280,8 @@
       "Bash(pnpm add:*)",
       "Bash(npx @tailwindcss/upgrade:*)",
       "Bash(grep:*)",
-      "Bash(git reset:*)"
+      "Bash(git reset:*)",
+      "Bash(npx next build:*)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",

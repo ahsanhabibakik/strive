@@ -43,20 +43,20 @@ export const showToast = {
       error: string | ((error: any) => string)
     },
     options?: { description?: string }
-  ): string | number => {
+  ) => {
     return sonnerToast.promise(promise, messages, options)
   },
 
-  custom: (jsx: React.ReactNode, options?: { duration?: number; position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center' }): string | number => {
+  custom: (jsx: (id: string | number) => React.ReactElement, options?: { duration?: number; position?: 'top-left' | 'top-right' | 'bottom-left' | 'bottom-right' | 'top-center' | 'bottom-center' }): string | number => {
     return sonnerToast.custom(jsx, options)
   },
 
-  dismiss: (id?: string | number): void => {
-    return sonnerToast.dismiss(id)
+  dismiss: (id?: string | number) => {
+    sonnerToast.dismiss(id)
   },
 
   dismissAll: () => {
-    return toast.dismiss()
+    return sonnerToast.dismiss()
   }
 }
 
