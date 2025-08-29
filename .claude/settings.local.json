@@ -298,7 +298,8 @@
       "Bash(timeout 15 pnpm dev:next)",
       "Bash(pnpm audit:*)",
       "Bash(pnpm update:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(timeout 30 pnpm lint)"
     ],
     "deny": [],
     "defaultMode": "acceptEdits",
