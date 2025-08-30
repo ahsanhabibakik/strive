@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { IUser } from '@/lib/models/User';
-import { Button } from '@/components/ui/button';
-import { 
+import { useState } from "react";
+import { IUser } from "@/lib/models/User";
+import { Button } from "@/components/ui/button";
+import {
   BellIcon,
   EnvelopeIcon,
   DevicePhoneMobileIcon,
   CheckIcon,
-  XMarkIcon
-} from '@heroicons/react/24/outline';
+  XMarkIcon,
+} from "@heroicons/react/24/outline";
 
 interface NotificationSettingsProps {
   user: IUser;
@@ -57,107 +57,107 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
       comments: user.notifications?.inApp?.comments ?? true,
       mentions: user.notifications?.inApp?.mentions ?? true,
       updates: user.notifications?.inApp?.updates ?? true,
-    }
+    },
   });
 
   const handleSave = async () => {
     setLoading(true);
-    
+
     try {
-      const response = await fetch('/api/user/notifications', {
-        method: 'PUT',
+      const response = await fetch("/api/user/notifications", {
+        method: "PUT",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify(preferences),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to update notification preferences');
+        throw new Error("Failed to update notification preferences");
       }
 
-      alert('Notification preferences updated successfully');
+      alert("Notification preferences updated successfully");
     } catch (error) {
-      console.error('Error updating notifications:', error);
-      alert('Failed to update notification preferences');
+      console.error("Error updating notifications:", error);
+      alert("Failed to update notification preferences");
     } finally {
       setLoading(false);
     }
   };
 
-  const updateEmailPreference = (key: keyof NotificationPreferences['email'], value: boolean) => {
+  const updateEmailPreference = (key: keyof NotificationPreferences["email"], value: boolean) => {
     setPreferences(prev => ({
       ...prev,
       email: {
         ...prev.email,
-        [key]: value
-      }
+        [key]: value,
+      },
     }));
   };
 
-  const updatePushPreference = (key: keyof NotificationPreferences['push'], value: boolean) => {
+  const updatePushPreference = (key: keyof NotificationPreferences["push"], value: boolean) => {
     setPreferences(prev => ({
       ...prev,
       push: {
         ...prev.push,
-        [key]: value
-      }
+        [key]: value,
+      },
     }));
   };
 
-  const updateInAppPreference = (key: keyof NotificationPreferences['inApp'], value: boolean) => {
+  const updateInAppPreference = (key: keyof NotificationPreferences["inApp"], value: boolean) => {
     setPreferences(prev => ({
       ...prev,
       inApp: {
         ...prev.inApp,
-        [key]: value
-      }
+        [key]: value,
+      },
     }));
   };
 
-  const ToggleSwitch = ({ 
-    enabled, 
-    onChange, 
-    disabled = false 
-  }: { 
-    enabled: boolean; 
-    onChange: (value: boolean) => void; 
+  const ToggleSwitch = ({
+    enabled,
+    onChange,
+    disabled = false,
+  }: {
+    enabled: boolean;
+    onChange: (value: boolean) => void;
     disabled?: boolean;
   }) => (
     <button
       type="button"
       className={`${
-        enabled ? 'bg-indigo-600' : 'bg-gray-200'
-      } relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 ${
-        disabled ? 'opacity-50 cursor-not-allowed' : ''
+        enabled ? "bg-indigo-600" : "bg-gray-200"
+      } relative inline-flex h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-hidden focus:ring-2 focus:ring-indigo-600 focus:ring-offset-2 ${
+        disabled ? "opacity-50 cursor-not-allowed" : ""
       }`}
       disabled={disabled}
       onClick={() => !disabled && onChange(!enabled)}
     >
       <span
         className={`${
-          enabled ? 'translate-x-5' : 'translate-x-0'
+          enabled ? "translate-x-5" : "translate-x-0"
         } pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out`}
       />
     </button>
   );
 
   return (
-    <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-3">
             <BellIcon className="h-6 w-6 text-gray-400" />
             <h3 className="text-lg font-medium text-gray-900">Notification Preferences</h3>
           </div>
-          
+
           {canEdit && (
             <Button
               onClick={handleSave}
               disabled={loading}
               className="bg-indigo-600 hover:bg-indigo-700 text-white"
             >
-              {loading ? 'Saving...' : 'Save Changes'}
+              {loading ? "Saving..." : "Save Changes"}
             </Button>
           )}
         </div>
@@ -170,7 +170,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <EnvelopeIcon className="h-5 w-5 text-gray-400" />
             <h4 className="text-sm font-medium text-gray-900">Email Notifications</h4>
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -181,7 +181,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.email.security}
-                onChange={(value) => updateEmailPreference('security', value)}
+                onChange={value => updateEmailPreference("security", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -195,7 +195,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.email.billing}
-                onChange={(value) => updateEmailPreference('billing', value)}
+                onChange={value => updateEmailPreference("billing", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -209,7 +209,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.email.product}
-                onChange={(value) => updateEmailPreference('product', value)}
+                onChange={value => updateEmailPreference("product", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -217,13 +217,11 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900">Marketing & Promotions</p>
-                <p className="text-sm text-gray-500">
-                  Tips, offers, and marketing communications
-                </p>
+                <p className="text-sm text-gray-500">Tips, offers, and marketing communications</p>
               </div>
               <ToggleSwitch
                 enabled={preferences.email.marketing}
-                onChange={(value) => updateEmailPreference('marketing', value)}
+                onChange={value => updateEmailPreference("marketing", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -236,7 +234,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <DevicePhoneMobileIcon className="h-5 w-5 text-gray-400" />
             <h4 className="text-sm font-medium text-gray-900">Push Notifications</h4>
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -247,7 +245,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.push.enabled}
-                onChange={(value) => updatePushPreference('enabled', value)}
+                onChange={value => updatePushPreference("enabled", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -261,7 +259,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.push.security}
-                onChange={(value) => updatePushPreference('security', value)}
+                onChange={value => updatePushPreference("security", value)}
                 disabled={!canEdit || !preferences.push.enabled}
               />
             </div>
@@ -275,7 +273,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.push.mentions}
-                onChange={(value) => updatePushPreference('mentions', value)}
+                onChange={value => updatePushPreference("mentions", value)}
                 disabled={!canEdit || !preferences.push.enabled}
               />
             </div>
@@ -289,7 +287,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.push.updates}
-                onChange={(value) => updatePushPreference('updates', value)}
+                onChange={value => updatePushPreference("updates", value)}
                 disabled={!canEdit || !preferences.push.enabled}
               />
             </div>
@@ -302,18 +300,16 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <BellIcon className="h-5 w-5 text-gray-400" />
             <h4 className="text-sm font-medium text-gray-900">In-App Notifications</h4>
           </div>
-          
+
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm font-medium text-gray-900">Enable In-App Notifications</p>
-                <p className="text-sm text-gray-500">
-                  Show notifications within the application
-                </p>
+                <p className="text-sm text-gray-500">Show notifications within the application</p>
               </div>
               <ToggleSwitch
                 enabled={preferences.inApp.enabled}
-                onChange={(value) => updateInAppPreference('enabled', value)}
+                onChange={value => updateInAppPreference("enabled", value)}
                 disabled={!canEdit}
               />
             </div>
@@ -321,13 +317,11 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <div className="flex items-center justify-between opacity-60">
               <div>
                 <p className="text-sm font-medium text-gray-900">Comments & Replies</p>
-                <p className="text-sm text-gray-500">
-                  When someone comments on your content
-                </p>
+                <p className="text-sm text-gray-500">When someone comments on your content</p>
               </div>
               <ToggleSwitch
                 enabled={preferences.inApp.comments}
-                onChange={(value) => updateInAppPreference('comments', value)}
+                onChange={value => updateInAppPreference("comments", value)}
                 disabled={!canEdit || !preferences.inApp.enabled}
               />
             </div>
@@ -341,7 +335,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
               </div>
               <ToggleSwitch
                 enabled={preferences.inApp.mentions}
-                onChange={(value) => updateInAppPreference('mentions', value)}
+                onChange={value => updateInAppPreference("mentions", value)}
                 disabled={!canEdit || !preferences.inApp.enabled}
               />
             </div>
@@ -349,13 +343,11 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
             <div className="flex items-center justify-between opacity-60">
               <div>
                 <p className="text-sm font-medium text-gray-900">Updates & Announcements</p>
-                <p className="text-sm text-gray-500">
-                  Product updates and important announcements
-                </p>
+                <p className="text-sm text-gray-500">Product updates and important announcements</p>
               </div>
               <ToggleSwitch
                 enabled={preferences.inApp.updates}
-                onChange={(value) => updateInAppPreference('updates', value)}
+                onChange={value => updateInAppPreference("updates", value)}
                 disabled={!canEdit || !preferences.inApp.enabled}
               />
             </div>
@@ -389,11 +381,7 @@ export function NotificationSettings({ user, canEdit }: NotificationSettingsProp
                 />
               </div>
               <div className="pt-6">
-                <ToggleSwitch
-                  enabled={false}
-                  onChange={() => {}}
-                  disabled={!canEdit}
-                />
+                <ToggleSwitch enabled={false} onChange={() => {}} disabled={!canEdit} />
               </div>
             </div>
           </div>

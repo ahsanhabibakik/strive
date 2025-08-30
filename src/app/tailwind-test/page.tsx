@@ -1,10 +1,8 @@
 export default function TailwindTest() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+    <div className="min-h-screen bg-linear-to-br from-blue-500 to-purple-600 flex items-center justify-center">
       <div className="bg-white p-8 rounded-lg shadow-2xl max-w-md w-full mx-4">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Tailwind CSS Test
-        </h1>
+        <h1 className="text-3xl font-bold text-gray-800 mb-4">Tailwind CSS Test</h1>
         <p className="text-gray-600 mb-6">
           If you can see this styled page, Tailwind CSS is working correctly!
         </p>
@@ -24,5 +22,5 @@ export default function TailwindTest() {
         </button>
       </div>
     </div>
-  )
+  );
 }

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { Fragment, useState } from 'react';
-import { usePathname } from 'next/navigation';
-import { Dialog, Transition } from '@headlessui/react';
+import { Fragment, useState } from "react";
+import { usePathname } from "next/navigation";
+import { Dialog, Transition } from "@headlessui/react";
 import {
   Bars3Icon,
   CalendarIcon,
@@ -15,12 +15,12 @@ import {
   KeyIcon,
   BellIcon,
   ServerIcon,
-  ClockIcon as ActivityIcon
-} from '@heroicons/react/24/outline';
-import { cn } from '@/lib/utils';
-import { IUser } from '@/lib/models/User';
-import { RBAC } from '@/lib/rbac';
-import Link from 'next/link';
+  ClockIcon as ActivityIcon,
+} from "@heroicons/react/24/outline";
+import { cn } from "@/lib/utils";
+import { IUser } from "@/lib/models/User";
+import { RBAC } from "@/lib/rbac";
+import Link from "next/link";
 
 interface NavigationItem {
   name: string;
@@ -36,16 +36,31 @@ interface DashboardSidebarProps {
 }
 
 const navigationItems: NavigationItem[] = [
-  { name: 'Overview', href: '/dashboard', icon: HomeIcon },
-  { name: 'Analytics', href: '/dashboard/analytics', icon: ChartPieIcon, permission: 'analytics:read' },
-  { name: 'Users', href: '/dashboard/users', icon: UsersIcon, permission: 'users:read' },
-  { name: 'Content', href: '/dashboard/content', icon: DocumentDuplicateIcon, permission: 'content:read' },
-  { name: 'API Keys', href: '/dashboard/api-keys', icon: KeyIcon, permission: 'api-keys:read' },
-  { name: 'Billing', href: '/dashboard/billing', icon: CalendarIcon, permission: 'billing:read' },
-  { name: 'System Health', href: '/dashboard/system', icon: ServerIcon, permission: 'system:admin' },
-  { name: 'Activity', href: '/dashboard/activity', icon: ActivityIcon },
-  { name: 'Notifications', href: '/dashboard/notifications', icon: BellIcon },
-  { name: 'Settings', href: '/dashboard/settings', icon: CogIcon, permission: 'settings:read' },
+  { name: "Overview", href: "/dashboard", icon: HomeIcon },
+  {
+    name: "Analytics",
+    href: "/dashboard/analytics",
+    icon: ChartPieIcon,
+    permission: "analytics:read",
+  },
+  { name: "Users", href: "/dashboard/users", icon: UsersIcon, permission: "users:read" },
+  {
+    name: "Content",
+    href: "/dashboard/content",
+    icon: DocumentDuplicateIcon,
+    permission: "content:read",
+  },
+  { name: "API Keys", href: "/dashboard/api-keys", icon: KeyIcon, permission: "api-keys:read" },
+  { name: "Billing", href: "/dashboard/billing", icon: CalendarIcon, permission: "billing:read" },
+  {
+    name: "System Health",
+    href: "/dashboard/system",
+    icon: ServerIcon,
+    permission: "system:admin",
+  },
+  { name: "Activity", href: "/dashboard/activity", icon: ActivityIcon },
+  { name: "Notifications", href: "/dashboard/notifications", icon: BellIcon },
+  { name: "Settings", href: "/dashboard/settings", icon: CogIcon, permission: "settings:read" },
 ];
 
 export function DashboardSidebar({ user }: DashboardSidebarProps) {
@@ -61,7 +76,8 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
   // Add current state to navigation items
   const navigation = filteredNavigation.map(item => ({
     ...item,
-    current: pathname === item.href || (item.href !== '/dashboard' && pathname.startsWith(item.href))
+    current:
+      pathname === item.href || (item.href !== "/dashboard" && pathname.startsWith(item.href)),
   }));
 
   const userRole = RBAC.getUserRole(user);
@@ -103,13 +119,17 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
                   leaveTo="opacity-0"
                 >
                   <div className="absolute left-full top-0 flex w-16 justify-center pt-5">
-                    <button type="button" className="-m-2.5 p-2.5" onClick={() => setSidebarOpen(false)}>
+                    <button
+                      type="button"
+                      className="-m-2.5 p-2.5"
+                      onClick={() => setSidebarOpen(false)}
+                    >
                       <span className="sr-only">Close sidebar</span>
                       <XMarkIcon className="h-6 w-6 text-white" aria-hidden="true" />
                     </button>
                   </div>
                 </Transition.Child>
-                
+
                 <SidebarContent navigation={navigation} user={user} userRole={userRole} />
               </Dialog.Panel>
             </Transition.Child>
@@ -123,7 +143,7 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
       </div>
 
       {/* Mobile menu button */}
-      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-xs sm:px-6 lg:hidden">
+      <div className="sticky top-0 z-40 flex items-center gap-x-6 bg-white px-4 py-4 shadow-2xs sm:px-6 lg:hidden">
         <button
           type="button"
           className="-m-2.5 p-2.5 text-gray-700 lg:hidden"
@@ -138,12 +158,12 @@ export function DashboardSidebar({ user }: DashboardSidebarProps) {
   );
 }
 
-function SidebarContent({ 
-  navigation, 
-  user, 
-  userRole 
-}: { 
-  navigation: NavigationItem[]; 
+function SidebarContent({
+  navigation,
+  user,
+  userRole,
+}: {
+  navigation: NavigationItem[];
   user: IUser;
   userRole: any;
 }) {
@@ -152,26 +172,28 @@ function SidebarContent({
       <div className="flex h-16 shrink-0 items-center">
         <h1 className="text-2xl font-bold text-indigo-600">Strive</h1>
       </div>
-      
+
       <nav className="flex flex-1 flex-col">
         <ul role="list" className="flex flex-1 flex-col gap-y-7">
           <li>
             <ul role="list" className="-mx-2 space-y-1">
-              {navigation.map((item) => (
+              {navigation.map(item => (
                 <li key={item.name}>
                   <Link
                     href={item.href}
                     className={cn(
                       item.current
-                        ? 'bg-indigo-50 text-indigo-700 border-r-2 border-indigo-500'
-                        : 'text-gray-700 hover:text-indigo-600 hover:bg-indigo-50',
-                      'group flex gap-x-3 rounded-l-md p-2 text-sm leading-6 font-medium transition-colors'
+                        ? "bg-indigo-50 text-indigo-700 border-r-2 border-indigo-500"
+                        : "text-gray-700 hover:text-indigo-600 hover:bg-indigo-50",
+                      "group flex gap-x-3 rounded-l-md p-2 text-sm leading-6 font-medium transition-colors"
                     )}
                   >
                     <item.icon
                       className={cn(
-                        item.current ? 'text-indigo-500' : 'text-gray-400 group-hover:text-indigo-600',
-                        'h-6 w-6 shrink-0'
+                        item.current
+                          ? "text-indigo-500"
+                          : "text-gray-400 group-hover:text-indigo-600",
+                        "h-6 w-6 shrink-0"
                       )}
                       aria-hidden="true"
                     />
@@ -186,11 +208,11 @@ function SidebarContent({
               ))}
             </ul>
           </li>
-          
+
           <li className="mt-auto">
             <div className="bg-gray-50 rounded-lg p-4">
               <div className="flex items-center gap-x-3">
-                <div className="flex-shrink-0">
+                <div className="shrink-0">
                   <div className="h-8 w-8 rounded-full bg-indigo-600 flex items-center justify-center">
                     <span className="text-sm font-medium text-white">
                       {user.name?.charAt(0).toUpperCase()}
@@ -201,7 +223,7 @@ function SidebarContent({
                   <p className="text-sm font-medium text-gray-900 truncate">{user.name}</p>
                   <p className="text-xs text-gray-500 truncate">
                     {userRole?.name || user.role}
-                    {user.subscription?.plan !== 'free' && (
+                    {user.subscription?.plan !== "free" && (
                       <span className="ml-1 inline-flex items-center rounded-md bg-green-50 px-2 py-1 text-xs font-medium text-green-700 ring-1 ring-inset ring-green-600/20">
                         {user.subscription?.plan}
                       </span>

@@ -71,7 +71,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-3">
@@ -109,7 +109,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
       <div className="p-6">
         <div className="flex items-start gap-6">
           {/* Avatar */}
-          <div className="flex-shrink-0">
+          <div className="shrink-0">
             <div className="h-24 w-24 rounded-full bg-indigo-600 flex items-center justify-center">
               {user.image ? (
                 <Image
@@ -142,7 +142,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
                     type="text"
                     value={formData.name}
                     onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Enter your full name"
                   />
                 ) : (
@@ -166,7 +166,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
                   value={formData.bio}
                   onChange={e => setFormData(prev => ({ ...prev, bio: e.target.value }))}
                   rows={3}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Tell us about yourself..."
                 />
               ) : (
@@ -182,7 +182,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
                     type="url"
                     value={formData.website}
                     onChange={e => setFormData(prev => ({ ...prev, website: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="https://example.com"
                   />
                 ) : (
@@ -210,7 +210,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
                     type="text"
                     value={formData.location}
                     onChange={e => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="City, Country"
                   />
                 ) : (
@@ -226,7 +226,7 @@ export function ProfileSettings({ user, canEdit }: ProfileSettingsProps) {
                   type="text"
                   value={formData.company}
                   onChange={e => setFormData(prev => ({ ...prev, company: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                   placeholder="Your company name"
                 />
               ) : (

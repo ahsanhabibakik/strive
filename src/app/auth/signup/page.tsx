@@ -72,7 +72,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 px-4">
+    <div className="min-h-screen flex items-center justify-center bg-linear-to-br from-gray-50 to-gray-100 px-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Sign Up</CardTitle>
@@ -80,12 +80,7 @@ export default function SignUpPage() {
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Google Sign In */}
-          <Button
-            onClick={handleGoogleSignIn}
-            variant="outline"
-            className="w-full"
-            size="lg"
-          >
+          <Button onClick={handleGoogleSignIn} variant="outline" className="w-full" size="lg">
             <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24">
               <path
                 fill="currentColor"
@@ -112,9 +107,7 @@ export default function SignUpPage() {
               <div className="w-full border-t" />
             </div>
             <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with
-              </span>
+              <span className="bg-background px-2 text-muted-foreground">Or continue with</span>
             </div>
           </div>
 
@@ -125,7 +118,7 @@ export default function SignUpPage() {
                 type="text"
                 placeholder="Full Name"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={e => setName(e.target.value)}
                 required
               />
             </div>
@@ -134,7 +127,7 @@ export default function SignUpPage() {
                 type="email"
                 placeholder="Email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 required
               />
             </div>
@@ -143,7 +136,7 @@ export default function SignUpPage() {
                 type="password"
                 placeholder="Password (min 8 characters)"
                 value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={e => setPassword(e.target.value)}
                 required
               />
             </div>
@@ -152,19 +145,12 @@ export default function SignUpPage() {
                 type="password"
                 placeholder="Confirm Password"
                 value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                onChange={e => setConfirmPassword(e.target.value)}
                 required
               />
             </div>
-            {error && (
-              <p className="text-red-600 text-sm">{error}</p>
-            )}
-            <Button
-              type="submit"
-              className="w-full"
-              size="lg"
-              disabled={loading}
-            >
+            {error && <p className="text-red-600 text-sm">{error}</p>}
+            <Button type="submit" className="w-full" size="lg" disabled={loading}>
               {loading ? "Creating account..." : "Sign Up"}
             </Button>
           </form>

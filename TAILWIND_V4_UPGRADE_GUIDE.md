@@ -5,6 +5,7 @@ This guide provides comprehensive instructions for upgrading Tailwind CSS projec
 ## Browser Requirements
 
 **⚠️ Important:** Tailwind CSS v4.0 targets modern browsers:
+
 - Safari 16.4+
 - Chrome 111+
 - Firefox 128+
@@ -20,6 +21,7 @@ npx @tailwindcss/upgrade
 ```
 
 **Requirements:**
+
 - Node.js 20 or higher
 - Run in a new branch for safety
 - Carefully review the diff after running
@@ -29,6 +31,7 @@ npx @tailwindcss/upgrade
 ### 1. Update Dependencies
 
 #### For PostCSS Users
+
 ```bash
 # Remove old dependencies
 npm uninstall tailwindcss postcss-import autoprefixer
@@ -38,6 +41,7 @@ npm install -D @tailwindcss/postcss
 ```
 
 Update `postcss.config.mjs`:
+
 ```javascript
 // Before (v3)
 export default {
@@ -57,28 +61,30 @@ export default {
 ```
 
 #### For Vite Users
+
 ```bash
 npm install -D @tailwindcss/vite
 ```
 
 Update `vite.config.ts`:
+
 ```typescript
 import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  plugins: [
-    tailwindcss(),
-  ],
+  plugins: [tailwindcss()],
 });
 ```
 
 #### For Tailwind CLI Users
+
 ```bash
 npm install -D @tailwindcss/cli
 ```
 
 Update build commands:
+
 ```bash
 # Before
 npx tailwindcss -i input.css -o output.css
@@ -104,62 +110,75 @@ Replace Tailwind directives with CSS import:
 ### 3. Update Utility Classes
 
 #### Removed Deprecated Utilities
-| v3 Deprecated | v4 Replacement |
-|---------------|----------------|
-| `bg-opacity-*` | `bg-black/50` |
-| `text-opacity-*` | `text-black/50` |
-| `border-opacity-*` | `border-black/50` |
-| `divide-opacity-*` | `divide-black/50` |
-| `ring-opacity-*` | `ring-black/50` |
+
+| v3 Deprecated           | v4 Replacement         |
+| ----------------------- | ---------------------- |
+| `bg-opacity-*`          | `bg-black/50`          |
+| `text-opacity-*`        | `text-black/50`        |
+| `border-opacity-*`      | `border-black/50`      |
+| `divide-opacity-*`      | `divide-black/50`      |
+| `ring-opacity-*`        | `ring-black/50`        |
 | `placeholder-opacity-*` | `placeholder-black/50` |
-| `flex-shrink-*` | `shrink-*` |
-| `flex-grow-*` | `grow-*` |
-| `overflow-ellipsis` | `text-ellipsis` |
-| `decoration-slice` | `box-decoration-slice` |
-| `decoration-clone` | `box-decoration-clone` |
+| `flex-shrink-*`         | `shrink-*`             |
+| `flex-grow-*`           | `grow-*`               |
+| `text-ellipsis`         | `text-ellipsis`        |
+| `box-decoration-slice`  | `box-decoration-slice` |
+| `box-decoration-clone`  | `box-decoration-clone` |
 
 #### Renamed Utilities
-| v3 | v4 |
-|----|-----|
-| `shadow-sm` | `shadow-xs` |
-| `shadow` | `shadow-sm` |
-| `drop-shadow-sm` | `drop-shadow-xs` |
-| `drop-shadow` | `drop-shadow-sm` |
-| `blur-sm` | `blur-xs` |
-| `blur` | `blur-sm` |
+
+| v3                 | v4                 |
+| ------------------ | ------------------ |
+| `shadow-xs`        | `shadow-2xs`       |
+| `shadow-sm`        | `shadow-xs`        |
+| `drop-shadow-xs`   | `drop-shadow-xs`   |
+| `drop-shadow-sm`   | `drop-shadow-xs`   |
+| `blur-xs`          | `blur-xs`          |
+| `blur-sm`          | `blur-xs`          |
+| `backdrop-blur-xs` | `backdrop-blur-xs` |
 | `backdrop-blur-sm` | `backdrop-blur-xs` |
-| `backdrop-blur` | `backdrop-blur-sm` |
-| `rounded-sm` | `rounded-xs` |
-| `rounded` | `rounded-sm` |
-| `outline-none` | `outline-hidden` |
-| `ring` | `ring-3` |
+| `rounded-sm`       | `rounded-xs`       |
+| `rounded`          | `rounded-sm`       |
+| `outline-hidden`   | `outline-hidden`   |
+| `ring-3`           | `ring-3`           |
 
 #### Examples of Common Updates
 
 ```html
 <!-- Shadow utilities -->
-<div class="shadow-sm">...</div>  <!-- v3 -->
-<div class="shadow-xs">...</div>  <!-- v4 -->
+<div class="shadow-xs">...</div>
+<!-- v3 -->
+<div class="shadow-2xs">...</div>
+<!-- v4 -->
 
-<div class="shadow">...</div>     <!-- v3 -->
-<div class="shadow-sm">...</div>  <!-- v4 -->
+<div class="shadow-sm">...</div>
+<!-- v3 -->
+<div class="shadow-xs">...</div>
+<!-- v4 -->
 
 <!-- Ring utilities -->
-<input class="ring ring-blue-500">           <!-- v3 -->
-<input class="ring-3 ring-blue-500">        <!-- v4 -->
+<input class="ring-3 ring-blue-500" />
+<!-- v3 -->
+<input class="ring-3 ring-blue-500" />
+<!-- v4 -->
 
 <!-- Outline utilities -->
-<input class="focus:outline-none">           <!-- v3 -->
-<input class="focus:outline-hidden">        <!-- v4 -->
+<input class="focus:outline-hidden" />
+<!-- v3 -->
+<input class="focus:outline-hidden" />
+<!-- v4 -->
 
 <!-- Opacity utilities -->
-<div class="bg-black bg-opacity-50">         <!-- v3 -->
-<div class="bg-black/50">                    <!-- v4 -->
+<div class="bg-black bg-opacity-50">
+  <!-- v3 -->
+  <div class="bg-black/50"><!-- v4 --></div>
+</div>
 ```
 
 ### 4. Configuration Changes
 
 #### Container Utility
+
 ```css
 /* v4 way to customize container */
 @utility container {
@@ -169,7 +188,9 @@ Replace Tailwind directives with CSS import:
 ```
 
 #### Default Colors
+
 Add explicit colors where needed:
+
 ```html
 <!-- Make sure to specify border colors -->
 <div class="border border-gray-200 px-2 py-3">
@@ -178,6 +199,7 @@ Add explicit colors where needed:
 ```
 
 Or preserve v3 behavior with base styles:
+
 ```css
 @layer base {
   *,
@@ -211,6 +233,7 @@ Replace `@layer utilities` with `@utility`:
 ### 6. Theme Variables
 
 #### Using CSS Variables
+
 ```css
 /* Preferred v4 approach */
 .my-class {
@@ -224,6 +247,7 @@ Replace `@layer utilities` with `@utility`:
 ```
 
 #### Media Queries
+
 ```css
 /* v3 */
 @media (width >= theme(screens.xl)) {
@@ -239,6 +263,7 @@ Replace `@layer utilities` with `@utility`:
 ### 7. JavaScript Configuration
 
 Load JS config explicitly if needed:
+
 ```css
 @config "../../tailwind.config.js";
 ```
@@ -246,6 +271,7 @@ Load JS config explicitly if needed:
 ### 8. Framework-Specific Updates
 
 #### Vue/Svelte/CSS Modules
+
 Use `@reference` to import theme variables:
 
 ```vue
@@ -263,6 +289,7 @@ h1 {
 ```
 
 Or use CSS variables directly:
+
 ```vue
 <style>
 h1 {
@@ -276,25 +303,29 @@ h1 {
 ## Breaking Changes Summary
 
 ### Variant Stacking Order
+
 ```html
 <!-- v3: right to left -->
-<ul class="py-4 first:*:pt-0 last:*:pb-0">
-
-<!-- v4: left to right -->
 <ul class="py-4 *:first:pt-0 *:last:pb-0">
+  <!-- v4: left to right -->
+  <ul class="py-4 first:*:pt-0 last:*:pb-0"></ul>
+</ul>
 ```
 
 ### Variables in Arbitrary Values
+
 ```html
 <!-- v3 -->
-<div class="bg-[--brand-color]"></div>
+<div class="bg-(--brand-color)"></div>
 
 <!-- v4 -->
 <div class="bg-(--brand-color)"></div>
 ```
 
 ### Hover Behavior
+
 Now only applies when primary input device supports hover:
+
 ```css
 /* v4 behavior */
 @media (hover: hover) {
@@ -305,6 +336,7 @@ Now only applies when primary input device supports hover:
 ```
 
 Override if needed:
+
 ```css
 @custom-variant hover (&:hover);
 ```
@@ -312,6 +344,7 @@ Override if needed:
 ## Preflight Changes
 
 ### Placeholder Color
+
 ```css
 /* To preserve v3 behavior */
 @layer base {
@@ -323,6 +356,7 @@ Override if needed:
 ```
 
 ### Button Cursor
+
 ```css
 /* To preserve v3 pointer cursor */
 @layer base {
@@ -334,6 +368,7 @@ Override if needed:
 ```
 
 ### Dialog Margins
+
 ```css
 /* To preserve v3 centered dialogs */
 @layer base {
@@ -347,9 +382,9 @@ Override if needed:
 
 After upgrading:
 
-- [ ] Test all shadow utilities (`shadow-sm` → `shadow-xs`)
-- [ ] Test all ring utilities (`ring` → `ring-3`)
-- [ ] Test all outline utilities (`outline-none` → `outline-hidden`)
+- [ ] Test all shadow utilities (`shadow-xs` → `shadow-2xs`)
+- [ ] Test all ring utilities (`ring-3` → `ring-3`)
+- [ ] Test all outline utilities (`outline-hidden` → `outline-hidden`)
 - [ ] Test all opacity utilities (`bg-opacity-*` → `bg-*/opacity`)
 - [ ] Test custom utilities with `@utility`
 - [ ] Test hover states on touch devices

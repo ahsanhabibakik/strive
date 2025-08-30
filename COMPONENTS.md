@@ -5,9 +5,11 @@ This project provides a comprehensive set of reusable components that can be use
 ## Installation & Usage
 
 ### Method 1: Copy Components
+
 Simply copy the components you need from `src/components/` to your project.
 
 ### Method 2: Import as Package
+
 Import individual components or the entire component library:
 
 ```typescript
@@ -19,6 +21,7 @@ import { Newsletter, Button, Card } from "@/components";
 ### UI Components
 
 #### Button
+
 Basic button component with multiple variants.
 
 ```tsx
@@ -30,29 +33,29 @@ import { Button } from "@/components/ui/button";
 ```
 
 **Props:**
-- `variant`: "default" | "outline" | "ghost" | "destructive"
+
+- `variant`: "default" | "outline-solid" | "ghost" | "destructive"
 - `size`: "sm" | "default" | "lg"
 - `asChild`: boolean
 - Standard button HTML attributes
 
 #### Input
+
 Styled input field with focus states.
 
 ```tsx
 import { Input } from "@/components/ui/input";
 
-<Input 
-  type="email" 
-  placeholder="Enter email" 
-  className="w-full"
-/>
+<Input type="email" placeholder="Enter email" className="w-full" />;
 ```
 
 **Props:**
+
 - Standard input HTML attributes
 - `className`: string for additional styling
 
 #### Card Components
+
 Flexible card layout components.
 
 ```tsx
@@ -68,12 +71,13 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
   <CardFooter>
     <p>Footer content</p>
   </CardFooter>
-</Card>
+</Card>;
 ```
 
 ### Form Components
 
 #### Newsletter
+
 Complete newsletter subscription component with customizable styling and API integration.
 
 ```tsx
@@ -83,7 +87,7 @@ import { Newsletter } from "@/components/forms/Newsletter";
 <Newsletter />
 
 // Customized usage
-<Newsletter 
+<Newsletter
   title="Join Our Community"
   description="Get weekly updates and exclusive content"
   buttonText="Join Now"
@@ -97,6 +101,7 @@ import { Newsletter } from "@/components/forms/Newsletter";
 ```
 
 **Props:**
+
 - `title`: string - Newsletter title (default: "Subscribe to Newsletter")
 - `description`: string - Newsletter description
 - `buttonText`: string - Subscribe button text (default: "Subscribe")
@@ -105,6 +110,7 @@ import { Newsletter } from "@/components/forms/Newsletter";
 - `onSubscribe`: (email: string) => Promise<void> - Custom subscription handler
 
 **Features:**
+
 - Email validation
 - Loading states
 - Success/error feedback
@@ -115,21 +121,24 @@ import { Newsletter } from "@/components/forms/Newsletter";
 ### Layout Components
 
 #### Navbar
+
 Responsive navigation bar with authentication support.
 
 ```tsx
 import { Navbar } from "@/components/layout/Navbar";
 
-<Navbar />
+<Navbar />;
 ```
 
 **Features:**
+
 - Responsive design
 - Authentication integration (NextAuth.js)
 - User session display
 - Sign in/out functionality
 
 #### Providers
+
 Context providers for authentication and other global state.
 
 ```tsx
@@ -139,9 +148,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
@@ -151,14 +158,17 @@ export default function RootLayout({ children }) {
 ## API Endpoints
 
 ### Health Check
+
 `GET /api/health`
 
 Returns system status and checks for database and external service connectivity.
 
 ### Newsletter Subscription
+
 `POST /api/newsletter/subscribe`
 
 **Body:**
+
 ```json
 {
   "email": "user@example.com"
@@ -166,6 +176,7 @@ Returns system status and checks for database and external service connectivity.
 ```
 
 **Response:**
+
 ```json
 {
   "message": "Successfully subscribed!"
@@ -173,6 +184,7 @@ Returns system status and checks for database and external service connectivity.
 ```
 
 ### Blog API
+
 `GET /api/blog`
 
 Returns blog posts from Sanity CMS or mock data if not configured.
@@ -180,6 +192,7 @@ Returns blog posts from Sanity CMS or mock data if not configured.
 ## Customization
 
 ### Styling
+
 All components use Tailwind CSS and can be customized via:
 
 1. **CSS Classes**: Pass `className` props
@@ -187,6 +200,7 @@ All components use Tailwind CSS and can be customized via:
 3. **CSS Variables**: Update `globals.css`
 
 ### Theming
+
 Components support light/dark themes through CSS variables:
 
 ```css
@@ -204,6 +218,7 @@ Components support light/dark themes through CSS variables:
 ```
 
 ### API Integration
+
 All API-dependent components can be configured with custom endpoints:
 
 ```tsx
@@ -214,6 +229,7 @@ All API-dependent components can be configured with custom endpoints:
 ## Best Practices
 
 ### 1. Prop Types
+
 Always use TypeScript interfaces for component props:
 
 ```typescript
@@ -225,43 +241,39 @@ interface MyComponentProps {
 ```
 
 ### 2. Default Props
+
 Provide sensible defaults:
 
 ```typescript
-const MyComponent = ({ 
-  title = "Default Title",
-  className = ""
-}: MyComponentProps) => {
+const MyComponent = ({ title = "Default Title", className = "" }: MyComponentProps) => {
   // component logic
-}
+};
 ```
 
 ### 3. Accessibility
+
 Components include ARIA attributes and semantic HTML:
 
 ```tsx
-<Button 
-  aria-label="Subscribe to newsletter"
-  role="button"
->
+<Button aria-label="Subscribe to newsletter" role="button">
   Subscribe
 </Button>
 ```
 
 ### 4. Responsive Design
+
 Use Tailwind's responsive utilities:
 
 ```tsx
-<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-  {/* Responsive grid */}
-</div>
+<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">{/* Responsive grid */}</div>
 ```
 
 ## Integration Examples
 
 ### E-commerce Site
+
 ```tsx
-<Newsletter 
+<Newsletter
   title="Get Exclusive Deals"
   description="Subscribe for early access to sales and new products"
   buttonText="Get Deals"
@@ -269,8 +281,9 @@ Use Tailwind's responsive utilities:
 ```
 
 ### Blog/Content Site
+
 ```tsx
-<Newsletter 
+<Newsletter
   title="Weekly Insights"
   description="Join 10,000+ readers getting our weekly newsletter"
   buttonText="Subscribe"
@@ -278,8 +291,9 @@ Use Tailwind's responsive utilities:
 ```
 
 ### SaaS Application
+
 ```tsx
-<Newsletter 
+<Newsletter
   title="Product Updates"
   description="Stay updated with new features and improvements"
   buttonText="Stay Updated"
@@ -301,6 +315,7 @@ Use the test page at `/test` to verify all components and API endpoints are work
 ## Support
 
 For issues or questions:
+
 1. Check the `/test` page for debugging
 2. Review component source code
 3. Check environment variables

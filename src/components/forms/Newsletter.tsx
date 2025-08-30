@@ -22,7 +22,7 @@ export const Newsletter = ({
   title = "Subscribe to Newsletter",
   description = "Be the first to know about new products, special offers and healthy recipes.",
   buttonText = "Subscribe",
-  apiEndpoint = "/api/newsletter/subscribe"
+  apiEndpoint = "/api/newsletter/subscribe",
 }: NewsletterProps) => {
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -30,7 +30,7 @@ export const Newsletter = ({
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email) {
       setStatus("error");
       setMessage("Email is required");
@@ -44,7 +44,7 @@ export const Newsletter = ({
     }
 
     setStatus("loading");
-    
+
     try {
       if (onSubscribe) {
         await onSubscribe(email);
@@ -86,7 +86,7 @@ export const Newsletter = ({
 
   if (status === "success") {
     return (
-      <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-100">
+      <Card className="bg-linear-to-r from-green-50 to-emerald-50 border-green-100">
         <CardContent className="p-8 text-center">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
             <Check className="w-8 h-8 text-green-600" />
@@ -105,18 +105,16 @@ export const Newsletter = ({
   }
 
   return (
-    <Card className={`bg-gradient-to-r from-green-50 to-emerald-50 border-green-100 ${className || ""}`}>
+    <Card
+      className={`bg-linear-to-r from-green-50 to-emerald-50 border-green-100 ${className || ""}`}
+    >
       <CardContent className="p-8">
         <div className="text-center mb-6">
           <div className="inline-flex items-center justify-center w-16 h-16 bg-green-100 rounded-full mb-4">
             <Mail className="w-8 h-8 text-green-600" />
           </div>
-          <CardTitle className="text-2xl mb-2">
-            {title}
-          </CardTitle>
-          <p className="text-gray-600 max-w-md mx-auto">
-            {description}
-          </p>
+          <CardTitle className="text-2xl mb-2">{title}</CardTitle>
+          <p className="text-gray-600 max-w-md mx-auto">{description}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -126,7 +124,7 @@ export const Newsletter = ({
                 type="email"
                 placeholder="Your email address"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={e => setEmail(e.target.value)}
                 className="h-12 text-base"
                 disabled={status === "loading"}
               />

@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { IUser } from '@/lib/models/User';
-import { Button } from '@/components/ui/button';
-import { 
+import { useState } from "react";
+import { IUser } from "@/lib/models/User";
+import { Button } from "@/components/ui/button";
+import {
   ShieldCheckIcon,
   KeyIcon,
   EyeIcon,
   EyeSlashIcon,
   ExclamationTriangleIcon,
   CheckCircleIcon,
-  DevicePhoneMobileIcon
-} from '@heroicons/react/24/outline';
+  DevicePhoneMobileIcon,
+} from "@heroicons/react/24/outline";
 
 interface SecuritySettingsProps {
   user: IUser;
@@ -25,29 +25,29 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
   const [isChangingPassword, setIsChangingPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [passwordForm, setPasswordForm] = useState({
-    currentPassword: '',
-    newPassword: '',
-    confirmPassword: ''
+    currentPassword: "",
+    newPassword: "",
+    confirmPassword: "",
   });
 
   const handlePasswordChange = async () => {
     if (passwordForm.newPassword !== passwordForm.confirmPassword) {
-      alert('New passwords do not match');
+      alert("New passwords do not match");
       return;
     }
 
     if (passwordForm.newPassword.length < 8) {
-      alert('New password must be at least 8 characters long');
+      alert("New password must be at least 8 characters long");
       return;
     }
 
     setLoading(true);
-    
+
     try {
-      const response = await fetch('/api/user/change-password', {
-        method: 'POST',
+      const response = await fetch("/api/user/change-password", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
           currentPassword: passwordForm.currentPassword,
@@ -58,19 +58,19 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to change password');
+        throw new Error(data.error || "Failed to change password");
       }
 
       setPasswordForm({
-        currentPassword: '',
-        newPassword: '',
-        confirmPassword: ''
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
       });
       setIsChangingPassword(false);
-      alert('Password changed successfully');
+      alert("Password changed successfully");
     } catch (error) {
-      console.error('Error changing password:', error);
-      alert(error instanceof Error ? error.message : 'Failed to change password');
+      console.error("Error changing password:", error);
+      alert(error instanceof Error ? error.message : "Failed to change password");
     } finally {
       setLoading(false);
     }
@@ -79,23 +79,23 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
   const handleSend2FASetup = async () => {
     setLoading(true);
     try {
-      const response = await fetch('/api/user/setup-2fa', {
-        method: 'POST',
+      const response = await fetch("/api/user/setup-2fa", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       });
 
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to setup 2FA');
+        throw new Error(data.error || "Failed to setup 2FA");
       }
 
-      alert('2FA setup instructions sent to your email');
+      alert("2FA setup instructions sent to your email");
     } catch (error) {
-      console.error('Error setting up 2FA:', error);
-      alert('Failed to setup 2FA. Please try again.');
+      console.error("Error setting up 2FA:", error);
+      alert("Failed to setup 2FA. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -108,30 +108,30 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
     if (/[a-z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
     if (/[^A-Za-z0-9]/.test(password)) strength++;
-    
+
     return strength;
   };
 
   const renderPasswordStrength = (password: string) => {
     const strength = getPasswordStrength(password);
-    const colors = ['bg-red-500', 'bg-orange-500', 'bg-yellow-500', 'bg-blue-500', 'bg-green-500'];
-    const labels = ['Very Weak', 'Weak', 'Fair', 'Good', 'Strong'];
-    
+    const colors = ["bg-red-500", "bg-orange-500", "bg-yellow-500", "bg-blue-500", "bg-green-500"];
+    const labels = ["Very Weak", "Weak", "Fair", "Good", "Strong"];
+
     return (
       <div className="mt-2">
         <div className="flex space-x-1">
-          {[1, 2, 3, 4, 5].map((level) => (
+          {[1, 2, 3, 4, 5].map(level => (
             <div
               key={level}
               className={`h-1 w-full rounded-full ${
-                level <= strength ? colors[strength - 1] : 'bg-gray-200'
+                level <= strength ? colors[strength - 1] : "bg-gray-200"
               }`}
             />
           ))}
         </div>
         {password && (
           <p className="text-xs text-gray-500 mt-1">
-            Strength: {labels[strength - 1] || 'Very Weak'}
+            Strength: {labels[strength - 1] || "Very Weak"}
           </p>
         )}
       </div>
@@ -139,7 +139,7 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center gap-x-3">
           <ShieldCheckIcon className="h-6 w-6 text-gray-400" />
@@ -160,13 +160,9 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                 Keep your account secure with a strong password
               </p>
             </div>
-            
+
             {canEdit && !isChangingPassword && (
-              <Button
-                onClick={() => setIsChangingPassword(true)}
-                variant="outline"
-                size="sm"
-              >
+              <Button onClick={() => setIsChangingPassword(true)} variant="outline" size="sm">
                 Change Password
               </Button>
             )}
@@ -180,10 +176,12 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                 </label>
                 <div className="relative">
                   <input
-                    type={showCurrentPassword ? 'text' : 'password'}
+                    type={showCurrentPassword ? "text" : "password"}
                     value={passwordForm.currentPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))}
-                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    onChange={e =>
+                      setPasswordForm(prev => ({ ...prev, currentPassword: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Enter current password"
                   />
                   <button
@@ -201,15 +199,15 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  New Password
-                </label>
+                <label className="block text-sm font-medium text-gray-700 mb-2">New Password</label>
                 <div className="relative">
                   <input
-                    type={showNewPassword ? 'text' : 'password'}
+                    type={showNewPassword ? "text" : "password"}
                     value={passwordForm.newPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))}
-                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    onChange={e =>
+                      setPasswordForm(prev => ({ ...prev, newPassword: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Enter new password"
                   />
                   <button
@@ -233,10 +231,12 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                 </label>
                 <div className="relative">
                   <input
-                    type={showConfirmPassword ? 'text' : 'password'}
+                    type={showConfirmPassword ? "text" : "password"}
                     value={passwordForm.confirmPassword}
-                    onChange={(e) => setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))}
-                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                    onChange={e =>
+                      setPasswordForm(prev => ({ ...prev, confirmPassword: e.target.value }))
+                    }
+                    className="w-full px-3 py-2 pr-10 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                     placeholder="Confirm new password"
                   />
                   <button
@@ -251,29 +251,35 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                     )}
                   </button>
                 </div>
-                {passwordForm.confirmPassword && passwordForm.newPassword !== passwordForm.confirmPassword && (
-                  <p className="text-sm text-red-600 mt-1 flex items-center gap-1">
-                    <ExclamationTriangleIcon className="h-4 w-4" />
-                    Passwords do not match
-                  </p>
-                )}
+                {passwordForm.confirmPassword &&
+                  passwordForm.newPassword !== passwordForm.confirmPassword && (
+                    <p className="text-sm text-red-600 mt-1 flex items-center gap-1">
+                      <ExclamationTriangleIcon className="h-4 w-4" />
+                      Passwords do not match
+                    </p>
+                  )}
               </div>
 
               <div className="flex space-x-3">
                 <Button
                   onClick={handlePasswordChange}
-                  disabled={loading || !passwordForm.currentPassword || !passwordForm.newPassword || passwordForm.newPassword !== passwordForm.confirmPassword}
+                  disabled={
+                    loading ||
+                    !passwordForm.currentPassword ||
+                    !passwordForm.newPassword ||
+                    passwordForm.newPassword !== passwordForm.confirmPassword
+                  }
                   className="bg-green-600 hover:bg-green-700 text-white"
                 >
-                  {loading ? 'Updating...' : 'Update Password'}
+                  {loading ? "Updating..." : "Update Password"}
                 </Button>
                 <Button
                   onClick={() => {
                     setIsChangingPassword(false);
                     setPasswordForm({
-                      currentPassword: '',
-                      newPassword: '',
-                      confirmPassword: ''
+                      currentPassword: "",
+                      newPassword: "",
+                      confirmPassword: "",
                     });
                   }}
                   variant="outline"
@@ -303,7 +309,7 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                 Add an extra layer of security to your account
               </p>
             </div>
-            
+
             <div className="flex items-center space-x-3">
               {user.twoFactorEnabled ? (
                 <>
@@ -311,20 +317,13 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
                     <CheckCircleIcon className="h-3 w-3" />
                     Enabled
                   </span>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                  >
+                  <Button variant="outline" size="sm">
                     Manage
                   </Button>
                 </>
               ) : (
-                <Button
-                  onClick={handleSend2FASetup}
-                  disabled={loading}
-                  size="sm"
-                >
-                  {loading ? 'Setting up...' : 'Enable 2FA'}
+                <Button onClick={handleSend2FASetup} disabled={loading} size="sm">
+                  {loading ? "Setting up..." : "Enable 2FA"}
                 </Button>
               )}
             </div>
@@ -354,9 +353,7 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
             <div className="flex items-center justify-between p-3 border border-gray-200 rounded-lg">
               <div>
                 <p className="text-sm font-medium text-gray-900">Current Session</p>
-                <p className="text-sm text-gray-500">
-                  Last active: {new Date().toLocaleString()}
-                </p>
+                <p className="text-sm text-gray-500">Last active: {new Date().toLocaleString()}</p>
               </div>
               <span className="inline-flex items-center gap-x-1.5 rounded-md bg-green-100 px-2 py-1 text-xs font-medium text-green-800">
                 <CheckCircleIcon className="h-3 w-3" />
@@ -375,14 +372,10 @@ export function SecuritySettings({ user, canEdit }: SecuritySettingsProps) {
         <div className="border-t border-gray-200 pt-6">
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <div className="flex">
-              <ExclamationTriangleIcon className="h-5 w-5 text-red-400 flex-shrink-0" />
+              <ExclamationTriangleIcon className="h-5 w-5 text-red-400 shrink-0" />
               <div className="ml-3">
-                <h4 className="text-sm font-medium text-red-800">
-                  Danger Zone
-                </h4>
-                <p className="text-sm text-red-700 mt-1">
-                  Irreversible and destructive actions
-                </p>
+                <h4 className="text-sm font-medium text-red-800">Danger Zone</h4>
+                <p className="text-sm text-red-700 mt-1">Irreversible and destructive actions</p>
                 <div className="mt-4">
                   <Button
                     variant="outline"
