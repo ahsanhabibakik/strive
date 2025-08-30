@@ -1,249 +1,247 @@
-'use client'
+"use client";
 
-// import { Metadata } from 'next' // Not needed in client components
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-
-// Note: Since this is a client component, metadata should be handled differently
-// You might want to use next/head or implement this as a server component with a separate form component
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Mail, Phone, MapPin, Clock, Send, CheckCircle } from "lucide-react";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSubmitted, setIsSubmitted] = useState(false)
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
-    }))
-  }
+      [name]: value,
+    }));
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
+    e.preventDefault();
+    setIsSubmitting(true);
 
     try {
-      // Here you would typically send the form data to your API
-      // For now, we'll simulate a successful submission
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      
-      setIsSubmitted(true)
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      })
+      // Simulate API call
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      setIsSubmitted(true);
+      setFormData({ name: "", email: "", subject: "", message: "" });
     } catch (error) {
-      console.error('Error submitting form:', error)
+      console.error("Error submitting form:", error);
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
-  }
+  };
 
   if (isSubmitted) {
     return (
-      <div className="max-w-2xl mx-auto py-16 text-center">
-        <div className="bg-green-50 border border-green-200 rounded-lg p-8">
-          <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-            <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-          </div>
-          <h1 className="text-2xl font-bold text-green-800 mb-2">Message Sent Successfully!</h1>
-          <p className="text-green-700 mb-6">
-            Thank you for contacting us. We&apos;ll get back to you as soon as possible, typically within 24 hours.
-          </p>
-          <Button onClick={() => setIsSubmitted(false)}>
-            Send Another Message
-          </Button>
-        </div>
+      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+        <Card className="max-w-md mx-auto text-center">
+          <CardContent className="p-8">
+            <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
+              <CheckCircle className="w-8 h-8 text-green-600" />
+            </div>
+            <h1 className="text-2xl font-bold text-gray-900 mb-4">Message Sent!</h1>
+            <p className="text-gray-600 mb-6">
+              Thank you for contacting us. We'll get back to you within 24 hours.
+            </p>
+            <Button onClick={() => setIsSubmitted(false)}>Send Another Message</Button>
+          </CardContent>
+        </Card>
       </div>
-    )
+    );
   }
 
   return (
-    <div className="max-w-6xl mx-auto py-8">
-      {/* Header */}
-      <section className="text-center mb-12">
-        <h1 className="text-4xl font-bold mb-4">Get In Touch</h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Have a question, suggestion, or need help? We&apos;d love to hear from you. 
-          Send us a message and we&apos;ll respond as quickly as we can.
-        </p>
-      </section>
-
-      <div className="grid lg:grid-cols-2 gap-12">
-        {/* Contact Form */}
-        <div className="bg-white rounded-lg shadow-sm border p-8">
-          <h2 className="text-2xl font-bold mb-6">Send us a Message</h2>
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid sm:grid-cols-2 gap-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                  Full Name *
-                </label>
-                <input
-                  type="text"
-                  id="name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="Your full name"
-                />
-              </div>
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                  Email Address *
-                </label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-                  placeholder="your@email.com"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-2">
-                Subject *
-              </label>
-              <select
-                id="subject"
-                name="subject"
-                value={formData.subject}
-                onChange={handleInputChange}
-                required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-              >
-                <option value="">Select a subject</option>
-                <option value="general">General Inquiry</option>
-                <option value="support">Technical Support</option>
-                <option value="feature">Feature Request</option>
-                <option value="bug">Bug Report</option>
-                <option value="billing">Billing Question</option>
-                <option value="partnership">Partnership Opportunity</option>
-                <option value="press">Press Inquiry</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-
-            <div>
-              <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                Message *
-              </label>
-              <textarea
-                id="message"
-                name="message"
-                value={formData.message}
-                onChange={handleInputChange}
-                required
-                rows={6}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-vertical"
-                placeholder="Tell us how we can help you..."
-              />
-            </div>
-
-            <Button 
-              type="submit" 
-              size="lg" 
-              disabled={isSubmitting}
-              className="w-full"
-            >
-              {isSubmitting ? 'Sending...' : 'Send Message'}
-            </Button>
-          </form>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-7xl mx-auto px-4">
+        {/* Header */}
+        <div className="text-center mb-16">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">Contact Us</h1>
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            Have questions about achieving your goals? We're here to help you succeed.
+          </p>
         </div>
 
-        {/* Contact Information */}
-        <div className="space-y-8">
-          {/* Contact Details */}
-          <div className="bg-gray-50 rounded-lg p-8">
-            <h3 className="text-xl font-bold mb-6">Contact Information</h3>
-            <div className="space-y-4">
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Email</h4>
-                  <p className="text-gray-600">support@strive-app.com</p>
-                </div>
-              </div>
+        <div className="grid lg:grid-cols-3 gap-12">
+          {/* Contact Form */}
+          <div className="lg:col-span-2">
+            <Card>
+              <CardHeader>
+                <CardTitle className="text-2xl">Send us a Message</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Name and Email */}
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
+                        Full Name *
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="Your full name"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-medium text-gray-700 mb-2"
+                      >
+                        Email Address *
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                        placeholder="your@email.com"
+                      />
+                    </div>
+                  </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Address</h4>
-                  <p className="text-gray-600">
-                    [Your Business Address]<br />
-                    [City, State, ZIP]<br />
-                    [Country]
-                  </p>
-                </div>
-              </div>
+                  {/* Subject */}
+                  <div>
+                    <label
+                      htmlFor="subject"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Subject *
+                    </label>
+                    <select
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleInputChange}
+                      required
+                      className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors"
+                    >
+                      <option value="">Select a subject</option>
+                      <option value="general">General Inquiry</option>
+                      <option value="support">Technical Support</option>
+                      <option value="feature">Feature Request</option>
+                      <option value="bug">Bug Report</option>
+                      <option value="billing">Billing Question</option>
+                      <option value="partnership">Partnership</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
 
-              <div className="flex items-start space-x-4">
-                <div className="bg-primary/10 w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                </div>
-                <div>
-                  <h4 className="font-semibold">Response Time</h4>
-                  <p className="text-gray-600">
-                    We typically respond within 24 hours<br />
-                    (Monday - Friday, 9 AM - 6 PM EST)
-                  </p>
-                </div>
-              </div>
-            </div>
+                  {/* Message */}
+                  <div>
+                    <label
+                      htmlFor="message"
+                      className="block text-sm font-medium text-gray-700 mb-2"
+                    >
+                      Message *
+                    </label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleInputChange}
+                      required
+                      rows={6}
+                      className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-colors resize-vertical"
+                      placeholder="Tell us how we can help you..."
+                    />
+                  </div>
+
+                  {/* Submit Button */}
+                  <Button type="submit" size="lg" disabled={isSubmitting} className="w-full">
+                    {isSubmitting ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin mr-2" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </Button>
+                </form>
+              </CardContent>
+            </Card>
           </div>
 
-          {/* FAQ Link */}
-          <div className="bg-blue-50 border border-blue-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-blue-800 mb-2">Quick Answers</h3>
-            <p className="text-blue-700 mb-4">
-              Looking for immediate help? Check out our FAQ section for answers to common questions.
-            </p>
-            <Button variant="outline" size="sm" asChild>
-              <a href="/faq">View FAQ</a>
-            </Button>
-          </div>
+          {/* Contact Information */}
+          <div className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle>Contact Information</CardTitle>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="flex items-start gap-3">
+                  <Mail className="w-5 h-5 text-blue-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold">Email</h4>
+                    <p className="text-gray-600">support@strive-app.com</p>
+                  </div>
+                </div>
 
-          {/* Support Center */}
-          <div className="bg-green-50 border border-green-200 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-green-800 mb-2">Support Center</h3>
-            <p className="text-green-700 mb-4">
-              Need technical help? Visit our support center for guides, tutorials, and troubleshooting.
-            </p>
-            <Button variant="outline" size="sm" asChild>
-              <a href="/support">Get Help</a>
-            </Button>
+                <div className="flex items-start gap-3">
+                  <Phone className="w-5 h-5 text-green-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold">Phone</h4>
+                    <p className="text-gray-600">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-purple-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold">Address</h4>
+                    <p className="text-gray-600">
+                      123 Goal Street
+                      <br />
+                      Success City, SC 12345
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start gap-3">
+                  <Clock className="w-5 h-5 text-orange-600 mt-0.5" />
+                  <div>
+                    <h4 className="font-semibold">Response Time</h4>
+                    <p className="text-gray-600">Within 24 hours</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <Card className="bg-blue-50 border-blue-200">
+              <CardContent className="p-6">
+                <h3 className="font-semibold text-blue-900 mb-2">Quick Help</h3>
+                <p className="text-blue-800 text-sm">
+                  Need immediate assistance? Check our FAQ section for common questions and answers.
+                </p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }

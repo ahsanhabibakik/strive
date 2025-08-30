@@ -18,7 +18,13 @@
       "mcp__playwright__browser_snapshot",
       "mcp__playwright__browser_console_messages",
       "mcp__playwright__browser_resize",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(grep:*)",
+      "mcp__playwright__browser_evaluate",
+      "Bash(pnpm remove:*)",
+      "Bash(pnpm add:*)",
+      "mcp__playwright__browser_install",
+      "Bash(pkill:*)"
     ],
     "deny": [],
     "ask": [],
