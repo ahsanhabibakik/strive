@@ -31,9 +31,7 @@ export const Providers = ({ children }: { children: React.ReactNode }) => {
             <GoogleTagManager />
             <VercelAnalytics />
             <PerformanceMonitor />
-            <main
-              className={shouldShowLayout ? "container mx-auto px-4 py-8 flex-grow" : "flex-grow"}
-            >
+            <main className={shouldShowLayout ? "container mx-auto px-4 py-8 grow" : "grow"}>
               {children}
             </main>
             <Toaster />

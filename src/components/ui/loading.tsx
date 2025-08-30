@@ -130,7 +130,7 @@ export const OverlayLoading: React.FC<OverlayLoadingProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
-      {backdrop && <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />}
+      {backdrop && <div className="absolute inset-0 bg-black/20 backdrop-blur-xs" />}
       <div className="relative bg-white rounded-lg shadow-lg p-6 flex flex-col items-center space-y-4">
         <LoadingSpinner size="lg" />
         <p className="text-gray-700">{message}</p>

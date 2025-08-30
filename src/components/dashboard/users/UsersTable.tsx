@@ -82,7 +82,7 @@ export function UsersTable({
   };
 
   return (
-    <div className="bg-white shadow-xs rounded-sm overflow-hidden">
+    <div className="bg-white shadow-2xs rounded-sm overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-gray-900">Users ({pagination.total})</h3>
@@ -175,7 +175,7 @@ export function UsersTable({
 
                   <td className="px-6 py-4 whitespace-nowrap">
                     <div className="flex items-center">
-                      <div className="h-10 w-10 flex-shrink-0">
+                      <div className="h-10 w-10 shrink-0">
                         {user.image ? (
                           <Image
                             className="h-10 w-10 rounded-full"
@@ -252,7 +252,7 @@ export function UsersTable({
                         <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
                       </Menu.Button>
 
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow ring-3 ring-black ring-opacity-5 focus:outline-hidden">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-sm ring-3 ring-black ring-opacity-5 focus:outline-hidden">
                         <div className="py-1">
                           {canViewDetails && (
                             <Menu.Item>
@@ -345,7 +345,7 @@ export function UsersTable({
           </div>
           <div>
             <nav
-              className="relative z-0 inline-flex rounded-md shadow-xs -space-x-px"
+              className="relative z-0 inline-flex rounded-md shadow-2xs -space-x-px"
               aria-label="Pagination"
             >
               <button

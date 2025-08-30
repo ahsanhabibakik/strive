@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { 
+import { useState, useEffect } from "react";
+import {
   ChartBarIcon,
   ClockIcon,
   ExclamationTriangleIcon,
-  CheckCircleIcon
-} from '@heroicons/react/24/outline';
+  CheckCircleIcon,
+} from "@heroicons/react/24/outline";
 
 interface UsageData {
   current: {
@@ -45,35 +45,35 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
   const fetchUsage = async () => {
     try {
       const response = await fetch(`/api/user/api-usage?userId=${userId}`);
-      
+
       if (!response.ok) {
-        throw new Error('Failed to fetch usage data');
+        throw new Error("Failed to fetch usage data");
       }
-      
+
       const data = await response.json();
       setUsage(data);
     } catch (error) {
-      console.error('Error fetching usage data:', error);
+      console.error("Error fetching usage data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   const getUsageColor = (percentage: number) => {
-    if (percentage >= 90) return 'text-red-600';
-    if (percentage >= 75) return 'text-yellow-600';
-    return 'text-green-600';
+    if (percentage >= 90) return "text-red-600";
+    if (percentage >= 75) return "text-yellow-600";
+    return "text-green-600";
   };
 
   const getProgressColor = (percentage: number) => {
-    if (percentage >= 90) return 'bg-red-500';
-    if (percentage >= 75) return 'bg-yellow-500';
-    return 'bg-green-500';
+    if (percentage >= 90) return "bg-red-500";
+    if (percentage >= 75) return "bg-yellow-500";
+    return "bg-green-500";
   };
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900">API Usage</h3>
         </div>
@@ -82,7 +82,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
             <div className="h-4 bg-gray-200 rounded w-3/4"></div>
             <div className="h-2 bg-gray-200 rounded"></div>
             <div className="space-y-2">
-              {[1, 2, 3].map((i) => (
+              {[1, 2, 3].map(i => (
                 <div key={i} className="h-3 bg-gray-200 rounded"></div>
               ))}
             </div>
@@ -94,7 +94,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
 
   if (!usage) {
     return (
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900">API Usage</h3>
         </div>
@@ -114,7 +114,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
   return (
     <div className="space-y-6">
       {/* Current Usage */}
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <div className="flex items-center gap-x-3">
             <ChartBarIcon className="h-5 w-5 text-gray-400" />
@@ -126,14 +126,15 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
           <div className="mb-4">
             <div className="flex items-center justify-between mb-2">
               <span className="text-sm font-medium text-gray-700">
-                {usage.current.requests.toLocaleString()} / {usage.current.limit.toLocaleString()} requests
+                {usage.current.requests.toLocaleString()} / {usage.current.limit.toLocaleString()}{" "}
+                requests
               </span>
               <span className={`text-sm font-medium ${getUsageColor(usage.current.percentage)}`}>
                 {usage.current.percentage.toFixed(1)}%
               </span>
             </div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div 
+              <div
                 className={`h-2 rounded-full transition-all ${getProgressColor(usage.current.percentage)}`}
                 style={{ width: `${Math.min(usage.current.percentage, 100)}%` }}
               />
@@ -141,18 +142,18 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
           </div>
 
           <div className="text-sm text-gray-600">
-            <p className="mb-1">Plan: <span className="font-medium">{usage.plan.name}</span></p>
+            <p className="mb-1">
+              Plan: <span className="font-medium">{usage.plan.name}</span>
+            </p>
             <p>Resets on the 1st of each month</p>
           </div>
 
           {usage.current.percentage >= 90 && (
             <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
               <div className="flex">
-                <ExclamationTriangleIcon className="h-5 w-5 text-red-400 flex-shrink-0" />
+                <ExclamationTriangleIcon className="h-5 w-5 text-red-400 shrink-0" />
                 <div className="ml-3">
-                  <h4 className="text-sm font-medium text-red-800">
-                    Usage Limit Warning
-                  </h4>
+                  <h4 className="text-sm font-medium text-red-800">Usage Limit Warning</h4>
                   <p className="text-sm text-red-700 mt-1">
                     You're approaching your monthly API limit. Consider upgrading your plan.
                   </p>
@@ -164,7 +165,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
       </div>
 
       {/* Rate Limiting */}
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <div className="flex items-center gap-x-3">
             <ClockIcon className="h-5 w-5 text-gray-400" />
@@ -180,14 +181,14 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
                 {usage.rateLimit.remaining} / {usage.rateLimit.limit}
               </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Rate limit</span>
               <span className="text-sm font-medium text-gray-900">
                 {usage.plan.rateLimit} requests/minute
               </span>
             </div>
-            
+
             <div className="flex items-center justify-between">
               <span className="text-sm text-gray-600">Resets at</span>
               <span className="text-sm font-medium text-gray-900">
@@ -213,7 +214,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
       </div>
 
       {/* Daily Usage Chart */}
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900">Daily Usage (Last 7 Days)</h3>
         </div>
@@ -223,16 +224,16 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
             {usage.daily.map((day, index) => {
               const maxRequests = Math.max(...usage.daily.map(d => d.requests));
               const percentage = maxRequests > 0 ? (day.requests / maxRequests) * 100 : 0;
-              
+
               return (
                 <div key={index} className="flex items-center space-x-4">
                   <div className="w-12 text-xs text-gray-500">
-                    {new Date(day.date).toLocaleDateString('en-US', { weekday: 'short' })}
+                    {new Date(day.date).toLocaleDateString("en-US", { weekday: "short" })}
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-1">
                       <div className="w-full bg-gray-200 rounded-full h-2 mr-3">
-                        <div 
+                        <div
                           className="bg-indigo-500 h-2 rounded-full transition-all"
                           style={{ width: `${percentage}%` }}
                         />
@@ -259,9 +260,7 @@ export function APIKeyUsage({ userId }: APIKeyUsageProps) {
       {/* Usage Tips */}
       <div className="bg-indigo-50 rounded-lg border border-indigo-200">
         <div className="p-6">
-          <h4 className="text-sm font-medium text-indigo-900 mb-2">
-            Optimization Tips
-          </h4>
+          <h4 className="text-sm font-medium text-indigo-900 mb-2">Optimization Tips</h4>
           <ul className="text-sm text-indigo-800 space-y-1">
             <li>• Cache API responses when possible</li>
             <li>• Use batch requests to reduce API calls</li>
