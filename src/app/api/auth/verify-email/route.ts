@@ -9,10 +9,7 @@ export async function POST(request: NextRequest) {
     const { token } = body;
 
     if (!token) {
-      return NextResponse.json(
-        { error: "Verification token is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Verification token is required" }, { status: 400 });
     }
 
     // Verify token
@@ -20,10 +17,7 @@ export async function POST(request: NextRequest) {
     try {
       decoded = jwt.verify(token, process.env.NEXTAUTH_SECRET!) as { email: string };
     } catch (error) {
-      return NextResponse.json(
-        { error: "Invalid or expired verification token" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid or expired verification token" }, { status: 400 });
     }
 
     await connectToDatabase();
@@ -41,10 +35,7 @@ export async function POST(request: NextRequest) {
     );
 
     if (!user) {
-      return NextResponse.json(
-        { error: "User not found or already verified" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "User not found or already verified" }, { status: 400 });
     }
 
     return NextResponse.json({
@@ -53,9 +44,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error verifying email:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

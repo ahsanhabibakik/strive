@@ -1,30 +1,30 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
-import { Progress } from '@/components/ui/progress';
-import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { 
-  CalendarDays, 
-  Target, 
-  TrendingUp, 
-  Users, 
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import {
+  CalendarDays,
+  Target,
+  TrendingUp,
+  Users,
   MoreVertical,
   Eye,
   Heart,
   MessageSquare,
   Clock,
   AlertCircle,
-  CheckCircle2
-} from 'lucide-react';
+  CheckCircle2,
+} from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
+} from "@/components/ui/dropdown-menu";
 
 interface Collaborator {
   userId: {
@@ -33,7 +33,7 @@ interface Collaborator {
     email: string;
     avatar?: string;
   };
-  role: 'viewer' | 'contributor' | 'editor';
+  role: "viewer" | "contributor" | "editor";
   addedAt: string;
 }
 
@@ -49,9 +49,16 @@ interface Goal {
   _id: string;
   title: string;
   description?: string;
-  category: 'personal' | 'professional' | 'health' | 'financial' | 'education' | 'relationships' | 'other';
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  status: 'draft' | 'active' | 'completed' | 'paused' | 'cancelled';
+  category:
+    | "personal"
+    | "professional"
+    | "health"
+    | "financial"
+    | "education"
+    | "relationships"
+    | "other";
+  priority: "low" | "medium" | "high" | "critical";
+  status: "draft" | "active" | "completed" | "paused" | "cancelled";
   measurable: {
     metric: string;
     targetValue: number;
@@ -89,28 +96,28 @@ interface GoalCardProps {
 }
 
 const categoryColors = {
-  personal: 'bg-blue-500',
-  professional: 'bg-green-500',
-  health: 'bg-red-500',
-  financial: 'bg-yellow-500',
-  education: 'bg-purple-500',
-  relationships: 'bg-pink-500',
-  other: 'bg-gray-500'
+  personal: "bg-blue-500",
+  professional: "bg-green-500",
+  health: "bg-red-500",
+  financial: "bg-yellow-500",
+  education: "bg-purple-500",
+  relationships: "bg-pink-500",
+  other: "bg-gray-500",
 };
 
 const priorityColors = {
-  low: 'bg-gray-100 text-gray-800',
-  medium: 'bg-blue-100 text-blue-800',
-  high: 'bg-orange-100 text-orange-800',
-  critical: 'bg-red-100 text-red-800'
+  low: "bg-gray-100 text-gray-800",
+  medium: "bg-blue-100 text-blue-800",
+  high: "bg-orange-100 text-orange-800",
+  critical: "bg-red-100 text-red-800",
 };
 
 const statusColors = {
-  draft: 'bg-gray-100 text-gray-800',
-  active: 'bg-green-100 text-green-800',
-  completed: 'bg-emerald-100 text-emerald-800',
-  paused: 'bg-yellow-100 text-yellow-800',
-  cancelled: 'bg-red-100 text-red-800'
+  draft: "bg-gray-100 text-gray-800",
+  active: "bg-green-100 text-green-800",
+  completed: "bg-emerald-100 text-emerald-800",
+  paused: "bg-yellow-100 text-yellow-800",
+  cancelled: "bg-red-100 text-red-800",
 };
 
 export function GoalCard({
@@ -122,37 +129,37 @@ export function GoalCard({
   onLike,
   isLiked = false,
   compact = false,
-  showActions = true
+  showActions = true,
 }: GoalCardProps) {
   const [isLoading, setIsLoading] = useState(false);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric'
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
     });
   };
 
   const getDaysRemainingText = () => {
-    if (goal.status === 'completed') return 'Completed';
-    if (goal.status === 'cancelled') return 'Cancelled';
-    if (goal.status === 'paused') return 'Paused';
-    
+    if (goal.status === "completed") return "Completed";
+    if (goal.status === "cancelled") return "Cancelled";
+    if (goal.status === "paused") return "Paused";
+
     const daysRemaining = goal.daysRemaining ?? 0;
-    if (daysRemaining < 0) return 'Overdue';
-    if (daysRemaining === 0) return 'Due today';
-    if (daysRemaining === 1) return '1 day left';
+    if (daysRemaining < 0) return "Overdue";
+    if (daysRemaining === 0) return "Due today";
+    if (daysRemaining === 1) return "1 day left";
     return `${daysRemaining} days left`;
   };
 
   const getProgressColor = () => {
-    if (goal.status === 'completed') return 'bg-emerald-500';
-    if (goal.isOverdue) return 'bg-red-500';
-    if (goal.progressPercentage >= 75) return 'bg-green-500';
-    if (goal.progressPercentage >= 50) return 'bg-blue-500';
-    if (goal.progressPercentage >= 25) return 'bg-yellow-500';
-    return 'bg-gray-300';
+    if (goal.status === "completed") return "bg-emerald-500";
+    if (goal.isOverdue) return "bg-red-500";
+    if (goal.progressPercentage >= 75) return "bg-green-500";
+    if (goal.progressPercentage >= 50) return "bg-blue-500";
+    if (goal.progressPercentage >= 25) return "bg-yellow-500";
+    return "bg-gray-300";
   };
 
   const completedMilestones = goal.timeBound.milestones.filter(m => m.completed).length;
@@ -170,8 +177,8 @@ export function GoalCard({
   };
 
   return (
-    <Card className={`hover:shadow-lg transition-all duration-200 ${compact ? 'p-4' : ''}`}>
-      <CardHeader className={`pb-3 ${compact ? 'p-0 pb-2' : ''}`}>
+    <Card className={`hover:shadow-lg transition-all duration-200 ${compact ? "p-4" : ""}`}>
+      <CardHeader className={`pb-3 ${compact ? "p-0 pb-2" : ""}`}>
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
@@ -183,17 +190,17 @@ export function GoalCard({
                 {goal.status}
               </Badge>
             </div>
-            
-            <CardTitle className={`${compact ? 'text-lg' : 'text-xl'} font-semibold text-gray-900 mb-1`}>
+
+            <CardTitle
+              className={`${compact ? "text-lg" : "text-xl"} font-semibold text-gray-900 mb-1`}
+            >
               {goal.title}
             </CardTitle>
-            
+
             {goal.description && !compact && (
-              <p className="text-sm text-gray-600 line-clamp-2 mb-2">
-                {goal.description}
-              </p>
+              <p className="text-sm text-gray-600 line-clamp-2 mb-2">{goal.description}</p>
             )}
-            
+
             <div className="flex items-center gap-4 text-sm text-gray-500">
               <div className="flex items-center gap-1">
                 <CalendarDays className="h-4 w-4" />
@@ -207,7 +214,7 @@ export function GoalCard({
               )}
             </div>
           </div>
-          
+
           {showActions && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
@@ -222,19 +229,17 @@ export function GoalCard({
                     View Details
                   </DropdownMenuItem>
                 )}
-                {onUpdateProgress && goal.status === 'active' && (
+                {onUpdateProgress && goal.status === "active" && (
                   <DropdownMenuItem onClick={() => onUpdateProgress(goal._id)}>
                     <TrendingUp className="h-4 w-4 mr-2" />
                     Update Progress
                   </DropdownMenuItem>
                 )}
                 {onEdit && (
-                  <DropdownMenuItem onClick={() => onEdit(goal._id)}>
-                    Edit Goal
-                  </DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => onEdit(goal._id)}>Edit Goal</DropdownMenuItem>
                 )}
                 {onDelete && (
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={() => onDelete(goal._id)}
                     className="text-red-600 hover:text-red-700"
                   >
@@ -247,21 +252,22 @@ export function GoalCard({
         </div>
       </CardHeader>
 
-      <CardContent className={compact ? 'p-0 pt-2' : ''}>
+      <CardContent className={compact ? "p-0 pt-2" : ""}>
         {/* Progress Section */}
         <div className="space-y-3">
           <div className="space-y-2">
             <div className="flex justify-between items-center text-sm">
               <span className="font-medium">Progress</span>
               <span className="text-gray-600">
-                {goal.measurable.currentValue} / {goal.measurable.targetValue} {goal.measurable.unit}
+                {goal.measurable.currentValue} / {goal.measurable.targetValue}{" "}
+                {goal.measurable.unit}
               </span>
             </div>
-            <Progress 
-              value={goal.progressPercentage} 
+            <Progress
+              value={goal.progressPercentage}
               className="h-2"
               style={{
-                backgroundColor: '#e5e7eb'
+                backgroundColor: "#e5e7eb",
               }}
             />
             <div className="flex justify-between items-center text-xs text-gray-500">
@@ -287,10 +293,10 @@ export function GoalCard({
               <div className="space-y-1">
                 {goal.timeBound.milestones.slice(0, 3).map((milestone, index) => (
                   <div key={index} className="flex items-center gap-2 text-xs">
-                    <CheckCircle2 
-                      className={`h-3 w-3 ${milestone.completed ? 'text-green-500' : 'text-gray-300'}`} 
+                    <CheckCircle2
+                      className={`h-3 w-3 ${milestone.completed ? "text-green-500" : "text-gray-300"}`}
                     />
-                    <span className={milestone.completed ? 'line-through text-gray-500' : ''}>
+                    <span className={milestone.completed ? "line-through text-gray-500" : ""}>
                       {milestone.title}
                     </span>
                   </div>
@@ -314,15 +320,15 @@ export function GoalCard({
                     disabled={isLoading}
                     className="flex items-center gap-1 text-sm text-gray-500 hover:text-red-500 transition-colors"
                   >
-                    <Heart className={`h-4 w-4 ${isLiked ? 'text-red-500 fill-current' : ''}`} />
+                    <Heart className={`h-4 w-4 ${isLiked ? "text-red-500 fill-current" : ""}`} />
                     <span>{goal.likeCount}</span>
                   </button>
-                  
+
                   <div className="flex items-center gap-1 text-sm text-gray-500">
                     <MessageSquare className="h-4 w-4" />
                     <span>{goal.commentCount}</span>
                   </div>
-                  
+
                   <div className="flex items-center gap-1 text-sm text-gray-500">
                     <Eye className="h-4 w-4" />
                     <span>{goal.viewCount}</span>
@@ -339,7 +345,7 @@ export function GoalCard({
                     <Avatar key={index} className="h-6 w-6 border-2 border-white">
                       <AvatarImage src={collaborator.userId.avatar} />
                       <AvatarFallback className="text-xs">
-                        {collaborator.userId.name?.charAt(0) || '?'}
+                        {collaborator.userId.name?.charAt(0) || "?"}
                       </AvatarFallback>
                     </Avatar>
                   ))}

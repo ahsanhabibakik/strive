@@ -138,7 +138,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
     }
 
     // Filter sensitive data based on permissions
-    let filteredSubmission = { ...submission };
+    const filteredSubmission = { ...submission };
 
     if (!isOrganizer && !isAdmin) {
       // Regular users can't see reviewer notes

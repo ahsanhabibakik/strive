@@ -9,10 +9,10 @@ const NotificationSchema = new mongoose.Schema({
   userId: { type: String, required: true, index: true },
   title: { type: String, required: true },
   message: { type: String, required: true },
-  type: { 
-    type: String, 
-    enum: ["info", "success", "warning", "error"], 
-    default: "info" 
+  type: {
+    type: String,
+    enum: ["info", "success", "warning", "error"],
+    default: "info",
   },
   read: { type: Boolean, default: false },
   actionUrl: { type: String },
@@ -20,18 +20,14 @@ const NotificationSchema = new mongoose.Schema({
   readAt: { type: Date },
 });
 
-const Notification = 
-  mongoose.models.Notification || 
-  mongoose.model("Notification", NotificationSchema);
+const Notification =
+  mongoose.models.Notification || mongoose.model("Notification", NotificationSchema);
 
 interface RouteContext {
   params: { id: string };
 }
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: RouteContext
-) {
+export async function PATCH(request: NextRequest, { params }: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -44,9 +40,9 @@ export async function PATCH(
     await connectToDatabase();
 
     const notification = await Notification.findOneAndUpdate(
-      { 
-        _id: params.id, 
-        userId: session.user.email 
+      {
+        _id: params.id,
+        userId: session.user.email,
       },
       {
         $set: {
@@ -58,10 +54,7 @@ export async function PATCH(
     );
 
     if (!notification) {
-      return NextResponse.json(
-        { error: "Notification not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Notification not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -70,17 +63,11 @@ export async function PATCH(
     });
   } catch (error) {
     console.error("Error updating notification:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: RouteContext
-) {
+export async function DELETE(request: NextRequest, { params }: RouteContext) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -95,10 +82,7 @@ export async function DELETE(
     });
 
     if (!notification) {
-      return NextResponse.json(
-        { error: "Notification not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Notification not found" }, { status: 404 });
     }
 
     return NextResponse.json({
@@ -107,9 +91,6 @@ export async function DELETE(
     });
   } catch (error) {
     console.error("Error deleting notification:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

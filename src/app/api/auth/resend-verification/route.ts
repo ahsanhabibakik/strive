@@ -20,18 +20,13 @@ export async function POST(request: NextRequest) {
     }
 
     if (user.emailVerified) {
-      return NextResponse.json(
-        { error: "Email is already verified" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Email is already verified" }, { status: 400 });
     }
 
     // Generate verification token
-    const verificationToken = jwt.sign(
-      { email: user.email },
-      process.env.NEXTAUTH_SECRET!,
-      { expiresIn: "24h" }
-    );
+    const verificationToken = jwt.sign({ email: user.email }, process.env.NEXTAUTH_SECRET!, {
+      expiresIn: "24h",
+    });
 
     // In a real app, you would send an email here
     // For now, just return success
@@ -43,9 +38,6 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error resending verification email:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

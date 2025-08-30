@@ -974,7 +974,7 @@ userProfileSchema.virtual("nextLevelXP").get(function () {
 // Virtual for profile completion percentage
 userProfileSchema.virtual("profileCompletion").get(function () {
   let completed = 0;
-  let total = 10;
+  const total = 10;
 
   if (this.displayName) completed++;
   if (this.bio) completed++;

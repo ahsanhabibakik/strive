@@ -5,10 +5,7 @@ import { connectToDatabase } from "@/lib/mongoose-simple";
 import Application from "@/lib/models/Application";
 import Opportunity from "@/lib/models/Opportunity";
 
-export async function GET(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -26,26 +23,17 @@ export async function GET(
     });
 
     if (!application) {
-      return NextResponse.json(
-        { error: "Application not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
     }
 
     return NextResponse.json({ application });
   } catch (error) {
     console.error("Error fetching application:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-export async function PATCH(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -57,12 +45,9 @@ export async function PATCH(
 
     // For now, only allow users to withdraw their own applications
     const allowedUserStatuses = ["withdrawn"];
-    
+
     if (status && !allowedUserStatuses.includes(status)) {
-      return NextResponse.json(
-        { error: "Invalid status update" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Invalid status update" }, { status: 400 });
     }
 
     await connectToDatabase();
@@ -73,29 +58,21 @@ export async function PATCH(
     });
 
     if (!application) {
-      return NextResponse.json(
-        { error: "Application not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
     }
 
     // Prevent withdrawing already processed applications
     if (application.status === "accepted" || application.status === "rejected") {
-      return NextResponse.json(
-        { error: "Cannot withdraw processed application" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Cannot withdraw processed application" }, { status: 400 });
     }
 
     const updateData: any = {};
     if (status) updateData.status = status;
     if (reviewerNotes !== undefined) updateData.reviewerNotes = reviewerNotes;
-    
-    const updatedApplication = await Application.findByIdAndUpdate(
-      params.id,
-      updateData,
-      { new: true }
-    ).populate({
+
+    const updatedApplication = await Application.findByIdAndUpdate(params.id, updateData, {
+      new: true,
+    }).populate({
       path: "opportunityId",
       select: "title organizerName applicationDeadline logoUrl slug",
     });
@@ -103,17 +80,11 @@ export async function PATCH(
     return NextResponse.json({ application: updatedApplication });
   } catch (error) {
     console.error("Error updating application:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
-export async function DELETE(
-  request: NextRequest,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.email) {
@@ -128,18 +99,12 @@ export async function DELETE(
     });
 
     if (!application) {
-      return NextResponse.json(
-        { error: "Application not found" },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: "Application not found" }, { status: 404 });
     }
 
     // Only allow deletion of draft or withdrawn applications
     if (!["submitted", "withdrawn"].includes(application.status)) {
-      return NextResponse.json(
-        { error: "Cannot delete processed application" },
-        { status: 400 }
-      );
+      return NextResponse.json({ error: "Cannot delete processed application" }, { status: 400 });
     }
 
     await Application.findByIdAndDelete(params.id);
@@ -154,9 +119,6 @@ export async function DELETE(
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Error deleting application:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -13,9 +13,7 @@ export async function GET(request: NextRequest) {
 
     await connectToDatabase();
 
-    const user = await User.findOne({ email: session.user.email })
-      .select("-password -__v")
-      .lean();
+    const user = await User.findOne({ email: session.user.email }).select("-password -__v").lean();
 
     if (!user) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
@@ -24,10 +22,7 @@ export async function GET(request: NextRequest) {
     return NextResponse.json({ user });
   } catch (error) {
     console.error("Error fetching user profile:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
 
@@ -64,16 +59,13 @@ export async function PUT(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({ 
-      success: true, 
+    return NextResponse.json({
+      success: true,
       message: "Profile updated successfully",
-      user: updatedUser 
+      user: updatedUser,
     });
   } catch (error) {
     console.error("Error updating user profile:", error);
-    return NextResponse.json(
-      { error: "Internal server error" },
-      { status: 500 }
-    );
+    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

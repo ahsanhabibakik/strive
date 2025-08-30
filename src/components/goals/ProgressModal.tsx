@@ -1,36 +1,42 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Badge } from '@/components/ui/badge';
+import { useState } from "react";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
-import { Slider } from '@/components/ui/slider';
-import { Progress } from '@/components/ui/progress';
-import { 
-  Target, 
-  TrendingUp, 
-  Clock, 
-  Heart, 
-  Brain, 
-  Zap, 
+} from "@/components/ui/select";
+import { Slider } from "@/components/ui/slider";
+import { Progress } from "@/components/ui/progress";
+import {
+  Target,
+  TrendingUp,
+  Clock,
+  Heart,
+  Brain,
+  Zap,
   Camera,
   Link,
   FileText,
   Video,
   Loader2,
   AlertCircle,
-  CheckCircle2
-} from 'lucide-react';
+  CheckCircle2,
+} from "lucide-react";
 
 interface Goal {
   _id: string;
@@ -53,18 +59,18 @@ interface ProgressModalProps {
 }
 
 const progressTypes = [
-  { value: 'update', label: 'Regular Update', icon: TrendingUp },
-  { value: 'milestone', label: 'Milestone Achievement', icon: Target },
-  { value: 'achievement', label: 'Major Achievement', icon: CheckCircle2 },
-  { value: 'setback', label: 'Setback/Challenge', icon: AlertCircle }
+  { value: "update", label: "Regular Update", icon: TrendingUp },
+  { value: "milestone", label: "Milestone Achievement", icon: Target },
+  { value: "achievement", label: "Major Achievement", icon: CheckCircle2 },
+  { value: "setback", label: "Setback/Challenge", icon: AlertCircle },
 ];
 
 const moodOptions = [
-  { value: 'excellent', label: 'Excellent', emoji: '😄', color: 'text-green-600' },
-  { value: 'good', label: 'Good', emoji: '😊', color: 'text-blue-600' },
-  { value: 'neutral', label: 'Neutral', emoji: '😐', color: 'text-gray-600' },
-  { value: 'poor', label: 'Poor', emoji: '😔', color: 'text-orange-600' },
-  { value: 'terrible', label: 'Terrible', emoji: '😢', color: 'text-red-600' }
+  { value: "excellent", label: "Excellent", emoji: "😄", color: "text-green-600" },
+  { value: "good", label: "Good", emoji: "😊", color: "text-blue-600" },
+  { value: "neutral", label: "Neutral", emoji: "😐", color: "text-gray-600" },
+  { value: "poor", label: "Poor", emoji: "😔", color: "text-orange-600" },
+  { value: "terrible", label: "Terrible", emoji: "😢", color: "text-red-600" },
 ];
 
 export function ProgressModal({
@@ -72,22 +78,22 @@ export function ProgressModal({
   onClose,
   goal,
   onSubmit,
-  isLoading = false
+  isLoading = false,
 }: ProgressModalProps) {
   const [formData, setFormData] = useState({
-    type: 'update',
-    title: '',
+    type: "update",
+    title: "",
     currentValue: goal?.measurable.currentValue || 0,
-    notes: '',
+    notes: "",
     difficulty: [3],
     confidence: [3],
     motivation: [3],
-    mood: 'neutral',
-    timeSpent: '',
-    challenges: '',
-    lessons: '',
-    nextSteps: [''],
-    attachments: []
+    mood: "neutral",
+    timeSpent: "",
+    challenges: "",
+    lessons: "",
+    nextSteps: [""],
+    attachments: [],
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -95,7 +101,7 @@ export function ProgressModal({
   const handleInputChange = (field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }));
     if (errors[field]) {
-      setErrors(prev => ({ ...prev, [field]: '' }));
+      setErrors(prev => ({ ...prev, [field]: "" }));
     }
   };
 
@@ -108,7 +114,7 @@ export function ProgressModal({
   const addNextStep = () => {
     setFormData(prev => ({
       ...prev,
-      nextSteps: [...prev.nextSteps, '']
+      nextSteps: [...prev.nextSteps, ""],
     }));
   };
 
@@ -116,7 +122,7 @@ export function ProgressModal({
     const newNextSteps = formData.nextSteps.filter((_, i) => i !== index);
     setFormData(prev => ({
       ...prev,
-      nextSteps: newNextSteps.length > 0 ? newNextSteps : ['']
+      nextSteps: newNextSteps.length > 0 ? newNextSteps : [""],
     }));
   };
 
@@ -134,11 +140,11 @@ export function ProgressModal({
     const newErrors: Record<string, string> = {};
 
     if (!formData.title.trim()) {
-      newErrors.title = 'Progress title is required';
+      newErrors.title = "Progress title is required";
     }
 
     if (formData.currentValue < 0) {
-      newErrors.currentValue = 'Current value cannot be negative';
+      newErrors.currentValue = "Current value cannot be negative";
     }
 
     if (goal && formData.currentValue > goal.measurable.targetValue) {
@@ -166,32 +172,32 @@ export function ProgressModal({
       challenges: formData.challenges,
       lessons: formData.lessons,
       nextSteps: formData.nextSteps.filter(step => step.trim()),
-      attachments: formData.attachments
+      attachments: formData.attachments,
     };
 
     try {
       await onSubmit(progressData);
       handleClose();
     } catch (error) {
-      console.error('Error submitting progress:', error);
+      console.error("Error submitting progress:", error);
     }
   };
 
   const handleClose = () => {
     setFormData({
-      type: 'update',
-      title: '',
+      type: "update",
+      title: "",
       currentValue: goal?.measurable.currentValue || 0,
-      notes: '',
+      notes: "",
       difficulty: [3],
       confidence: [3],
       motivation: [3],
-      mood: 'neutral',
-      timeSpent: '',
-      challenges: '',
-      lessons: '',
-      nextSteps: [''],
-      attachments: []
+      mood: "neutral",
+      timeSpent: "",
+      challenges: "",
+      lessons: "",
+      nextSteps: [""],
+      attachments: [],
     });
     setErrors({});
     onClose();
@@ -225,8 +231,9 @@ export function ProgressModal({
             <div className="flex justify-between items-center text-xs">
               <span className="text-gray-600">{newProgress}% complete</span>
               {progressChange !== 0 && (
-                <Badge variant={progressChange > 0 ? 'default' : 'destructive'} className="text-xs">
-                  {progressChange > 0 ? '+' : ''}{progressChange} {goal.measurable.unit}
+                <Badge variant={progressChange > 0 ? "default" : "destructive"} className="text-xs">
+                  {progressChange > 0 ? "+" : ""}
+                  {progressChange} {goal.measurable.unit}
                 </Badge>
               )}
             </div>
@@ -236,7 +243,10 @@ export function ProgressModal({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="type">Progress Type</Label>
-              <Select value={formData.type} onValueChange={(value) => handleInputChange('type', value)}>
+              <Select
+                value={formData.type}
+                onValueChange={value => handleInputChange("type", value)}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -263,19 +273,17 @@ export function ProgressModal({
                   id="currentValue"
                   type="number"
                   value={formData.currentValue}
-                  onChange={(e) => handleInputChange('currentValue', parseFloat(e.target.value) || 0)}
+                  onChange={e => handleInputChange("currentValue", parseFloat(e.target.value) || 0)}
                   min="0"
                   max={goal.measurable.targetValue}
                   step="0.1"
-                  className={errors.currentValue ? 'border-red-500' : ''}
+                  className={errors.currentValue ? "border-red-500" : ""}
                 />
                 <span className="absolute right-3 top-1/2 transform -translate-y-1/2 text-sm text-gray-500">
                   {goal.measurable.unit}
                 </span>
               </div>
-              {errors.currentValue && (
-                <p className="text-sm text-red-500">{errors.currentValue}</p>
-              )}
+              {errors.currentValue && <p className="text-sm text-red-500">{errors.currentValue}</p>}
             </div>
           </div>
 
@@ -284,13 +292,11 @@ export function ProgressModal({
             <Input
               id="title"
               value={formData.title}
-              onChange={(e) => handleInputChange('title', e.target.value)}
+              onChange={e => handleInputChange("title", e.target.value)}
               placeholder="Describe what you accomplished or worked on..."
-              className={errors.title ? 'border-red-500' : ''}
+              className={errors.title ? "border-red-500" : ""}
             />
-            {errors.title && (
-              <p className="text-sm text-red-500">{errors.title}</p>
-            )}
+            {errors.title && <p className="text-sm text-red-500">{errors.title}</p>}
           </div>
 
           {/* Notes */}
@@ -299,7 +305,7 @@ export function ProgressModal({
             <Textarea
               id="notes"
               value={formData.notes}
-              onChange={(e) => handleInputChange('notes', e.target.value)}
+              onChange={e => handleInputChange("notes", e.target.value)}
               placeholder="Share details about your progress, what went well, what you learned..."
               rows={3}
             />
@@ -315,7 +321,7 @@ export function ProgressModal({
                   id="timeSpent"
                   type="number"
                   value={formData.timeSpent}
-                  onChange={(e) => handleInputChange('timeSpent', e.target.value)}
+                  onChange={e => handleInputChange("timeSpent", e.target.value)}
                   placeholder="How many minutes?"
                   className="pl-10"
                   min="0"
@@ -325,7 +331,10 @@ export function ProgressModal({
 
             <div className="space-y-2">
               <Label htmlFor="mood">How are you feeling?</Label>
-              <Select value={formData.mood} onValueChange={(value) => handleInputChange('mood', value)}>
+              <Select
+                value={formData.mood}
+                onValueChange={value => handleInputChange("mood", value)}
+              >
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
@@ -346,7 +355,7 @@ export function ProgressModal({
           {/* Ratings */}
           <div className="space-y-4">
             <h4 className="font-medium">Rate Your Experience</h4>
-            
+
             <div className="space-y-4">
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
@@ -358,7 +367,7 @@ export function ProgressModal({
                 </div>
                 <Slider
                   value={formData.difficulty}
-                  onValueChange={(value) => handleInputChange('difficulty', value)}
+                  onValueChange={value => handleInputChange("difficulty", value)}
                   max={5}
                   min={1}
                   step={1}
@@ -380,7 +389,7 @@ export function ProgressModal({
                 </div>
                 <Slider
                   value={formData.confidence}
-                  onValueChange={(value) => handleInputChange('confidence', value)}
+                  onValueChange={value => handleInputChange("confidence", value)}
                   max={5}
                   min={1}
                   step={1}
@@ -402,7 +411,7 @@ export function ProgressModal({
                 </div>
                 <Slider
                   value={formData.motivation}
-                  onValueChange={(value) => handleInputChange('motivation', value)}
+                  onValueChange={value => handleInputChange("motivation", value)}
                   max={5}
                   min={1}
                   step={1}
@@ -423,7 +432,7 @@ export function ProgressModal({
               <Textarea
                 id="challenges"
                 value={formData.challenges}
-                onChange={(e) => handleInputChange('challenges', e.target.value)}
+                onChange={e => handleInputChange("challenges", e.target.value)}
                 placeholder="What obstacles did you encounter?"
                 rows={3}
               />
@@ -434,7 +443,7 @@ export function ProgressModal({
               <Textarea
                 id="lessons"
                 value={formData.lessons}
-                onChange={(e) => handleInputChange('lessons', e.target.value)}
+                onChange={e => handleInputChange("lessons", e.target.value)}
                 placeholder="What did you learn from this experience?"
                 rows={3}
               />
@@ -449,7 +458,7 @@ export function ProgressModal({
                 <div key={index} className="flex gap-2">
                   <Input
                     value={step}
-                    onChange={(e) => handleNextStepChange(index, e.target.value)}
+                    onChange={e => handleNextStepChange(index, e.target.value)}
                     placeholder={`Next step ${index + 1}...`}
                     className="flex-1"
                   />

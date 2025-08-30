@@ -6,7 +6,13 @@
       "Bash(pnpm dev:*)",
       "Bash(test:*)",
       "WebFetch(domain:localhost)",
-      "Bash(curl:*)"
+      "Bash(curl:*)",
+      "Bash(pnpm install:*)",
+      "Bash(git commit:*)",
+      "Bash(pnpm run lint:fix:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_take_screenshot",
+      "Bash(git add:*)"
     ],
     "deny": [],
     "ask": [],
