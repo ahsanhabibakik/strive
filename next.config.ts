@@ -15,17 +15,21 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "avatars.githubusercontent.com",
       },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 
   // TypeScript config - Skip errors in production/Vercel builds
   typescript: {
-    ignoreBuildErrors: process.env.NODE_ENV === 'production' || !!process.env.VERCEL,
+    ignoreBuildErrors: process.env.NODE_ENV === "production" || !!process.env.VERCEL,
   },
 
   // ESLint config - Only run in development
   eslint: {
-    ignoreDuringBuilds: process.env.NODE_ENV === 'production' || !!process.env.VERCEL,
+    ignoreDuringBuilds: process.env.NODE_ENV === "production" || !!process.env.VERCEL,
   },
 };
 
