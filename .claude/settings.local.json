@@ -24,7 +24,13 @@
       "Bash(pnpm remove:*)",
       "Bash(pnpm add:*)",
       "mcp__playwright__browser_install",
-      "Bash(pkill:*)"
+      "Bash(pkill:*)",
+      "Bash(pnpm clean:*)",
+      "Bash(mcp__playwright__browser_navigate:*)",
+      "Bash(npx playwright:*)",
+      "Bash(pnpm ls:*)",
+      "mcp__playwright__browser_type",
+      "mcp__playwright__browser_press_key"
     ],
     "deny": [],
     "ask": [],

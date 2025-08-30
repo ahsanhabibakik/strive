@@ -1,4 +1,4 @@
-import { Schema, model, models, Document } from 'mongoose';
+import { Schema, model, models, Document } from "mongoose";
 
 export interface ISession extends Document {
   _id: string;
@@ -12,37 +12,39 @@ export interface ISession extends Document {
   updatedAt: Date;
 }
 
-const sessionSchema = new Schema<ISession>({
-  sessionToken: {
-    type: String,
-    required: true,
-    unique: true,
-    index: true
+const sessionSchema = new Schema<ISession>(
+  {
+    sessionToken: {
+      type: String,
+      required: true,
+    },
+    userId: {
+      type: String,
+      required: true,
+      ref: "User",
+    },
+    expires: {
+      type: Date,
+      required: true,
+      index: { expireAfterSeconds: 0 },
+    },
+    userAgent: String,
+    ipAddress: String,
+    lastActivity: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  userId: {
-    type: String,
-    required: true,
-    ref: 'User',
-    index: true
-  },
-  expires: {
-    type: Date,
-    required: true,
-    index: { expireAfterSeconds: 0 }
-  },
-  userAgent: String,
-  ipAddress: String,
-  lastActivity: {
-    type: Date,
-    default: Date.now
+  {
+    timestamps: true,
   }
-}, {
-  timestamps: true
-});
+);
 
 // Indexes
+sessionSchema.index({ sessionToken: 1 }, { unique: true });
+sessionSchema.index({ userId: 1 });
 sessionSchema.index({ userId: 1, expires: -1 });
 sessionSchema.index({ lastActivity: -1 });
 
-export const Session = models.Session || model<ISession>('Session', sessionSchema);
+export const Session = models.Session || model<ISession>("Session", sessionSchema);
 export default Session;
