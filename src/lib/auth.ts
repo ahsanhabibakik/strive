@@ -5,7 +5,6 @@ import { MongoDBAdapter } from "@auth/mongodb-adapter";
 import { MongoClient } from "mongodb";
 import bcrypt from "bcryptjs";
 
-
 // Create MongoDB client with error handling
 let client: MongoClient | null = null;
 try {
@@ -19,21 +18,23 @@ try {
 export const authOptions: NextAuthOptions = {
   // Only use MongoDB adapter if we have a valid client
   ...(client && { adapter: MongoDBAdapter(client) }),
-  
+
   providers: [
     // Only include Google provider if credentials are available
-    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET ? [
-      GoogleProvider({
-        clientId: process.env.GOOGLE_CLIENT_ID,
-        clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      })
-    ] : []),
-    
+    ...(process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET
+      ? [
+          GoogleProvider({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+          }),
+        ]
+      : []),
+
     CredentialsProvider({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" }
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
         // For development, return a mock user if no MongoDB
@@ -43,6 +44,17 @@ export const authOptions: NextAuthOptions = {
               id: "1",
               email: "test@example.com",
               name: "Test User",
+            };
+          }
+          if (
+            credentials?.email === "admin@strive.test" &&
+            credentials?.password === "testpassword123"
+          ) {
+            return {
+              id: "admin",
+              email: "admin@strive.test",
+              name: "Admin User",
+              role: "admin",
             };
           }
           return null;
@@ -55,17 +67,14 @@ export const authOptions: NextAuthOptions = {
         try {
           const db = client.db();
           const user = await db.collection("users").findOne({
-            email: credentials.email
+            email: credentials.email,
           });
 
           if (!user) {
             return null;
           }
 
-          const isValidPassword = await bcrypt.compare(
-            credentials.password,
-            user.password
-          );
+          const isValidPassword = await bcrypt.compare(credentials.password, user.password);
 
           if (!isValidPassword) {
             return null;
@@ -80,8 +89,8 @@ export const authOptions: NextAuthOptions = {
           console.error("Auth error:", error);
           return null;
         }
-      }
-    })
+      },
+    }),
   ],
   callbacks: {
     async session({ session, token }) {
