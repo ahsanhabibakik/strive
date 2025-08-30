@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToDatabase } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose-simple";
 import Opportunity from "@/lib/models/Opportunity";
 import Submission from "@/lib/models/Submission";
 import { z } from "zod";
