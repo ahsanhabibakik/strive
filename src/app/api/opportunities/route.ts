@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose-simple";
 import Opportunity from "@/lib/models/Opportunity";
 import { z } from "zod";
 
@@ -110,7 +110,7 @@ const filterSchema = z.object({
 // GET /api/opportunities - List opportunities with filters
 export async function GET(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const { searchParams } = new URL(request.url);
     const params = Object.fromEntries(searchParams.entries());
@@ -212,7 +212,7 @@ export async function GET(request: NextRequest) {
 // POST /api/opportunities - Create new opportunity (organizers only)
 export async function POST(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -267,7 +267,7 @@ export async function POST(request: NextRequest) {
 // PUT /api/opportunities - Update multiple opportunities (admin only)
 export async function PUT(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user || session.user.role !== "admin") {
@@ -307,7 +307,7 @@ export async function PUT(request: NextRequest) {
 // DELETE /api/opportunities - Bulk delete opportunities (admin only)
 export async function DELETE(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user || session.user.role !== "admin") {

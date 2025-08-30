@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Hub from "@/lib/models/Hub";
 import { z } from "zod";
 
@@ -73,7 +73,7 @@ const filterSchema = z.object({
 // GET /api/hubs - List hubs with filters
 export async function GET(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const { searchParams } = new URL(request.url);
     const params = Object.fromEntries(searchParams.entries());
@@ -170,7 +170,7 @@ export async function GET(request: NextRequest) {
 // POST /api/hubs - Create new hub
 export async function POST(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -242,7 +242,7 @@ export async function POST(request: NextRequest) {
 // PUT /api/hubs - Update multiple hubs (admin only)
 export async function PUT(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user || session.user.role !== "admin") {
@@ -282,7 +282,7 @@ export async function PUT(request: NextRequest) {
 // DELETE /api/hubs - Bulk suspend hubs (admin only)
 export async function DELETE(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user || session.user.role !== "admin") {

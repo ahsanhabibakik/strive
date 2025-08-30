@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Hub from "@/lib/models/Hub";
 import Post from "@/lib/models/Post";
 import { z } from "zod";
@@ -81,7 +81,7 @@ interface RouteParams {
 // GET /api/hubs/[slug] - Get hub details with posts
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const { slug } = params;
     const { searchParams } = new URL(request.url);
@@ -192,7 +192,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // PUT /api/hubs/[slug] - Update hub (moderators/admin only)
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -253,7 +253,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 // POST /api/hubs/[slug] - Join/Leave hub
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -360,7 +360,7 @@ export async function POST(request: NextRequest, { params }: RouteParams) {
 // DELETE /api/hubs/[slug] - Delete hub (creator/admin only)
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {

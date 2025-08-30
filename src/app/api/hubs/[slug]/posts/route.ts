@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Hub from "@/lib/models/Hub";
 import Post from "@/lib/models/Post";
 import { z } from "zod";
@@ -95,7 +95,7 @@ interface RouteParams {
 // GET /api/hubs/[slug]/posts - Get posts in hub
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const { slug } = params;
     const { searchParams } = new URL(request.url);
@@ -215,7 +215,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // POST /api/hubs/[slug]/posts - Create new post in hub
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Opportunity from "@/lib/models/Opportunity";
 import Submission from "@/lib/models/Submission";
 import { z } from "zod";
@@ -166,7 +166,7 @@ interface RouteParams {
 // GET /api/opportunities/[id] - Get single opportunity
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const { id } = params;
 
@@ -217,7 +217,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // PUT /api/opportunities/[id] - Update opportunity (organizer/admin only)
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -282,7 +282,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 // DELETE /api/opportunities/[id] - Delete opportunity (organizer/admin only)
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -348,7 +348,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 // POST /api/opportunities/[id]/submit - Submit to opportunity
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {

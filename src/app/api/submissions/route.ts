@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Submission from "@/lib/models/Submission";
 import Opportunity from "@/lib/models/Opportunity";
 import { z } from "zod";
@@ -20,7 +20,7 @@ const filterSchema = z.object({
 // GET /api/submissions - Get user's submissions
 export async function GET(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -160,7 +160,7 @@ export async function GET(request: NextRequest) {
 // POST /api/submissions - Create new draft submission
 export async function POST(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -250,7 +250,7 @@ export async function POST(request: NextRequest) {
 // DELETE /api/submissions - Bulk withdraw submissions
 export async function DELETE(request: NextRequest) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
-import { connectToMongoDB } from "@/lib/mongoose";
+import { connectToDatabase } from "@/lib/mongoose";
 import Submission from "@/lib/models/Submission";
 import Opportunity from "@/lib/models/Opportunity";
 import { z } from "zod";
@@ -100,7 +100,7 @@ interface RouteParams {
 // GET /api/submissions/[id] - Get single submission
 export async function GET(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -166,7 +166,7 @@ export async function GET(request: NextRequest, { params }: RouteParams) {
 // PUT /api/submissions/[id] - Update submission
 export async function PUT(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -286,7 +286,7 @@ export async function PUT(request: NextRequest, { params }: RouteParams) {
 // DELETE /api/submissions/[id] - Withdraw submission
 export async function DELETE(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
@@ -342,7 +342,7 @@ export async function DELETE(request: NextRequest, { params }: RouteParams) {
 // POST /api/submissions/[id]/review - Review submission (organizer/admin only)
 export async function POST(request: NextRequest, { params }: RouteParams) {
   try {
-    await connectToMongoDB();
+    await connectToDatabase();
 
     const session = await getServerSession(authOptions);
     if (!session?.user) {
