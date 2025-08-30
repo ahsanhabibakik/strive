@@ -30,7 +30,11 @@
       "Bash(npx playwright:*)",
       "Bash(pnpm ls:*)",
       "mcp__playwright__browser_type",
-      "mcp__playwright__browser_press_key"
+      "mcp__playwright__browser_press_key",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git push:*)",
+      "Bash(git checkout:*)"
     ],
     "deny": [],
     "ask": [],
