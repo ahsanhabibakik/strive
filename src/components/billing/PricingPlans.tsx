@@ -135,7 +135,7 @@ export function PricingPlans({ currentPlan, userId }: PricingPlansProps) {
                       className={`w-full ${
                         isPopular ? "bg-indigo-600 hover:bg-indigo-700 text-white" : ""
                       }`}
-                      variant={isPopular ? "default" : "outline-solid"}
+                      variant={isPopular ? "default" : "outline"}
                     >
                       {loading === planId
                         ? "Loading..."
