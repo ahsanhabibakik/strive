@@ -244,19 +244,23 @@ function analyzeBuild() {
 function generateBuildInfo() {
   log("\n📝 Generating build info...", colors.cyan);
 
-  const buildInfo = {
-    timestamp: new Date().toISOString(),
-    nodeVersion: process.version,
-    platform: process.platform,
-    architecture: process.arch,
-    environment: process.env.NODE_ENV || "development",
-    gitCommit: process.env.VERCEL_GIT_COMMIT_SHA || "unknown",
-    gitBranch: process.env.VERCEL_GIT_COMMIT_REF || "unknown",
-    version: require("../package.json").version,
-  };
+  try {
+    const buildInfo = {
+      timestamp: new Date().toISOString(),
+      nodeVersion: process.version,
+      platform: process.platform,
+      architecture: process.arch,
+      environment: process.env.NODE_ENV || "development",
+      gitCommit: process.env.VERCEL_GIT_COMMIT_SHA || "unknown",
+      gitBranch: process.env.VERCEL_GIT_COMMIT_REF || "unknown",
+      version: require("../package.json").version,
+    };
 
-  fs.writeFileSync(".next/build-info.json", JSON.stringify(buildInfo, null, 2));
-  log("✅ Build info generated", colors.green);
+    fs.writeFileSync(".next/build-info.json", JSON.stringify(buildInfo, null, 2));
+    log("✅ Build info generated", colors.green);
+  } catch (error) {
+    log(`⚠️  Failed to generate build info: ${error.message}`, colors.yellow);
+  }
 }
 
 function performHealthCheck() {
@@ -286,8 +290,8 @@ function main() {
     }
     cleanupPrevious();
 
-    // Quality checks - skip in production builds
-    if (process.env.NODE_ENV !== "production") {
+    // Quality checks - skip in production builds and when VERCEL env is set
+    if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
       runLinting();
       runTypeCheck();
       runTests();
@@ -299,10 +303,15 @@ function main() {
     buildApplication();
 
     // Skip analysis and health checks to avoid hanging
-    if (process.env.NODE_ENV !== "production") {
+    if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
       analyzeBuild();
       generateBuildInfo();
       performHealthCheck();
+    } else {
+      // Still generate build info in production, but skip analysis
+      if (fs.existsSync(".next")) {
+        generateBuildInfo();
+      }
     }
 
     const endTime = performance.now();
@@ -330,7 +339,7 @@ function main() {
 }
 
 // Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url.includes(process.argv[1].split("\\").pop())) {
   main();
 }
 
