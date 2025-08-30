@@ -37,7 +37,10 @@
       "Bash(git checkout:*)",
       "Bash(pnpm:*)",
       "Bash(npx:*)",
-      "mcp__playwright__browser_wait_for"
+      "mcp__playwright__browser_wait_for",
+      "WebSearch",
+      "WebSearch",
+      "WebSearch"
     ],
     "deny": [],
     "ask": [],
