@@ -5,13 +5,18 @@
  */
 
 // Load environment variables first
-require("dotenv").config({ path: ".env.local" });
-require("dotenv").config(); // Also load .env as fallback
+import dotenv from "dotenv";
+dotenv.config({ path: ".env.local" });
+dotenv.config(); // Also load .env as fallback
 
-const { spawn, execSync } = require("child_process");
-const fs = require("fs");
-const path = require("path");
-const { performance } = require("perf_hooks");
+import { spawn, execSync } from "child_process";
+import fs from "fs";
+import path from "path";
+import { performance } from "perf_hooks";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // ANSI color codes
 const colors = {
@@ -272,8 +277,6 @@ if (process.argv.includes("--help")) {
 }
 
 // Run if called directly
-if (require.main === module) {
+if (import.meta.url === `file://${process.argv[1]}`) {
   main();
 }
-
-module.exports = { main };

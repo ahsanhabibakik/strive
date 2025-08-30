@@ -1,7 +1,8 @@
 import { Resend } from "resend";
 import { logger } from "../monitoring";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only if API key is available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 export interface EmailOptions {
   to: string | string[];
@@ -27,7 +28,7 @@ export class EmailService {
     try {
       const { to, subject, html, text, from } = options;
 
-      if (!process.env.RESEND_API_KEY) {
+      if (!process.env.RESEND_API_KEY || !resend) {
         logger.warn("RESEND_API_KEY not configured, logging email instead");
         console.warn("📧 Email would be sent:", { to, subject });
         return { success: true, messageId: "dev-mode" };
