@@ -7,28 +7,29 @@ import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo";
 import { AnalyticsProvider } from "@/lib/analytics";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-inter"
+  variable: "--font-inter",
 });
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Strive - Achieve Your Goals",
-  description: "A powerful platform to help you set, track, and achieve your personal and professional goals. Stay motivated and organized with our comprehensive goal management system.",
+  description:
+    "A powerful platform to help you set, track, and achieve your personal and professional goals. Stay motivated and organized with our comprehensive goal management system.",
   keywords: [
-    "goal tracking", 
-    "productivity", 
-    "achievement", 
+    "goal tracking",
+    "productivity",
+    "achievement",
     "personal development",
     "goal setting",
     "progress tracking",
     "motivation",
     "success planning",
     "habit formation",
-    "life goals"
+    "life goals",
   ],
-  type: "website"
+  type: "website",
 });
 
 export const viewport: Viewport = {
@@ -38,8 +39,8 @@ export const viewport: Viewport = {
   userScalable: true,
   themeColor: [
     { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#000000" }
-  ]
+    { media: "(prefers-color-scheme: dark)", color: "#000000" },
+  ],
 };
 
 export default function RootLayout({
@@ -50,23 +51,16 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
-        {/* Preload critical fonts */}
-        <link
-          rel="preload"
-          href="/fonts/inter-var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-        
+        {/* Font preloading handled by Next.js Google Fonts */}
+
         {/* DNS prefetching for performance */}
         <link rel="dns-prefetch" href="//fonts.googleapis.com" />
         <link rel="dns-prefetch" href="//fonts.gstatic.com" />
-        
+
         {/* Security headers */}
         <meta httpEquiv="X-Content-Type-Options" content="nosniff" />
         <meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
-        
+
         {/* PWA support */}
         <meta name="application-name" content="Strive" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -74,31 +68,28 @@ export default function RootLayout({
         <meta name="apple-mobile-web-app-title" content="Strive" />
         <meta name="format-detection" content="telephone=no" />
         <meta name="mobile-web-app-capable" content="yes" />
-        
+
         {/* Accessibility enhancements */}
         <meta name="color-scheme" content="light dark" />
       </head>
-      <body 
-        className={`${inter.className} antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
         {/* Skip to main content for keyboard users */}
         <SkipLink />
-        
+
         {/* Screen reader announcements */}
         <div id="announcement-region" aria-live="polite" aria-atomic="true" className="sr-only" />
-        
+
         <AnalyticsProvider>
           <Providers>
             <main id="main-content" tabIndex={-1}>
               {children}
             </main>
           </Providers>
-          
+
           {/* Cookie Consent */}
           <CookieConsent />
         </AnalyticsProvider>
-        
+
         {/* Accessibility styles are now in globals.css */}
       </body>
     </html>

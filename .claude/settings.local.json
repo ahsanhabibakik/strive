@@ -8,7 +8,17 @@
       "Bash(pnpm run:*)",
       "Bash(NODE_ENV=production pnpm build)",
       "Bash(NODE_ENV=production pnpm run build:next)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(pnpm dev:*)",
+      "Bash(next dev:*)",
+      "mcp__playwright__browser_navigate",
+      "mcp__playwright__browser_close",
+      "mcp__playwright__browser_take_screenshot",
+      "mcp__playwright__browser_click",
+      "mcp__playwright__browser_snapshot",
+      "mcp__playwright__browser_console_messages",
+      "mcp__playwright__browser_resize",
+      "Bash(curl:*)"
     ],
     "deny": [],
     "ask": [],
