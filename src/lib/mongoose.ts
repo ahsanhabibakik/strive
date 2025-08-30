@@ -1,5 +1,5 @@
-import mongoose from 'mongoose';
-import { logger } from './monitoring';
+import mongoose from "mongoose";
+import { logger } from "./monitoring";
 
 // Forward declarations to avoid circular dependencies
 interface DatabaseHealthMonitor {
@@ -47,68 +47,67 @@ interface DatabaseConfig {
 
 const MONGODB_URI = process.env.MONGODB_URI;
 const MONGODB_READ_URI = process.env.MONGODB_READ_URI || MONGODB_URI;
-const NODE_ENV = process.env.NODE_ENV || 'development';
+const NODE_ENV = process.env.NODE_ENV || "development";
 
 if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable');
+  throw new Error("Please define the MONGODB_URI environment variable");
 }
 
 // Advanced database configuration
 const dbConfig: DatabaseConfig = {
   primary: {
     uri: MONGODB_URI,
-    readReplicas: MONGODB_READ_URI ? MONGODB_READ_URI.split(',') : undefined,
+    readReplicas: MONGODB_READ_URI ? MONGODB_READ_URI.split(",") : undefined,
     writeReplicas: MONGODB_URI ? [MONGODB_URI] : [],
     options: {
       // Connection pooling optimization
-      maxPoolSize: NODE_ENV === 'production' ? 50 : 10,
-      minPoolSize: NODE_ENV === 'production' ? 5 : 2,
+      maxPoolSize: NODE_ENV === "production" ? 50 : 10,
+      minPoolSize: NODE_ENV === "production" ? 5 : 2,
       maxIdleTimeMS: 30000, // 30 seconds
       waitQueueTimeoutMS: 10000, // 10 seconds
       serverSelectionTimeoutMS: 10000, // 10 seconds
-      
+
       // Connection management
       bufferCommands: false,
-      bufferMaxEntries: 0,
       connectTimeoutMS: 10000,
       socketTimeoutMS: 45000,
-      
+
       // Replica set configuration
-      readPreference: 'primaryPreferred',
-      readConcern: { level: 'majority' },
-      writeConcern: { w: 'majority', j: true, wtimeout: 10000 },
-      
+      readPreference: "primaryPreferred",
+      readConcern: { level: "majority" },
+      writeConcern: { w: "majority", j: true, wtimeout: 10000 },
+
       // Heartbeat and monitoring
       heartbeatFrequencyMS: 10000,
-      
+
       // Compression
-      compressors: ['zlib'],
-      
+      compressors: ["zlib"],
+
       // Retry logic
       retryWrites: true,
       retryReads: true,
-    }
+    },
   },
   maxRetries: 5,
   retryInterval: 1000,
   healthCheckInterval: 30000, // 30 seconds
   poolConfig: {
-    maxPoolSize: NODE_ENV === 'production' ? 50 : 10,
-    minPoolSize: NODE_ENV === 'production' ? 5 : 2,
+    maxPoolSize: NODE_ENV === "production" ? 50 : 10,
+    minPoolSize: NODE_ENV === "production" ? 5 : 2,
     maxIdleTimeMS: 30000,
     waitQueueTimeoutMS: 10000,
     serverSelectionTimeoutMS: 10000,
-  }
+  },
 };
 
 let cached = global.mongoose;
 
 if (!cached) {
-  cached = global.mongoose = { 
-    conn: null, 
+  cached = global.mongoose = {
+    conn: null,
     promise: null,
     healthMonitor: undefined,
-    metrics: undefined
+    metrics: undefined,
   };
 }
 
@@ -116,50 +115,50 @@ if (!cached) {
 class ConnectionPoolMonitor {
   private static instance: ConnectionPoolMonitor;
   private metrics: Map<string, any> = new Map();
-  
+
   static getInstance(): ConnectionPoolMonitor {
     if (!ConnectionPoolMonitor.instance) {
       ConnectionPoolMonitor.instance = new ConnectionPoolMonitor();
     }
     return ConnectionPoolMonitor.instance;
   }
-  
+
   trackConnection(event: string, data: any = {}) {
     const timestamp = new Date().toISOString();
     const key = `${event}_${timestamp}`;
-    
+
     this.metrics.set(key, {
       event,
       timestamp,
-      ...data
+      ...data,
     });
-    
+
     // Keep only last 1000 metrics
     if (this.metrics.size > 1000) {
       const oldestKey = this.metrics.keys().next().value;
       this.metrics.delete(oldestKey);
     }
-    
+
     logger.debug(`Connection pool event: ${event}`, data);
   }
-  
+
   getMetrics(): Array<any> {
     return Array.from(this.metrics.values());
   }
-  
+
   getConnectionStats() {
     const now = Date.now();
-    const recentMetrics = this.getMetrics().filter(m => 
-      now - new Date(m.timestamp).getTime() < 300000 // last 5 minutes
+    const recentMetrics = this.getMetrics().filter(
+      m => now - new Date(m.timestamp).getTime() < 300000 // last 5 minutes
     );
-    
+
     return {
       totalEvents: recentMetrics.length,
-      connectionAttempts: recentMetrics.filter(m => m.event === 'connecting').length,
-      connectionSuccesses: recentMetrics.filter(m => m.event === 'connected').length,
-      connectionErrors: recentMetrics.filter(m => m.event === 'error').length,
-      disconnections: recentMetrics.filter(m => m.event === 'disconnected').length,
-      reconnections: recentMetrics.filter(m => m.event === 'reconnected').length,
+      connectionAttempts: recentMetrics.filter(m => m.event === "connecting").length,
+      connectionSuccesses: recentMetrics.filter(m => m.event === "connected").length,
+      connectionErrors: recentMetrics.filter(m => m.event === "error").length,
+      disconnections: recentMetrics.filter(m => m.event === "disconnected").length,
+      reconnections: recentMetrics.filter(m => m.event === "reconnected").length,
     };
   }
 }
@@ -172,23 +171,23 @@ export async function connectToDatabase(retryCount = 0): Promise<typeof mongoose
 
   if (!cached.promise) {
     const poolMonitor = ConnectionPoolMonitor.getInstance();
-    
+
     cached.promise = connectWithRetry(dbConfig, poolMonitor, retryCount)
-      .then((mongoose) => {
-        logger.info('Successfully connected to MongoDB', {
+      .then(mongoose => {
+        logger.info("Successfully connected to MongoDB", {
           poolSize: dbConfig.poolConfig.maxPoolSize,
-          environment: NODE_ENV
+          environment: NODE_ENV,
         });
-        
+
         // Health monitoring and metrics are initialized separately
         // through the DatabaseOptimizationSuite to avoid circular dependencies
-        
+
         return mongoose;
       })
-      .catch((error) => {
-        logger.error('MongoDB connection failed after all retries:', error, {
+      .catch(error => {
+        logger.error("MongoDB connection failed after all retries:", error, {
           retryCount,
-          maxRetries: dbConfig.maxRetries
+          maxRetries: dbConfig.maxRetries,
         });
         cached.promise = null;
         throw error;
@@ -207,59 +206,62 @@ export async function connectToDatabase(retryCount = 0): Promise<typeof mongoose
 
 // Connection with exponential backoff retry logic
 async function connectWithRetry(
-  config: DatabaseConfig, 
-  poolMonitor: ConnectionPoolMonitor, 
+  config: DatabaseConfig,
+  poolMonitor: ConnectionPoolMonitor,
   retryCount = 0
 ): Promise<typeof mongoose> {
   try {
-    poolMonitor.trackConnection('connecting', { retryCount });
-    
+    poolMonitor.trackConnection("connecting", { retryCount });
+
     // Setup connection event listeners
-    mongoose.connection.on('connecting', () => {
-      poolMonitor.trackConnection('connecting');
-      logger.debug('Connecting to MongoDB...');
+    mongoose.connection.on("connecting", () => {
+      poolMonitor.trackConnection("connecting");
+      logger.debug("Connecting to MongoDB...");
     });
-    
-    mongoose.connection.on('connected', () => {
-      poolMonitor.trackConnection('connected');
-      logger.info('Connected to MongoDB');
+
+    mongoose.connection.on("connected", () => {
+      poolMonitor.trackConnection("connected");
+      logger.info("Connected to MongoDB");
     });
-    
-    mongoose.connection.on('disconnected', () => {
-      poolMonitor.trackConnection('disconnected');
-      logger.warn('Disconnected from MongoDB');
+
+    mongoose.connection.on("disconnected", () => {
+      poolMonitor.trackConnection("disconnected");
+      logger.warn("Disconnected from MongoDB");
     });
-    
-    mongoose.connection.on('reconnected', () => {
-      poolMonitor.trackConnection('reconnected');
-      logger.info('Reconnected to MongoDB');
+
+    mongoose.connection.on("reconnected", () => {
+      poolMonitor.trackConnection("reconnected");
+      logger.info("Reconnected to MongoDB");
     });
-    
-    mongoose.connection.on('error', (error) => {
-      poolMonitor.trackConnection('error', { error: error.message });
-      logger.error('MongoDB connection error:', error);
+
+    mongoose.connection.on("error", error => {
+      poolMonitor.trackConnection("error", { error: error.message });
+      logger.error("MongoDB connection error:", error);
     });
-    
-    mongoose.connection.on('close', () => {
-      poolMonitor.trackConnection('close');
-      logger.warn('MongoDB connection closed');
+
+    mongoose.connection.on("close", () => {
+      poolMonitor.trackConnection("close");
+      logger.warn("MongoDB connection closed");
     });
-    
+
     const result = await mongoose.connect(config.primary.uri, config.primary.options);
-    poolMonitor.trackConnection('success', { retryCount });
-    
+    poolMonitor.trackConnection("success", { retryCount });
+
     return result;
   } catch (error) {
-    poolMonitor.trackConnection('error', { error: (error as Error).message, retryCount });
-    
+    poolMonitor.trackConnection("error", { error: (error as Error).message, retryCount });
+
     if (retryCount < config.maxRetries) {
       const delay = config.retryInterval * Math.pow(2, retryCount); // Exponential backoff
-      logger.warn(`MongoDB connection failed, retrying in ${delay}ms (attempt ${retryCount + 1}/${config.maxRetries})`, error);
-      
+      logger.warn(
+        `MongoDB connection failed, retrying in ${delay}ms (attempt ${retryCount + 1}/${config.maxRetries})`,
+        error
+      );
+
       await new Promise(resolve => setTimeout(resolve, delay));
       return connectWithRetry(config, poolMonitor, retryCount + 1);
     }
-    
+
     throw error;
   }
 }
@@ -296,16 +298,16 @@ export function getDatabaseHealth() {
 export async function disconnectFromDatabase(): Promise<void> {
   try {
     // Monitoring components are managed by DatabaseOptimizationSuite
-    
+
     if (mongoose.connection.readyState !== 0) {
       await mongoose.disconnect();
-      logger.info('Disconnected from MongoDB');
+      logger.info("Disconnected from MongoDB");
     }
-    
+
     cached.conn = null;
     cached.promise = null;
   } catch (error) {
-    logger.error('Error during database disconnect:', error);
+    logger.error("Error during database disconnect:", error);
     throw error;
   }
 }
