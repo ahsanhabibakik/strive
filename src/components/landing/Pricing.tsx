@@ -84,7 +84,7 @@ export function Pricing() {
                       : "text-indigo-600 ring-1 ring-inset ring-indigo-200 hover:ring-indigo-300",
                     "mt-8 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   )}
-                  variant={tier.featured ? "default" : "outline-solid"}
+                  variant={tier.featured ? "default" : "outline"}
                 >
                   {tier.cta}
                 </Button>
