@@ -112,7 +112,13 @@ function setupDevelopmentDatabase() {
 }
 
 function runPreStartChecks() {
-  log("\n🔍 Running pre-start checks...", colors.blue);
+  log("\n🔍 Running light pre-start checks...", colors.blue);
+  log("⚡ Skipping TypeScript and ESLint checks for faster development", colors.yellow);
+  log("💡 Use --full-checks flag or run 'pnpm run type-check' manually if needed", colors.cyan);
+}
+
+function runFullPreStartChecks() {
+  log("\n🔍 Running full pre-start checks...", colors.blue);
 
   // Quick type check
   try {
@@ -140,7 +146,7 @@ function startDevServer() {
   // Set development environment
   process.env.NODE_ENV = "development";
 
-  const devServer = spawn("pnpm", ["run", "dev"], {
+  const devServer = spawn("pnpm", ["run", "dev:next"], {
     stdio: "inherit",
     shell: true,
   });
@@ -228,7 +234,10 @@ async function main() {
       setupDevelopmentDatabase();
     }
 
-    if (!process.argv.includes("--skip-checks")) {
+    // Run light checks by default, use --full-checks for complete validation
+    if (process.argv.includes("--full-checks")) {
+      runFullPreStartChecks();
+    } else {
       runPreStartChecks();
     }
 
@@ -259,14 +268,14 @@ Usage: node scripts/dev.js [options]
 
 Options:
   --setup-db      Setup development database
-  --skip-checks   Skip pre-start type and lint checks
+  --full-checks   Run complete TypeScript and ESLint checks (slower)
   --monitor       Enable performance monitoring
   --help          Show this help message
 
 Examples:
-  node scripts/dev.js                    # Standard development start
+  node scripts/dev.js                    # Fast development start (recommended)
   node scripts/dev.js --setup-db         # Start with database setup
-  node scripts/dev.js --skip-checks      # Fast start, skip checks
+  node scripts/dev.js --full-checks      # Start with complete validation
   node scripts/dev.js --monitor          # Start with performance monitoring
 `);
 }
@@ -276,7 +285,7 @@ if (process.argv.includes("--help")) {
   process.exit(0);
 }
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run if called directly (fixed for Windows paths)
+if (process.argv[1] && import.meta.url.includes(process.argv[1].split("\\").pop())) {
   main();
 }
