@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+// import { Inter } from "next/font/google";
 import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { SkipLink } from "@/components/accessibility/SkipLink";
@@ -8,11 +8,11 @@ import { AnalyticsProvider } from "@/lib/analytics";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
 import { Navbar } from "@/components/layout/Navbar";
 
-const inter = Inter({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-inter",
-});
+// const inter = Inter({
+//   subsets: ["latin"],
+//   display: "swap",
+//   variable: "--font-inter",
+// });
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Strive - Achieve Your Goals",
@@ -50,7 +50,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
       <head>
         {/* Font preloading handled by Next.js Google Fonts */}
 
@@ -73,7 +73,7 @@ export default function RootLayout({
         {/* Accessibility enhancements */}
         <meta name="color-scheme" content="light dark" />
       </head>
-      <body className={`${inter.className} antialiased`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         {/* Skip to main content for keyboard users */}
         <SkipLink />
 

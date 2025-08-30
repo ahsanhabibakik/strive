@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import nodemailer from "nodemailer";
 import { Contact } from "@/lib/models/Contact";
-import { connectDB } from "@/lib/database/mongodb";
+import { connectToDatabase } from "@/lib/database/mongodb";
 
 // Validation schema
 const contactSchema = z.object({
@@ -44,7 +44,7 @@ export async function POST(request: NextRequest) {
     const { name, email, subject, message } = validationResult.data;
 
     // Connect to database
-    await connectDB();
+    await connectToDatabase();
 
     // Save to database
     const contactSubmission = new Contact({

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Contact } from "@/lib/models/Contact";
-import { connectDB } from "@/lib/database/mongodb";
+import { connectToDatabase } from "@/lib/database/mongodb";
 
 export async function GET(request: NextRequest) {
   try {
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get("limit") || "20");
     const skip = (page - 1) * limit;
 
-    await connectDB();
+    await connectToDatabase();
 
     let query = {};
     if (status && status !== "all") {

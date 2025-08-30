@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Contact } from "@/lib/models/Contact";
-import { connectDB } from "@/lib/database/mongodb";
+import { connectToDatabase } from "@/lib/database/mongodb";
 import { z } from "zod";
 
 const updateContactSchema = z.object({
@@ -12,7 +12,7 @@ const updateContactSchema = z.object({
 
 export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    await connectDB();
+    await connectToDatabase();
 
     const contact = await Contact.findById(params.id);
     if (!contact) {
@@ -38,7 +38,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
       );
     }
 
-    await connectDB();
+    await connectToDatabase();
 
     const contact = await Contact.findById(params.id);
     if (!contact) {
@@ -64,7 +64,7 @@ export async function PATCH(request: NextRequest, { params }: { params: { id: st
 
 export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
   try {
-    await connectDB();
+    await connectToDatabase();
 
     const contact = await Contact.findById(params.id);
     if (!contact) {
