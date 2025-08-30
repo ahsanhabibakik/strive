@@ -1,9 +1,11 @@
 import Link from "next/link";
-import { Calendar, MapPin, Users, Trophy, Clock, Bookmark } from "lucide-react";
+import { Calendar, MapPin, Users, Trophy, Clock, Bookmark, Heart, Sparkles } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { useBookmark } from "@/hooks/useBookmark";
 import { cn } from "@/lib/utils";
+import { useState } from "react";
 
 interface OpportunityCardProps {
   opportunity: {
@@ -50,6 +52,9 @@ export function OpportunityCard({
   isBookmarked = false,
   className,
 }: OpportunityCardProps) {
+  const { isBookmarked: hookBookmarked, isLoading: bookmarkLoading, toggleBookmark } = useBookmark(opportunity._id);
+  const [showBookmarkAnimation, setShowBookmarkAnimation] = useState(false);
+  const [isHovered, setIsHovered] = useState(false);
   const {
     _id,
     title,
@@ -109,11 +114,21 @@ export function OpportunityCard({
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
 
     if (diffDays < 0) return "Deadline passed";
-    if (diffDays === 0) return "Due today";
-    if (diffDays === 1) return "Due tomorrow";
-    if (diffDays < 7) return `${diffDays} days left`;
-    if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks left`;
-    return `${Math.ceil(diffDays / 30)} months left`;
+    if (diffDays === 0) return "Due today! ⚡";
+    if (diffDays === 1) return "Due tomorrow! 🔥";
+    if (diffDays < 3) return `${diffDays} days left 🚨`;
+    if (diffDays < 7) return `${diffDays} days left ⏰`;
+    if (diffDays < 30) return `${Math.ceil(diffDays / 7)} weeks left 📅`;
+    return `${Math.ceil(diffDays / 30)} months left 🗓️`;
+  };
+
+  const handleBookmarkClick = async (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (!hookBookmarked) {
+      setShowBookmarkAnimation(true);
+      setTimeout(() => setShowBookmarkAnimation(false), 600);
+    }
+    await toggleBookmark();
   };
 
   const getUrgencyColor = (daysLeft?: number) => {
@@ -135,18 +150,46 @@ export function OpportunityCard({
   return (
     <Card
       className={cn(
-        "group hover:shadow-lg transition-all duration-300 border-0 shadow-sm hover:shadow-xl hover:-translate-y-1",
-        isFeatured && "ring-2 ring-orange-200 bg-orange-50/30",
+        "group hover:shadow-lg transition-all duration-300 border-0 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] relative overflow-hidden",
+        isFeatured && "ring-2 ring-orange-200 bg-gradient-to-br from-orange-50/50 to-orange-100/30",
+        isHovered && "shadow-2xl",
         className
       )}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
     >
+      {/* Sparkle animation for featured */}
+      {isFeatured && isHovered && (
+        <div className="absolute top-2 right-2 animate-pulse">
+          <Sparkles className="h-4 w-4 text-orange-400 animate-bounce" />
+        </div>
+      )}
+      
+      {/* Bookmark celebration animation */}
+      {showBookmarkAnimation && (
+        <div className="absolute inset-0 pointer-events-none z-10">
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <Heart className="h-8 w-8 text-red-500 animate-ping" />
+          </div>
+          <div className="absolute top-1/4 left-1/4 animate-bounce delay-100">
+            <div className="w-2 h-2 bg-pink-400 rounded-full" />
+          </div>
+          <div className="absolute top-1/3 right-1/4 animate-bounce delay-200">
+            <div className="w-2 h-2 bg-purple-400 rounded-full" />
+          </div>
+          <div className="absolute bottom-1/3 left-1/3 animate-bounce delay-300">
+            <div className="w-2 h-2 bg-blue-400 rounded-full" />
+          </div>
+        </div>
+      )}
       {bannerUrl && (
         <div className="relative h-48 overflow-hidden rounded-t-lg">
           <img
             src={bannerUrl}
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
           />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {isFeatured && (
             <Badge className="absolute top-3 left-3 bg-orange-500 hover:bg-orange-600">
               Featured
@@ -156,15 +199,24 @@ export function OpportunityCard({
             variant="ghost"
             size="sm"
             className={cn(
-              "absolute top-3 right-3 bg-white/80 backdrop-blur-sm hover:bg-white transition-colors",
-              isBookmarked && "text-orange-600"
+              "absolute top-3 right-3 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-110 transition-all duration-200",
+              hookBookmarked && "text-orange-600 bg-orange-50/90",
+              bookmarkLoading && "animate-pulse"
             )}
-            onClick={e => {
-              e.preventDefault();
-              onBookmark?.(opportunity._id);
-            }}
+            onClick={handleBookmarkClick}
+            disabled={bookmarkLoading}
           >
-            <Bookmark className="h-4 w-4" fill={isBookmarked ? "currentColor" : "none"} />
+            {bookmarkLoading ? (
+              <div className="h-4 w-4 animate-spin border-2 border-current border-t-transparent rounded-full" />
+            ) : (
+              <Bookmark 
+                className={cn(
+                  "h-4 w-4 transition-all duration-200",
+                  hookBookmarked && "fill-current animate-bounce"
+                )} 
+                fill={hookBookmarked ? "currentColor" : "none"} 
+              />
+            )}
           </Button>
         </div>
       )}
@@ -189,8 +241,11 @@ export function OpportunityCard({
               )}
             </div>
             <Link href={`/opportunities/${slug}`} className="group">
-              <h3 className="font-semibold text-lg leading-tight group-hover:text-orange-600 transition-colors line-clamp-2">
+              <h3 className="font-semibold text-lg leading-tight group-hover:text-orange-600 transition-all duration-200 group-hover:translate-x-1 line-clamp-2">
                 {title}
+                {isHovered && (
+                  <span className="ml-1 inline-block animate-bounce">✨</span>
+                )}
               </h3>
             </Link>
             <p className="text-sm text-gray-600 mt-1">{organizerName}</p>
@@ -210,15 +265,22 @@ export function OpportunityCard({
       <CardContent className="pb-4">
         <p className="text-sm text-gray-700 line-clamp-3 mb-4">{description}</p>
 
-        <div className="space-y-2 text-sm text-gray-600">
-          <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 flex-shrink-0" />
+        <div className="space-y-3 text-sm text-gray-600">
+          <div className="flex items-center gap-2 group/location hover:text-blue-600 transition-colors">
+            <MapPin className="h-4 w-4 flex-shrink-0 group-hover/location:animate-bounce" />
             <span className="truncate">{location}</span>
           </div>
 
-          <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 flex-shrink-0" />
-            <span className={cn("font-medium", getUrgencyColor(daysUntilDeadline))}>
+          <div className="flex items-center gap-2 group/deadline">
+            <Calendar className={cn(
+              "h-4 w-4 flex-shrink-0",
+              daysUntilDeadline && daysUntilDeadline <= 3 && "animate-pulse text-red-500"
+            )} />
+            <span className={cn(
+              "font-medium transition-all duration-200",
+              getUrgencyColor(daysUntilDeadline),
+              daysUntilDeadline && daysUntilDeadline <= 1 && "animate-pulse"
+            )}>
               {formatDeadline(applicationDeadline)}
             </span>
           </div>
@@ -237,12 +299,12 @@ export function OpportunityCard({
           </div>
 
           {topPrize && (
-            <div className="flex items-center gap-2 text-green-700">
-              <Trophy className="h-4 w-4 flex-shrink-0" />
+            <div className="flex items-center gap-2 text-green-700 group/prize hover:text-green-600 transition-colors">
+              <Trophy className="h-4 w-4 flex-shrink-0 group-hover/prize:animate-bounce group-hover/prize:text-yellow-500" />
               <span className="text-xs font-medium truncate">
                 {topPrize.amount
-                  ? `${currency || "USD"} ${topPrize.amount.toLocaleString()}`
-                  : topPrize.description}
+                  ? `${currency || "USD"} ${topPrize.amount.toLocaleString()} 💰`
+                  : `${topPrize.description} 🏆`}
               </span>
             </div>
           )}
@@ -274,8 +336,14 @@ export function OpportunityCard({
           <span>{submissionCount} applications</span>
         </div>
         <Link href={`/opportunities/${slug}`}>
-          <Button size="sm" className="bg-orange-600 hover:bg-orange-700 text-white">
-            Apply Now
+          <Button 
+            size="sm" 
+            className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white hover:scale-105 hover:shadow-lg transition-all duration-200 group/apply"
+          >
+            <span className="group-hover/apply:animate-pulse">Apply Now</span>
+            {isHovered && (
+              <span className="ml-1 animate-bounce">🚀</span>
+            )}
           </Button>
         </Link>
       </CardFooter>

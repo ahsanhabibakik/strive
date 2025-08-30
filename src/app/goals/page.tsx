@@ -11,8 +11,7 @@ import { PlusIcon, ChartBarIcon, TargetIcon, TrophyIcon } from "@heroicons/react
 
 export const metadata = {
   title: "Goals - Strive",
-  description:
-    "Set, track, and achieve your personal and professional goals with data-driven insights.",
+  description: "Set, track, and achieve your personal and professional goals with data-driven insights.",
 };
 
 export default async function GoalsPage() {
@@ -26,7 +25,9 @@ export default async function GoalsPage() {
     <div className="min-h-screen bg-gray-50">
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-gray-900 mb-2">My Goals 🎯</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-2">
+            My Goals 🎯
+          </h1>
           <p className="text-gray-600">
             Set SMART goals, track your progress, and celebrate your achievements.
           </p>

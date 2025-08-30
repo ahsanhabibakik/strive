@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Progress } from "@/components/ui/progress";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useState, useEffect, useMemo } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Progress } from '@/components/ui/progress';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import {
   LineChart,
   Line,
@@ -19,8 +19,8 @@ import {
   PieChart,
   Pie,
   Cell,
-  Legend,
-} from "recharts";
+  Legend
+} from 'recharts';
 import {
   TrendingUp,
   TrendingDown,
@@ -34,12 +34,12 @@ import {
   Brain,
   AlertTriangle,
   CheckCircle2,
-  Plus,
-} from "lucide-react";
+  Plus
+} from 'lucide-react';
 
 interface ProgressEntry {
   _id: string;
-  type: "milestone" | "update" | "setback" | "achievement";
+  type: 'milestone' | 'update' | 'setback' | 'achievement';
   title: string;
   currentValue: number;
   previousValue: number;
@@ -49,7 +49,7 @@ interface ProgressEntry {
   difficulty: 1 | 2 | 3 | 4 | 5;
   confidence: 1 | 2 | 3 | 4 | 5;
   motivation: 1 | 2 | 3 | 4 | 5;
-  mood: "excellent" | "good" | "neutral" | "poor" | "terrible";
+  mood: 'excellent' | 'good' | 'neutral' | 'poor' | 'terrible';
   timeSpent?: number;
   notes?: string;
 }
@@ -95,7 +95,7 @@ interface Goal {
     startDate: string;
     endDate: string;
   };
-  status: "draft" | "active" | "completed" | "paused" | "cancelled";
+  status: 'draft' | 'active' | 'completed' | 'paused' | 'cancelled';
 }
 
 interface ProgressTrackerProps {
@@ -108,19 +108,19 @@ interface ProgressTrackerProps {
 }
 
 const moodColors = {
-  excellent: "#10B981",
-  good: "#3B82F6",
-  neutral: "#6B7280",
-  poor: "#F59E0B",
-  terrible: "#EF4444",
+  excellent: '#10B981',
+  good: '#3B82F6',
+  neutral: '#6B7280',
+  poor: '#F59E0B',
+  terrible: '#EF4444'
 };
 
 const moodIcons = {
-  excellent: "😄",
-  good: "😊",
-  neutral: "😐",
-  poor: "😔",
-  terrible: "😢",
+  excellent: '😄',
+  good: '😊',
+  neutral: '😐',
+  poor: '😔',
+  terrible: '😢'
 };
 
 export function ProgressTracker({
@@ -129,19 +129,19 @@ export function ProgressTracker({
   analytics,
   onAddProgress,
   onUpdateGoal,
-  isLoading = false,
+  isLoading = false
 }: ProgressTrackerProps) {
-  const [selectedTimeframe, setSelectedTimeframe] = useState("30");
+  const [selectedTimeframe, setSelectedTimeframe] = useState('30');
 
   // Prepare chart data
   const progressChartData = useMemo(() => {
     return analytics.trends.map(trend => ({
-      date: new Date(trend._id).toLocaleDateString("en-US", { month: "short", day: "numeric" }),
+      date: new Date(trend._id).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
       progress: Math.round(trend.averageProgress),
       confidence: trend.averageConfidence,
       motivation: trend.averageMotivation,
       difficulty: trend.averageDifficulty,
-      timeSpent: trend.totalTimeSpent || 0,
+      timeSpent: trend.totalTimeSpent || 0
     }));
   }, [analytics.trends]);
 
@@ -149,17 +149,16 @@ export function ProgressTracker({
     return analytics.mood.map(mood => ({
       name: mood._id,
       value: mood.count,
-      color: moodColors[mood._id as keyof typeof moodColors],
+      color: moodColors[mood._id as keyof typeof moodColors]
     }));
   }, [analytics.mood]);
 
   // Calculate streaks and achievements
   const currentStreak = useMemo(() => {
     let streak = 0;
-    const sortedEntries = [...progressEntries].sort(
-      (a, b) => new Date(b.dateRecorded).getTime() - new Date(a.dateRecorded).getTime()
-    );
-
+    const sortedEntries = [...progressEntries]
+      .sort((a, b) => new Date(b.dateRecorded).getTime() - new Date(a.dateRecorded).getTime());
+    
     for (const entry of sortedEntries) {
       if (entry.changeAmount > 0) {
         streak++;
@@ -173,36 +172,31 @@ export function ProgressTracker({
   const timeToTarget = useMemo(() => {
     const remaining = goal.measurable.targetValue - goal.measurable.currentValue;
     if (remaining <= 0) return 0;
-
+    
     const recentEntries = progressEntries.slice(-5);
     if (recentEntries.length === 0) return null;
-
-    const averageProgress =
-      recentEntries.reduce((sum, entry) => sum + entry.changeAmount, 0) / recentEntries.length;
+    
+    const averageProgress = recentEntries.reduce((sum, entry) => sum + entry.changeAmount, 0) / recentEntries.length;
     if (averageProgress <= 0) return null;
-
+    
     return Math.ceil(remaining / averageProgress);
   }, [goal, progressEntries]);
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit",
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
     });
   };
 
   const getProgressIcon = (type: string) => {
     switch (type) {
-      case "milestone":
-        return <Award className="h-4 w-4 text-yellow-500" />;
-      case "achievement":
-        return <CheckCircle2 className="h-4 w-4 text-green-500" />;
-      case "setback":
-        return <AlertTriangle className="h-4 w-4 text-red-500" />;
-      default:
-        return <Activity className="h-4 w-4 text-blue-500" />;
+      case 'milestone': return <Award className="h-4 w-4 text-yellow-500" />;
+      case 'achievement': return <CheckCircle2 className="h-4 w-4 text-green-500" />;
+      case 'setback': return <AlertTriangle className="h-4 w-4 text-red-500" />;
+      default: return <Activity className="h-4 w-4 text-blue-500" />;
     }
   };
 
@@ -257,7 +251,7 @@ export function ProgressTracker({
               <div>
                 <p className="text-sm font-medium text-gray-600">Est. Completion</p>
                 <p className="text-2xl font-bold text-orange-600">
-                  {timeToTarget ? `${timeToTarget} days` : "—"}
+                  {timeToTarget ? `${timeToTarget} days` : '—'}
                 </p>
               </div>
               <Calendar className="h-8 w-8 text-orange-500" />
@@ -296,18 +290,18 @@ export function ProgressTracker({
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="date" />
                     <YAxis />
-                    <Tooltip
+                    <Tooltip 
                       formatter={(value, name) => [
-                        `${value} ${goal.measurable.unit}`,
-                        name === "progress" ? "Progress" : name,
+                        `${value} ${goal.measurable.unit}`, 
+                        name === 'progress' ? 'Progress' : name
                       ]}
                     />
-                    <Line
-                      type="monotone"
-                      dataKey="progress"
-                      stroke="#3B82F6"
+                    <Line 
+                      type="monotone" 
+                      dataKey="progress" 
+                      stroke="#3B82F6" 
                       strokeWidth={2}
-                      dot={{ fill: "#3B82F6", strokeWidth: 2, r: 4 }}
+                      dot={{ fill: '#3B82F6', strokeWidth: 2, r: 4 }}
                     />
                   </LineChart>
                 </ResponsiveContainer>
@@ -380,7 +374,10 @@ export function ProgressTracker({
                     <div key={mood} className="flex items-center gap-2">
                       <div className="flex items-center gap-1">
                         <span>{moodIcons[mood as keyof typeof moodIcons]}</span>
-                        <div className="w-3 h-3 rounded-full" style={{ backgroundColor: color }} />
+                        <div 
+                          className="w-3 h-3 rounded-full" 
+                          style={{ backgroundColor: color }}
+                        />
                       </div>
                       <span className="text-sm capitalize">{mood}</span>
                     </div>
@@ -400,11 +397,7 @@ export function ProgressTracker({
                     <div className="flex items-center justify-between p-2 bg-green-50 rounded">
                       <span className="text-sm">Improvement Rate</span>
                       <Badge variant="secondary">
-                        {Math.round(
-                          (analytics.summary.improvementEntries / analytics.summary.totalEntries) *
-                            100
-                        )}
-                        %
+                        {Math.round((analytics.summary.improvementEntries / analytics.summary.totalEntries) * 100)}%
                       </Badge>
                     </div>
                     <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
@@ -415,7 +408,9 @@ export function ProgressTracker({
                     </div>
                     <div className="flex items-center justify-between p-2 bg-purple-50 rounded">
                       <span className="text-sm">Consistency</span>
-                      <Badge variant="secondary">{analytics.summary.totalEntries} entries</Badge>
+                      <Badge variant="secondary">
+                        {analytics.summary.totalEntries} entries
+                      </Badge>
                     </div>
                   </div>
                 </div>
@@ -428,26 +423,22 @@ export function ProgressTracker({
                   <div className="space-y-2 text-sm text-gray-600">
                     {analytics.summary.averageMotivation < 3 && (
                       <div className="p-2 bg-yellow-50 rounded border-l-4 border-yellow-400">
-                        Consider finding ways to increase motivation - perhaps break down the goal
-                        into smaller, more exciting milestones.
+                        Consider finding ways to increase motivation - perhaps break down the goal into smaller, more exciting milestones.
                       </div>
                     )}
                     {analytics.summary.averageDifficulty > 4 && (
                       <div className="p-2 bg-orange-50 rounded border-l-4 border-orange-400">
-                        The difficulty level seems high. Consider simplifying your approach or
-                        seeking additional resources/support.
+                        The difficulty level seems high. Consider simplifying your approach or seeking additional resources/support.
                       </div>
                     )}
                     {currentStreak >= 3 && (
                       <div className="p-2 bg-green-50 rounded border-l-4 border-green-400">
-                        Great momentum! You're on a {currentStreak}-day improvement streak. Keep it
-                        up!
+                        Great momentum! You're on a {currentStreak}-day improvement streak. Keep it up!
                       </div>
                     )}
                     {analytics.summary.setbackEntries > analytics.summary.improvementEntries && (
                       <div className="p-2 bg-red-50 rounded border-l-4 border-red-400">
-                        You've had more setbacks than improvements recently. Consider adjusting your
-                        strategy or timeline.
+                        You've had more setbacks than improvements recently. Consider adjusting your strategy or timeline.
                       </div>
                     )}
                   </div>
@@ -465,21 +456,21 @@ export function ProgressTracker({
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
-            {progressEntries.slice(0, 5).map(entry => (
+            {progressEntries.slice(0, 5).map((entry) => (
               <div key={entry._id} className="flex items-start gap-3 p-3 border rounded-lg">
-                <div className="flex-shrink-0 mt-0.5">{getProgressIcon(entry.type)}</div>
+                <div className="flex-shrink-0 mt-0.5">
+                  {getProgressIcon(entry.type)}
+                </div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="font-medium text-sm">{entry.title}</h4>
-                    <Badge
-                      variant={entry.changeAmount > 0 ? "default" : "destructive"}
-                      className="text-xs"
-                    >
-                      {entry.changeAmount > 0 ? "+" : ""}
-                      {entry.changeAmount} {goal.measurable.unit}
+                    <Badge variant={entry.changeAmount > 0 ? 'default' : 'destructive'} className="text-xs">
+                      {entry.changeAmount > 0 ? '+' : ''}{entry.changeAmount} {goal.measurable.unit}
                     </Badge>
                   </div>
-                  {entry.notes && <p className="text-sm text-gray-600 mb-2">{entry.notes}</p>}
+                  {entry.notes && (
+                    <p className="text-sm text-gray-600 mb-2">{entry.notes}</p>
+                  )}
                   <div className="flex items-center gap-4 text-xs text-gray-500">
                     <span>{formatDate(entry.dateRecorded)}</span>
                     <span className="flex items-center gap-1">
@@ -490,20 +481,23 @@ export function ProgressTracker({
                       <Brain className="h-3 w-3" />
                       {entry.confidence}/5
                     </span>
-                    <span>
-                      {moodIcons[entry.mood]} {entry.mood}
-                    </span>
+                    <span>{moodIcons[entry.mood]} {entry.mood}</span>
                   </div>
                 </div>
               </div>
             ))}
-
+            
             {progressEntries.length === 0 && (
               <div className="text-center py-8 text-gray-500">
                 <Activity className="h-12 w-12 mx-auto mb-3 opacity-50" />
                 <p className="text-sm">No progress entries yet.</p>
                 {onAddProgress && (
-                  <Button onClick={onAddProgress} variant="outline" size="sm" className="mt-3">
+                  <Button
+                    onClick={onAddProgress}
+                    variant="outline"
+                    size="sm"
+                    className="mt-3"
+                  >
                     Log Your First Progress
                   </Button>
                 )}

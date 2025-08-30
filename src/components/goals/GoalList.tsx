@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import { useState, useEffect, useCallback, useMemo } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { useState, useEffect, useCallback, useMemo } from 'react';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Badge } from '@/components/ui/badge';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select";
-import { GoalCard } from "./GoalCard";
-import {
-  Search,
-  Filter,
-  SortAsc,
-  SortDesc,
+} from '@/components/ui/select';
+import { GoalCard } from './GoalCard';
+import { 
+  Search, 
+  Filter, 
+  SortAsc, 
+  SortDesc, 
   Plus,
   Grid3X3,
   List,
   Target,
-  TrendingUp,
-} from "lucide-react";
+  TrendingUp
+} from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -31,22 +31,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+} from '@/components/ui/dropdown-menu';
 
 interface Goal {
   _id: string;
   title: string;
   description?: string;
-  category:
-    | "personal"
-    | "professional"
-    | "health"
-    | "financial"
-    | "education"
-    | "relationships"
-    | "other";
-  priority: "low" | "medium" | "high" | "critical";
-  status: "draft" | "active" | "completed" | "paused" | "cancelled";
+  category: 'personal' | 'professional' | 'health' | 'financial' | 'education' | 'relationships' | 'other';
+  priority: 'low' | 'medium' | 'high' | 'critical';
+  status: 'draft' | 'active' | 'completed' | 'paused' | 'cancelled';
   measurable: {
     metric: string;
     targetValue: number;
@@ -72,61 +65,68 @@ interface Goal {
 }
 
 interface GoalListProps {
-  status: "active" | "completed" | "all";
+  status: 'active' | 'completed' | 'all';
 }
 
-type SortField =
-  | "title"
-  | "createdAt"
-  | "lastUpdated"
-  | "progressPercentage"
-  | "priority"
-  | "daysRemaining";
-type SortOrder = "asc" | "desc";
-type ViewMode = "grid" | "list";
+type SortField = 'title' | 'createdAt' | 'lastUpdated' | 'progressPercentage' | 'priority' | 'daysRemaining';
+type SortOrder = 'asc' | 'desc';
+type ViewMode = 'grid' | 'list';
 
 const categories = [
-  "all",
-  "personal",
-  "professional",
-  "health",
-  "financial",
-  "education",
-  "relationships",
-  "other",
+  'all',
+  'personal',
+  'professional', 
+  'health',
+  'financial',
+  'education',
+  'relationships',
+  'other'
 ];
 
-const statuses = ["all", "draft", "active", "completed", "paused", "cancelled"];
+const statuses = [
+  'all',
+  'draft',
+  'active',
+  'completed',
+  'paused',
+  'cancelled'
+];
 
-const priorities = ["all", "low", "medium", "high", "critical"];
+const priorities = [
+  'all',
+  'low',
+  'medium',
+  'high',
+  'critical'
+];
 
 export function GoalList({ status }: GoalListProps) {
   const [goals, setGoals] = useState<Goal[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
-  const [selectedPriority, setSelectedPriority] = useState("all");
-  const [sortField, setSortField] = useState<SortField>("lastUpdated");
-  const [sortOrder, setSortOrder] = useState<SortOrder>("desc");
-  const [viewMode, setViewMode] = useState<ViewMode>("grid");
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [selectedPriority, setSelectedPriority] = useState('all');
+  const [sortField, setSortField] = useState<SortField>('lastUpdated');
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
+  const [viewMode, setViewMode] = useState<ViewMode>('grid');
 
   useEffect(() => {
     const fetchGoals = async () => {
       try {
         setIsLoading(true);
-        const response = await fetch("/api/goals");
+        const response = await fetch('/api/goals');
         if (response.ok) {
           const data = await response.json();
           let filteredGoals = data.goals || [];
-
-          if (status !== "all") {
+          
+          if (status !== 'all') {
             filteredGoals = filteredGoals.filter((goal: Goal) => goal.status === status);
           }
-
+          
           setGoals(filteredGoals);
         }
       } catch (error) {
-        console.error("Error fetching goals:", error);
+        console.error('Error fetching goals:', error);
       } finally {
         setIsLoading(false);
       }
@@ -141,22 +141,23 @@ export function GoalList({ status }: GoalListProps) {
       // Search filter
       if (searchTerm) {
         const searchLower = searchTerm.toLowerCase();
-        const matchesSearch =
+        const matchesSearch = 
           goal.title.toLowerCase().includes(searchLower) ||
           goal.description?.toLowerCase().includes(searchLower) ||
           goal.measurable.metric.toLowerCase().includes(searchLower) ||
           goal.tags.some(tag => tag.toLowerCase().includes(searchLower));
-
+        
         if (!matchesSearch) return false;
       }
 
       // Category filter
-      if (selectedCategory !== "all" && goal.category !== selectedCategory) {
+      if (selectedCategory !== 'all' && goal.category !== selectedCategory) {
         return false;
       }
 
+
       // Priority filter
-      if (selectedPriority !== "all" && goal.priority !== selectedPriority) {
+      if (selectedPriority !== 'all' && goal.priority !== selectedPriority) {
         return false;
       }
 
@@ -169,28 +170,28 @@ export function GoalList({ status }: GoalListProps) {
       let bValue: any;
 
       switch (sortField) {
-        case "title":
+        case 'title':
           aValue = a.title.toLowerCase();
           bValue = b.title.toLowerCase();
           break;
-        case "createdAt":
+        case 'createdAt':
           aValue = new Date(a.createdAt).getTime();
           bValue = new Date(b.createdAt).getTime();
           break;
-        case "lastUpdated":
+        case 'lastUpdated':
           aValue = new Date(a.lastUpdated).getTime();
           bValue = new Date(b.lastUpdated).getTime();
           break;
-        case "progressPercentage":
+        case 'progressPercentage':
           aValue = a.progressPercentage;
           bValue = b.progressPercentage;
           break;
-        case "priority":
+        case 'priority':
           const priorityOrder = { critical: 4, high: 3, medium: 2, low: 1 };
           aValue = priorityOrder[a.priority];
           bValue = priorityOrder[b.priority];
           break;
-        case "daysRemaining":
+        case 'daysRemaining':
           aValue = a.daysRemaining ?? Infinity;
           bValue = b.daysRemaining ?? Infinity;
           break;
@@ -199,8 +200,8 @@ export function GoalList({ status }: GoalListProps) {
           bValue = b.lastUpdated;
       }
 
-      if (aValue < bValue) return sortOrder === "asc" ? -1 : 1;
-      if (aValue > bValue) return sortOrder === "asc" ? 1 : -1;
+      if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+      if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
       return 0;
     });
 
@@ -209,40 +210,36 @@ export function GoalList({ status }: GoalListProps) {
 
   const handleSortChange = (field: SortField) => {
     if (sortField === field) {
-      setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+      setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     } else {
       setSortField(field);
-      setSortOrder("desc");
+      setSortOrder('desc');
     }
   };
 
   const clearFilters = () => {
-    setSearchTerm("");
-    setSelectedCategory("all");
-    setSelectedPriority("all");
+    setSearchTerm('');
+    setSelectedCategory('all');
+    setSelectedPriority('all');
   };
 
   const getActiveFiltersCount = () => {
     let count = 0;
     if (searchTerm) count++;
-    if (selectedCategory !== "all") count++;
-    if (selectedPriority !== "all") count++;
+    if (selectedCategory !== 'all') count++;
+    if (selectedPriority !== 'all') count++;
     return count;
   };
 
   const getSummaryStats = () => {
     const stats = {
       total: filteredAndSortedGoals.length,
-      active: filteredAndSortedGoals.filter(g => g.status === "active").length,
-      completed: filteredAndSortedGoals.filter(g => g.status === "completed").length,
+      active: filteredAndSortedGoals.filter(g => g.status === 'active').length,
+      completed: filteredAndSortedGoals.filter(g => g.status === 'completed').length,
       overdue: filteredAndSortedGoals.filter(g => g.isOverdue).length,
-      averageProgress:
-        filteredAndSortedGoals.length > 0
-          ? Math.round(
-              filteredAndSortedGoals.reduce((sum, g) => sum + g.progressPercentage, 0) /
-                filteredAndSortedGoals.length
-            )
-          : 0,
+      averageProgress: filteredAndSortedGoals.length > 0 
+        ? Math.round(filteredAndSortedGoals.reduce((sum, g) => sum + g.progressPercentage, 0) / filteredAndSortedGoals.length)
+        : 0
     };
     return stats;
   };
@@ -297,9 +294,9 @@ export function GoalList({ status }: GoalListProps) {
           <Button
             variant="outline"
             size="sm"
-            onClick={() => setViewMode(viewMode === "grid" ? "list" : "grid")}
+            onClick={() => setViewMode(viewMode === 'grid' ? 'list' : 'grid')}
           >
-            {viewMode === "grid" ? <List className="h-4 w-4" /> : <Grid3X3 className="h-4 w-4" />}
+            {viewMode === 'grid' ? <List className="h-4 w-4" /> : <Grid3X3 className="h-4 w-4" />}
           </Button>
         </div>
       </div>
@@ -315,7 +312,7 @@ export function GoalList({ status }: GoalListProps) {
                 <Input
                   placeholder="Search goals, metrics, or tags..."
                   value={searchTerm}
-                  onChange={e => setSearchTerm(e.target.value)}
+                  onChange={(e) => setSearchTerm(e.target.value)}
                   className="pl-10"
                 />
               </div>
@@ -330,13 +327,12 @@ export function GoalList({ status }: GoalListProps) {
                 <SelectContent>
                   {categories.map(category => (
                     <SelectItem key={category} value={category}>
-                      {category === "all"
-                        ? "All Categories"
-                        : category.charAt(0).toUpperCase() + category.slice(1)}
+                      {category === 'all' ? 'All Categories' : category.charAt(0).toUpperCase() + category.slice(1)}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
+
 
               <Select value={selectedPriority} onValueChange={setSelectedPriority}>
                 <SelectTrigger className="w-28">
@@ -345,9 +341,7 @@ export function GoalList({ status }: GoalListProps) {
                 <SelectContent>
                   {priorities.map(priority => (
                     <SelectItem key={priority} value={priority}>
-                      {priority === "all"
-                        ? "All Priority"
-                        : priority.charAt(0).toUpperCase() + priority.slice(1)}
+                      {priority === 'all' ? 'All Priority' : priority.charAt(0).toUpperCase() + priority.slice(1)}
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -357,36 +351,30 @@ export function GoalList({ status }: GoalListProps) {
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm">
-                    {sortOrder === "asc" ? (
-                      <SortAsc className="h-4 w-4 mr-2" />
-                    ) : (
-                      <SortDesc className="h-4 w-4 mr-2" />
-                    )}
+                    {sortOrder === 'asc' ? <SortAsc className="h-4 w-4 mr-2" /> : <SortDesc className="h-4 w-4 mr-2" />}
                     Sort
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent>
                   <DropdownMenuLabel>Sort by</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem onClick={() => handleSortChange("lastUpdated")}>
-                    Last Updated {sortField === "lastUpdated" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('lastUpdated')}>
+                    Last Updated {sortField === 'lastUpdated' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("createdAt")}>
-                    Created Date {sortField === "createdAt" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('createdAt')}>
+                    Created Date {sortField === 'createdAt' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("progressPercentage")}>
-                    Progress{" "}
-                    {sortField === "progressPercentage" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('progressPercentage')}>
+                    Progress {sortField === 'progressPercentage' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("priority")}>
-                    Priority {sortField === "priority" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('priority')}>
+                    Priority {sortField === 'priority' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("daysRemaining")}>
-                    Days Remaining{" "}
-                    {sortField === "daysRemaining" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('daysRemaining')}>
+                    Days Remaining {sortField === 'daysRemaining' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleSortChange("title")}>
-                    Title {sortField === "title" && (sortOrder === "asc" ? "↑" : "↓")}
+                  <DropdownMenuItem onClick={() => handleSortChange('title')}>
+                    Title {sortField === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -412,12 +400,13 @@ export function GoalList({ status }: GoalListProps) {
           <CardContent className="p-8 text-center">
             <Target className="h-12 w-12 mx-auto text-gray-400 mb-4" />
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              {goals.length === 0 ? "No goals yet" : "No goals match your filters"}
+              {goals.length === 0 ? 'No goals yet' : 'No goals match your filters'}
             </h3>
             <p className="text-gray-600 mb-4">
-              {goals.length === 0
+              {goals.length === 0 
                 ? "Get started by creating your first goal. Break down your aspirations into achievable, measurable objectives."
-                : "Try adjusting your search terms or filters to find what you're looking for."}
+                : "Try adjusting your search terms or filters to find what you're looking for."
+              }
             </p>
             {goals.length > 0 && (
               <Button variant="outline" onClick={clearFilters}>
@@ -427,15 +416,16 @@ export function GoalList({ status }: GoalListProps) {
           </CardContent>
         </Card>
       ) : (
-        <div
-          className={
-            viewMode === "grid"
-              ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4"
-              : "space-y-4"
-          }
-        >
-          {filteredAndSortedGoals.map(goal => (
-            <GoalCard key={goal._id} goal={goal} compact={viewMode === "list"} />
+        <div className={viewMode === 'grid' 
+          ? "grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4" 
+          : "space-y-4"
+        }>
+          {filteredAndSortedGoals.map((goal) => (
+            <GoalCard
+              key={goal._id}
+              goal={goal}
+              compact={viewMode === 'list'}
+            />
           ))}
         </div>
       )}

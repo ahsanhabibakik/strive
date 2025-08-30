@@ -39,7 +39,10 @@ export async function POST(request: NextRequest) {
     // Verify current password
     const isValidPassword = await bcrypt.compare(currentPassword, user.password);
     if (!isValidPassword) {
-      return NextResponse.json({ error: "Current password is incorrect" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Current password is incorrect" },
+        { status: 400 }
+      );
     }
 
     // Hash new password
@@ -53,12 +56,15 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    return NextResponse.json({
-      success: true,
-      message: "Password updated successfully",
+    return NextResponse.json({ 
+      success: true, 
+      message: "Password updated successfully" 
     });
   } catch (error) {
     console.error("Error changing password:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

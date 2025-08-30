@@ -43,7 +43,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching notification settings:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -58,7 +61,10 @@ export async function PUT(request: NextRequest) {
     const { notificationSettings } = body;
 
     if (!notificationSettings) {
-      return NextResponse.json({ error: "Notification settings are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Notification settings are required" },
+        { status: 400 }
+      );
     }
 
     await connectToDatabase();
@@ -85,6 +91,9 @@ export async function PUT(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error updating notification settings:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

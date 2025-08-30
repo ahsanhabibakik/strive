@@ -22,6 +22,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Input } from "@/components/ui/input";
 import { OpportunityCard } from "@/components/opportunities/OpportunityCard";
 import { ApplicationActions } from "./ApplicationActions";
+import { GoalCreationDialog } from "@/components/goals/GoalCreationDialog";
+import { GoalList } from "@/components/goals/GoalList";
 import { cn } from "@/lib/utils";
 
 interface Application {
@@ -269,7 +271,8 @@ export function DashboardClient({ user }: DashboardClientProps) {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex gap-4">
+          <div className="flex gap-4 flex-wrap">
+            <GoalCreationDialog />
             <Button asChild>
               <Link href="/opportunities">
                 <MagnifyingGlassIcon className="h-4 w-4 mr-2" />
@@ -288,10 +291,14 @@ export function DashboardClient({ user }: DashboardClientProps) {
 
       {/* Main Tabs */}
       <Tabs defaultValue="applications" className="space-y-6">
-        <TabsList className="grid w-full grid-cols-2">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="applications" className="flex items-center gap-2">
             <ClipboardDocumentListIcon className="h-4 w-4" />
             My Applications ({applications.length})
+          </TabsTrigger>
+          <TabsTrigger value="goals" className="flex items-center gap-2">
+            <PlusIcon className="h-4 w-4" />
+            My Goals
           </TabsTrigger>
           <TabsTrigger value="bookmarks" className="flex items-center gap-2">
             <BookmarkIcon className="h-4 w-4" />
@@ -366,13 +373,12 @@ export function DashboardClient({ user }: DashboardClientProps) {
                                     <StatusIcon className="h-3 w-3" />
                                     {config.label}
                                   </Badge>
-                                  <Button variant="ghost" size="sm" asChild>
-                                    <Link
-                                      href={`/opportunities/${application.opportunityId?.slug}`}
-                                    >
-                                      <ArrowTopRightOnSquareIcon className="h-4 w-4" />
-                                    </Link>
-                                  </Button>
+                                  <ApplicationActions
+                                    applicationId={application._id}
+                                    status={application.status}
+                                    opportunitySlug={application.opportunityId?.slug || ""}
+                                    onStatusUpdate={refreshData}
+                                  />
                                 </div>
                               </div>
                             </div>
@@ -385,6 +391,10 @@ export function DashboardClient({ user }: DashboardClientProps) {
               )}
             </CardContent>
           </Card>
+        </TabsContent>
+
+        <TabsContent value="goals" className="space-y-6">
+          <GoalList status="all" />
         </TabsContent>
 
         <TabsContent value="bookmarks" className="space-y-6">

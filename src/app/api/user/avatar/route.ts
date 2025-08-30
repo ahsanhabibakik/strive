@@ -35,13 +35,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User not found" }, { status: 404 });
     }
 
-    return NextResponse.json({
-      success: true,
+    return NextResponse.json({ 
+      success: true, 
       message: "Avatar updated successfully",
-      avatarUrl: updatedUser.image,
+      avatarUrl: updatedUser.image 
     });
   } catch (error) {
     console.error("Error updating avatar:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

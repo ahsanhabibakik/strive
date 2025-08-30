@@ -9,10 +9,10 @@ const NotificationSchema = new mongoose.Schema({
   userId: { type: String, required: true, index: true },
   title: { type: String, required: true },
   message: { type: String, required: true },
-  type: {
-    type: String,
-    enum: ["info", "success", "warning", "error"],
-    default: "info",
+  type: { 
+    type: String, 
+    enum: ["info", "success", "warning", "error"], 
+    default: "info" 
   },
   read: { type: Boolean, default: false },
   actionUrl: { type: String },
@@ -20,8 +20,9 @@ const NotificationSchema = new mongoose.Schema({
   readAt: { type: Date },
 });
 
-const Notification =
-  mongoose.models.Notification || mongoose.model("Notification", NotificationSchema);
+const Notification = 
+  mongoose.models.Notification || 
+  mongoose.model("Notification", NotificationSchema);
 
 export async function GET(request: NextRequest) {
   try {
@@ -49,9 +50,9 @@ export async function GET(request: NextRequest) {
       .lean();
 
     const totalCount = await Notification.countDocuments(filter);
-    const unreadCount = await Notification.countDocuments({
-      userId: session.user.email,
-      read: false,
+    const unreadCount = await Notification.countDocuments({ 
+      userId: session.user.email, 
+      read: false 
     });
 
     return NextResponse.json({
@@ -67,7 +68,10 @@ export async function GET(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error fetching notifications:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
 
@@ -82,7 +86,10 @@ export async function POST(request: NextRequest) {
     const { title, message, type, actionUrl } = body;
 
     if (!title || !message) {
-      return NextResponse.json({ error: "Title and message are required" }, { status: 400 });
+      return NextResponse.json(
+        { error: "Title and message are required" },
+        { status: 400 }
+      );
     }
 
     await connectToDatabase();
@@ -103,6 +110,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error creating notification:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }

@@ -9,10 +9,10 @@ const NotificationSchema = new mongoose.Schema({
   userId: { type: String, required: true, index: true },
   title: { type: String, required: true },
   message: { type: String, required: true },
-  type: {
-    type: String,
-    enum: ["info", "success", "warning", "error"],
-    default: "info",
+  type: { 
+    type: String, 
+    enum: ["info", "success", "warning", "error"], 
+    default: "info" 
   },
   read: { type: Boolean, default: false },
   actionUrl: { type: String },
@@ -20,8 +20,9 @@ const NotificationSchema = new mongoose.Schema({
   readAt: { type: Date },
 });
 
-const Notification =
-  mongoose.models.Notification || mongoose.model("Notification", NotificationSchema);
+const Notification = 
+  mongoose.models.Notification || 
+  mongoose.model("Notification", NotificationSchema);
 
 export async function POST(request: NextRequest) {
   try {
@@ -33,9 +34,9 @@ export async function POST(request: NextRequest) {
     await connectToDatabase();
 
     const result = await Notification.updateMany(
-      {
+      { 
         userId: session.user.email,
-        read: false,
+        read: false 
       },
       {
         $set: {
@@ -52,6 +53,9 @@ export async function POST(request: NextRequest) {
     });
   } catch (error) {
     console.error("Error marking all notifications as read:", error);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Internal server error" },
+      { status: 500 }
+    );
   }
 }
