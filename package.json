@@ -90,6 +90,7 @@
     "framer-motion": "^11.18.2",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.468.0",
+    "mixpanel-browser": "^2.69.1",
     "mongodb": "^6.19.0",
     "mongoose": "^8.18.0",
     "next": "^15.5.2",
