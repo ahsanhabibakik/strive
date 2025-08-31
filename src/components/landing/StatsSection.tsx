@@ -123,9 +123,9 @@ export function StatsSection() {
       staticValue: "$2.8M+",
       label: "Total Awards Won",
       description: "Scholarships and prizes won by our community",
-      color: "text-green-600",
-      bgColor: "bg-green-100",
-      hoverBg: "hover:bg-green-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "💰",
       animationKey: "awards",
     },
@@ -342,12 +342,12 @@ export function StatsSection() {
                 key={index}
                 className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100"
               >
-                <div className="bg-yellow-100 rounded-full p-3 w-fit mx-auto mb-4">
-                  <Trophy className="h-6 w-6 text-yellow-600" />
+                <div className="bg-[#FF7043] bg-opacity-20 rounded-full p-3 w-fit mx-auto mb-4">
+                  <Trophy className="h-6 w-6 text-[#FF7043]" />
                 </div>
                 <h4 className="text-lg font-semibold text-gray-900 mb-2">{achievement.title}</h4>
                 <p className="text-gray-600 text-sm mb-3">{achievement.description}</p>
-                <Badge variant="secondary" className="bg-yellow-200 text-yellow-800">
+                <Badge variant="secondary" className="bg-[#FF7043] bg-opacity-20 text-[#FF7043]">
                   {achievement.year}
                 </Badge>
               </div>

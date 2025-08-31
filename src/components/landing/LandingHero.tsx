@@ -200,7 +200,7 @@ export function LandingHero() {
                       </div>
                       {event.isFree && (
                         <div className="absolute top-4 right-4">
-                          <Badge className="bg-green-500 text-white">Free</Badge>
+                          <Badge className="bg-[#E53935] text-white">Free</Badge>
                         </div>
                       )}
                     </div>
