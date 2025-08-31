@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useToast } from "@/hooks/use-toast";
+import { toast } from "sonner";
 import {
   Calendar,
   MapPin,
@@ -92,7 +92,6 @@ export function EventDetailPage({ event, user }: EventDetailPageProps) {
     experience: "",
     motivation: "",
   });
-  const { toast } = useToast();
 
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
@@ -156,16 +155,9 @@ export function EventDetailPage({ event, user }: EventDetailPageProps) {
       await new Promise(resolve => setTimeout(resolve, 1500));
 
       setIsRegistered(true);
-      toast({
-        title: "Registration successful!",
-        description: `You've been registered for ${event.title}. You'll receive a confirmation email shortly.`,
-      });
+      toast.success(`Registration successful! You've been registered for ${event.title}.`);
     } catch (error) {
-      toast({
-        title: "Registration failed",
-        description: "Please try again later.",
-        variant: "destructive",
-      });
+      toast.error("Registration failed. Please try again later.");
     } finally {
       setIsSubmitting(false);
     }
@@ -173,12 +165,7 @@ export function EventDetailPage({ event, user }: EventDetailPageProps) {
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked);
-    toast({
-      title: isBookmarked ? "Removed from bookmarks" : "Added to bookmarks",
-      description: isBookmarked
-        ? `${event.title} has been removed from your bookmarks.`
-        : `${event.title} has been added to your bookmarks.`,
-    });
+    toast(isBookmarked ? "Removed from bookmarks" : "Added to bookmarks");
   };
 
   const handleShare = async () => {
@@ -192,17 +179,11 @@ export function EventDetailPage({ event, user }: EventDetailPageProps) {
       } catch (error) {
         // Fallback to clipboard
         navigator.clipboard.writeText(window.location.href);
-        toast({
-          title: "Link copied!",
-          description: "Event link has been copied to your clipboard.",
-        });
+        toast("Link copied to clipboard!");
       }
     } else {
       navigator.clipboard.writeText(window.location.href);
-      toast({
-        title: "Link copied!",
-        description: "Event link has been copied to your clipboard.",
-      });
+      toast("Link copied to clipboard!");
     }
   };
 

@@ -16,7 +16,10 @@
       "Bash(git push:*)",
       "mcp__playwright__browser_install",
       "mcp__playwright__browser_close",
-      "WebSearch"
+      "WebSearch",
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)"
     ],
     "deny": [],
     "ask": [],
