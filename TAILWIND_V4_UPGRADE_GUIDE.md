@@ -129,16 +129,16 @@ Replace Tailwind directives with CSS import:
 
 | v3                 | v4                 |
 | ------------------ | ------------------ |
-| `shadow-xs`        | `shadow-2xs`       |
-| `shadow-sm`        | `shadow-xs`        |
+| `shadow-2xs`        | `shadow-2xs`       |
+| `shadow-xs`        | `shadow-2xs`        |
 | `drop-shadow-xs`   | `drop-shadow-xs`   |
-| `drop-shadow-sm`   | `drop-shadow-xs`   |
+| `drop-shadow-xs`   | `drop-shadow-xs`   |
 | `blur-xs`          | `blur-xs`          |
-| `blur-sm`          | `blur-xs`          |
+| `blur-xs`          | `blur-xs`          |
 | `backdrop-blur-xs` | `backdrop-blur-xs` |
-| `backdrop-blur-sm` | `backdrop-blur-xs` |
-| `rounded-sm`       | `rounded-xs`       |
-| `rounded`          | `rounded-sm`       |
+| `backdrop-blur-xs` | `backdrop-blur-xs` |
+| `rounded-xs`       | `rounded-xs`       |
+| `rounded-sm`          | `rounded-xs`       |
 | `outline-hidden`   | `outline-hidden`   |
 | `ring-3`           | `ring-3`           |
 
@@ -146,14 +146,14 @@ Replace Tailwind directives with CSS import:
 
 ```html
 <!-- Shadow utilities -->
-<div class="shadow-xs">...</div>
+<div class="shadow-2xs">...</div>
 <!-- v3 -->
 <div class="shadow-2xs">...</div>
 <!-- v4 -->
 
-<div class="shadow-sm">...</div>
-<!-- v3 -->
 <div class="shadow-xs">...</div>
+<!-- v3 -->
+<div class="shadow-2xs">...</div>
 <!-- v4 -->
 
 <!-- Ring utilities -->
@@ -306,9 +306,9 @@ h1 {
 
 ```html
 <!-- v3: right to left -->
-<ul class="py-4 *:first:pt-0 *:last:pb-0">
+<ul class="py-4 first:*:pt-0 last:*:pb-0">
   <!-- v4: left to right -->
-  <ul class="py-4 first:*:pt-0 last:*:pb-0"></ul>
+  <ul class="py-4 *:first:pt-0 *:last:pb-0"></ul>
 </ul>
 ```
 
@@ -382,7 +382,7 @@ Override if needed:
 
 After upgrading:
 
-- [ ] Test all shadow utilities (`shadow-xs` → `shadow-2xs`)
+- [ ] Test all shadow utilities (`shadow-2xs` → `shadow-2xs`)
 - [ ] Test all ring utilities (`ring-3` → `ring-3`)
 - [ ] Test all outline utilities (`outline-hidden` → `outline-hidden`)
 - [ ] Test all opacity utilities (`bg-opacity-*` → `bg-*/opacity`)

@@ -206,7 +206,7 @@ export default function FAQPage() {
             placeholder="Search FAQs..."
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg shadow-xs focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-transparent"
+            className="w-full px-4 py-3 pl-12 border border-gray-300 rounded-lg shadow-2xs focus:outline-hidden focus:ring-2 focus:ring-primary focus:border-transparent"
           />
           <svg
             className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"

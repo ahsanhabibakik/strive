@@ -3,9 +3,9 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Providers } from "@/components/providers/Providers";
 import { SkipLink } from "@/components/accessibility/SkipLink";
-import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo";
-import { AnalyticsProvider } from "@/lib/analytics";
-import { CookieConsent } from "@/components/cookies/CookieConsent";
+// import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo"; // Disabled for dev speed
+// import { AnalyticsProvider } from "@/lib/analytics"; // Disabled for dev speed
+// import { CookieConsent } from "@/components/cookies/CookieConsent"; // Disabled for dev speed
 import { Toaster } from "@/components/ui/sonner";
 
 // const inter = Inter({
@@ -14,24 +14,11 @@ import { Toaster } from "@/components/ui/sonner";
 //   variable: "--font-inter",
 // });
 
-export const metadata: Metadata = generateSEOMetadata({
+export const metadata: Metadata = {
   title: "Strive - Achieve Your Goals",
   description:
     "A powerful platform to help you set, track, and achieve your personal and professional goals. Stay motivated and organized with our comprehensive goal management system.",
-  keywords: [
-    "goal tracking",
-    "productivity",
-    "achievement",
-    "personal development",
-    "goal setting",
-    "progress tracking",
-    "motivation",
-    "success planning",
-    "habit formation",
-    "life goals",
-  ],
-  type: "website",
-});
+};
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -73,23 +60,18 @@ export default function RootLayout({
         {/* Accessibility enhancements */}
         <meta name="color-scheme" content="light dark" />
       </head>
-      <body className="antialiased" suppressHydrationWarning>
+      <body className="antialiased">
         {/* Skip to main content for keyboard users */}
         <SkipLink />
 
         {/* Screen reader announcements */}
         <div id="announcement-region" aria-live="polite" aria-atomic="true" className="sr-only" />
 
-        <AnalyticsProvider>
-          <Providers>
-            <main id="main-content" tabIndex={-1}>
-              {children}
-            </main>
-          </Providers>
-
-          {/* Cookie Consent */}
-          <CookieConsent />
-        </AnalyticsProvider>
+        <Providers>
+          <main id="main-content" tabIndex={-1}>
+            {children}
+          </main>
+        </Providers>
 
         <Toaster />
 

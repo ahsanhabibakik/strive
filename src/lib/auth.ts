@@ -37,28 +37,43 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // For development, return a mock user if no MongoDB
+        // Always check hardcoded credentials first (works in deployment)
+        // Admin login with admin/admin
+        if (credentials?.email === "admin" && credentials?.password === "admin") {
+          return {
+            id: "admin",
+            email: "admin@strive.com",
+            name: "Admin User",
+            role: "admin",
+            emailVerified: new Date(),
+            image: "https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff",
+          };
+        }
+        // Regular user login with user/user
+        if (credentials?.email === "user" && credentials?.password === "user") {
+          return {
+            id: "user",
+            email: "user@strive.com",
+            name: "Test User",
+            role: "user",
+            emailVerified: new Date(),
+            image: "https://ui-avatars.com/api/?name=Test+User&background=10b981&color=fff",
+          };
+        }
+        // Moderator login with mod/mod
+        if (credentials?.email === "mod" && credentials?.password === "mod") {
+          return {
+            id: "moderator",
+            email: "mod@strive.com",
+            name: "Moderator User",
+            role: "moderator",
+            emailVerified: new Date(),
+            image: "https://ui-avatars.com/api/?name=Mod&background=f59e0b&color=fff",
+          };
+        }
+
+        // If not hardcoded credentials, try MongoDB if available
         if (!client || !process.env.MONGODB_URI) {
-          // Admin login with admin/admin
-          if (credentials?.email === "admin" && credentials?.password === "admin") {
-            return {
-              id: "admin",
-              email: "admin@strive.com",
-              name: "Admin User",
-              role: "admin",
-              image: "https://ui-avatars.com/api/?name=Admin&background=6366f1&color=fff",
-            };
-          }
-          // Regular user login with user/user
-          if (credentials?.email === "user" && credentials?.password === "user") {
-            return {
-              id: "user",
-              email: "user@strive.com",
-              name: "Test User",
-              role: "user",
-              image: "https://ui-avatars.com/api/?name=Test+User&background=10b981&color=fff",
-            };
-          }
           return null;
         }
 
@@ -100,6 +115,7 @@ export const authOptions: NextAuthOptions = {
         (session.user as any).id = token.sub!;
         (session.user as any).role = token.role;
         (session.user as any).image = token.image;
+        (session.user as any).emailVerified = token.emailVerified;
       }
       return session;
     },
@@ -108,6 +124,7 @@ export const authOptions: NextAuthOptions = {
         token.id = user.id;
         token.role = (user as any).role;
         token.image = (user as any).image;
+        token.emailVerified = (user as any).emailVerified;
       }
       return token;
     },

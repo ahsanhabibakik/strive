@@ -23,7 +23,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
     <html>
       <body>
         <div className="min-h-screen flex items-center justify-center bg-gray-50">
-          <div className="max-w-md w-full bg-white rounded-lg shadow-xs border p-8 text-center">
+          <div className="max-w-md w-full bg-white rounded-lg shadow-2xs border p-8 text-center">
             <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
                 className="w-8 h-8 text-red-600"
@@ -48,7 +48,7 @@ export default function GlobalError({ error, reset }: GlobalErrorProps) {
             </p>
 
             {process.env.NODE_ENV === "development" && (
-              <details className="text-left bg-gray-50 rounded p-4 mb-4">
+              <details className="text-left bg-gray-50 rounded-sm p-4 mb-4">
                 <summary className="font-semibold cursor-pointer">Error Details (Dev Only)</summary>
                 <pre className="mt-2 text-sm text-red-600 whitespace-pre-wrap">
                   {error.toString()}

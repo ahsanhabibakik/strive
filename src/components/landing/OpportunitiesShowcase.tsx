@@ -269,7 +269,7 @@ export function OpportunitiesShowcase() {
           </Badge>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Deadline{" "}
-            <span className="bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent">
               Approaching
             </span>
           </h2>
@@ -280,7 +280,7 @@ export function OpportunitiesShowcase() {
 
         <div className="flex flex-col lg:flex-row gap-8">
           {/* Sidebar Filters */}
-          <div className="lg:w-80 flex-shrink-0">
+          <div className="lg:w-80 shrink-0">
             {/* Mobile Filter Toggle */}
             <div className="lg:hidden mb-4">
               <Button
@@ -320,7 +320,7 @@ export function OpportunitiesShowcase() {
                   <label className="text-sm font-medium text-gray-900 mb-2 block">Sort By</label>
                   <div className="grid grid-cols-2 gap-2">
                     <Button
-                      variant={viewMode === "deadline" ? "default" : "outline"}
+                      variant={viewMode === "deadline" ? "default" : "outline-solid"}
                       size="sm"
                       onClick={() => setViewMode("deadline")}
                       className="text-xs"
@@ -329,7 +329,7 @@ export function OpportunitiesShowcase() {
                       Deadline
                     </Button>
                     <Button
-                      variant={viewMode === "trending" ? "default" : "outline"}
+                      variant={viewMode === "trending" ? "default" : "outline-solid"}
                       size="sm"
                       onClick={() => setViewMode("trending")}
                       className="text-xs"

@@ -5,9 +5,9 @@
  * Enhanced chunk-by-chunk auto-commit system with intelligent file handling
  */
 
-const fs = require('fs');
-const path = require('path');
-const { execSync, spawn } = require('child_process');
+import fs from 'fs';
+import path from 'path';
+import { execSync, spawn } from 'child_process';
 
 class AutoCommitManager {
   constructor() {

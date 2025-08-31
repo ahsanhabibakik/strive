@@ -184,7 +184,7 @@ export function FeaturesSection() {
             <span className="inline-block animate-in slide-in-from-left duration-700">
               Everything You Need to{" "}
             </span>
-            <span className="inline-block bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
+            <span className="inline-block bg-linear-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
               Succeed
             </span>
           </h2>
@@ -252,7 +252,7 @@ export function FeaturesSection() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
                     {feature.title}
                   </h3>
 
@@ -271,7 +271,7 @@ export function FeaturesSection() {
                   {/* Hover glow effect */}
                   <div
                     className={cn(
-                      "absolute -inset-1 bg-gradient-to-r from-[#E53935]/20 to-[#D32F2F]/20 rounded-lg blur opacity-0 transition-opacity duration-300",
+                      "absolute -inset-1 bg-linear-to-r from-[#E53935]/20 to-[#D32F2F]/20 rounded-lg blur-sm opacity-0 transition-opacity duration-300",
                       isHovered && "opacity-100"
                     )}
                   />
@@ -299,7 +299,7 @@ export function FeaturesSection() {
                 )}
                 style={{ animationDelay: isVisible ? `${(cardIndex - 3) * 100 + 600}ms` : "0ms" }}
               >
-                <div className="flex items-start space-x-4 p-6 rounded-xl hover:bg-gradient-to-br hover:from-red-50 hover:to-orange-50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border hover:border-red-200">
+                <div className="flex items-start space-x-4 p-6 rounded-xl hover:bg-linear-to-br hover:from-red-50 hover:to-orange-50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border hover:border-red-200">
                   <div className="bg-gray-100 rounded-lg p-3 group-hover:bg-white group-hover:shadow-md transition-all duration-300 relative group-hover:scale-110">
                     <Icon
                       className={cn(
@@ -313,14 +313,14 @@ export function FeaturesSection() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#FF7043] group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#E53935] group-hover:to-[#FF7043] group-hover:bg-clip-text transition-all duration-300">
                       {feature.title}
                     </h3>
                     <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                       {feature.description}
                     </p>
                     {/* Fun hover indicator */}
-                    <div className="w-0 h-0.5 bg-gradient-to-r from-[#E53935] to-[#FF7043] mt-3 group-hover:w-full transition-all duration-500 rounded-full" />
+                    <div className="w-0 h-0.5 bg-linear-to-r from-[#E53935] to-[#FF7043] mt-3 group-hover:w-full transition-all duration-500 rounded-full" />
                   </div>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export function FeaturesSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-[#E53935] to-[#D32F2F] rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden group">
+        <div className="bg-linear-to-r from-[#E53935] to-[#D32F2F] rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden group">
           {/* Animated background effects */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-4 left-4 animate-pulse">
@@ -379,7 +379,7 @@ export function FeaturesSection() {
                     Get Started Free
                   </span>
                   {/* Shimmer effect */}
-                  <div className="absolute inset-0 -top-2 -bottom-2 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+                  <div className="absolute inset-0 -top-2 -bottom-2 bg-linear-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
                 </Button>
               </Link>
               <Link href="#opportunities">

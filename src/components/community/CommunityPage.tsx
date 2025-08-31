@@ -28,7 +28,7 @@ export function CommunityPage({ user }: CommunityPageProps) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
         <div className="flex gap-8">
           {/* Left Sidebar */}
-          <div className="w-80 flex-shrink-0 sticky top-24 self-start">
+          <div className="w-80 shrink-0 sticky top-24 self-start">
             <CommunityLeftSidebar
               user={user}
               selectedGroup={selectedGroup}
@@ -46,7 +46,7 @@ export function CommunityPage({ user }: CommunityPageProps) {
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-80 flex-shrink-0 sticky top-24 self-start">
+          <div className="w-80 shrink-0 sticky top-24 self-start">
             <CommunityRightSidebar />
           </div>
         </div>

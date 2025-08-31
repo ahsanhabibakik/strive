@@ -189,7 +189,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
         <div className="p-6">
           <div className="animate-pulse space-y-4">
             {[1, 2, 3].map(i => (
-              <div key={i} className="h-16 bg-gray-200 rounded"></div>
+              <div key={i} className="h-16 bg-gray-200 rounded-sm"></div>
             ))}
           </div>
         </div>
@@ -257,7 +257,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                               : prev.permissions.filter(p => p !== permission.id),
                           }));
                         }}
-                        className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded"
+                        className="mt-1 h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded-sm"
                       />
                       <div className="ml-3">
                         <span className="text-sm font-medium text-gray-900">{permission.name}</span>
@@ -355,7 +355,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
 
                     <div className="flex items-center gap-x-4 mb-3">
                       <div className="flex items-center gap-x-2">
-                        <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded">
+                        <code className="text-sm font-mono bg-gray-100 px-2 py-1 rounded-sm">
                           {visibleKeys.has(apiKey.id) ? apiKey.key : apiKey.masked}
                         </code>
                         <button

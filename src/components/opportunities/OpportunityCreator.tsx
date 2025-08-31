@@ -616,7 +616,7 @@ export function OpportunityCreator({ user }: OpportunityCreatorProps) {
                   {popularTags.map((tag) => (
                     <Badge
                       key={tag}
-                      variant={selectedTags.includes(tag) ? "default" : "outline"}
+                      variant={selectedTags.includes(tag) ? "default" : "outline-solid"}
                       className="cursor-pointer hover:bg-primary/80"
                       onClick={() => handleTagToggle(tag)}
                     >

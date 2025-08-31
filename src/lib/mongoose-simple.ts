@@ -17,6 +17,11 @@ if (!cached) {
 }
 
 export async function connectToDatabase() {
+  // Skip database connection if flag is set for faster development
+  if (process.env.SKIP_DATABASE_CONNECTION === "true") {
+    throw new Error("Database connection skipped for development");
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

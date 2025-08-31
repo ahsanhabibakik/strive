@@ -10,7 +10,7 @@ export function OpportunitySkeleton({ count = 1, withBanner = false }: Opportuni
   return (
     <>
       {Array.from({ length: count }, (_, i) => (
-        <Card key={i} className="shadow-sm border-0">
+        <Card key={i} className="shadow-xs border-0">
           {withBanner && (
             <div className="relative h-48">
               <Skeleton className="w-full h-full rounded-t-lg" />
@@ -31,7 +31,7 @@ export function OpportunitySkeleton({ count = 1, withBanner = false }: Opportuni
                 <Skeleton className="h-6 w-3/4" />
                 <Skeleton className="h-4 w-32 mt-1" />
               </div>
-              {!withBanner && <Skeleton className="w-12 h-12 rounded-lg flex-shrink-0" />}
+              {!withBanner && <Skeleton className="w-12 h-12 rounded-lg shrink-0" />}
             </div>
           </CardHeader>
 

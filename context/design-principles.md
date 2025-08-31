@@ -42,7 +42,7 @@
 
 ### Border Radii
 
-- **Small:** rounded-sm (2px) - for small elements
+- **Small:** rounded-xs (2px) - for small elements
 - **Default:** rounded (4px) - for buttons, inputs
 - **Medium:** rounded-lg (8px) - for cards
 - **Large:** rounded-xl (12px) - for modals, major containers

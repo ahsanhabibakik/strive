@@ -1,7 +1,5 @@
-import * as Sentry from '@sentry/nextjs';
-
 /**
- * Custom error logger that integrates with Sentry
+ * Simplified error logger for development (Sentry disabled)
  */
 export class ErrorLogger {
   /**
@@ -10,24 +8,20 @@ export class ErrorLogger {
   static logError(error: Error, context?: Record<string, any>, tags?: Record<string, string>) {
     console.error('Error logged:', error.message, context);
 
-    Sentry.withScope((scope) => {
-      // Add context data
-      if (context) {
-        Object.entries(context).forEach(([key, value]) => {
-          scope.setContext(key, value);
-        });
-      }
-
-      // Add tags
-      if (tags) {
-        Object.entries(tags).forEach(([key, value]) => {
-          scope.setTag(key, value);
-        });
-      }
-
-      // Capture the exception
-      Sentry.captureException(error);
-    });
+    // Sentry disabled for dev speed
+    // Sentry.withScope((scope) => {
+    //   if (context) {
+    //     Object.entries(context).forEach(([key, value]) => {
+    //       scope.setContext(key, value);
+    //     });
+    //   }
+    //   if (tags) {
+    //     Object.entries(tags).forEach(([key, value]) => {
+    //       scope.setTag(key, value);
+    //     });
+    //   }
+    //   Sentry.captureException(error);
+    // });
   }
 
   /**
@@ -36,44 +30,37 @@ export class ErrorLogger {
   static logMessage(message: string, level: 'info' | 'warning' | 'error' = 'info', extra?: any) {
     console[level === 'warning' ? 'warn' : level](message, extra);
 
-    Sentry.withScope((scope) => {
-      if (extra) {
-        scope.setExtra('data', extra);
-      }
-      
-      Sentry.captureMessage(message, level);
-    });
+    // Sentry disabled for dev speed
+    // Sentry.withScope((scope) => {
+    //   if (extra) {
+    //     scope.setExtra('data', extra);
+    //   }
+    //   Sentry.captureMessage(message, level);
+    // });
   }
 
   /**
    * Set user context for error tracking
    */
   static setUser(user: { id: string; email?: string; username?: string }) {
-    Sentry.setUser({
-      id: user.id,
-      email: user.email,
-      username: user.username,
-    });
+    // Sentry disabled for dev speed
+    // Sentry.setUser({ id: user.id, email: user.email, username: user.username });
   }
 
   /**
    * Clear user context
    */
   static clearUser() {
-    Sentry.setUser(null);
+    // Sentry disabled for dev speed
+    // Sentry.setUser(null);
   }
 
   /**
    * Add breadcrumb for tracking user actions
    */
   static addBreadcrumb(message: string, category: string, data?: any) {
-    Sentry.addBreadcrumb({
-      message,
-      category,
-      data,
-      level: 'info',
-      timestamp: Date.now() / 1000,
-    });
+    // Sentry disabled for dev speed
+    // Sentry.addBreadcrumb({ message, category, data, level: 'info', timestamp: Date.now() / 1000 });
   }
 }
 
@@ -106,20 +93,16 @@ export class PerformanceMonitor {
    * Start a performance transaction
    */
   static startTransaction(name: string, op: string) {
-    return Sentry.startSpan({ name, op }, () => {});
+    // Sentry disabled for dev speed
+    return { finish: () => {} };
   }
 
   /**
    * Create a span within a transaction
    */
   static startSpan(description: string, op: string, parentTransaction?: any) {
-    if (parentTransaction) {
-      return parentTransaction.startChild({ description, op });
-    }
-    
-    return Sentry.startSpan({ name: description, op }, () => {
-      // This will be the active span
-    });
+    // Sentry disabled for dev speed
+    return { finish: () => {} };
   }
 
   /**
@@ -130,10 +113,9 @@ export class PerformanceMonitor {
     fn: () => Promise<T>,
     op: string = 'function'
   ): Promise<T> {
-    return Sentry.startSpan({ name, op }, async () => {
-      return await fn();
-    });
+    // Sentry disabled for dev speed
+    return await fn();
   }
 }
 
-export default Sentry;
+export default ErrorLogger;

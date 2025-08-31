@@ -13,7 +13,7 @@ import {
   Clock,
   Star,
   ExternalLink,
-  Compare,
+  GitCompare,
   Trash2,
 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
@@ -99,7 +99,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
     return (
       <Card className="text-center py-12">
         <CardContent>
-          <Compare className="h-16 w-16 mx-auto text-gray-400 mb-4" />
+          <GitCompare className="h-16 w-16 mx-auto text-gray-400 mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">No events to compare</h3>
           <p className="text-gray-600">
             Add events to your comparison by clicking the "+" button on event cards.
@@ -115,7 +115,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold text-gray-900 flex items-center gap-2">
-            <Compare className="h-6 w-6" />
+            <GitCompare className="h-6 w-6" />
             Compare Events
           </h2>
           <p className="text-gray-600 mt-1">
@@ -168,7 +168,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
             <CardContent className="space-y-4">
               {/* Event Date */}
               <div className="flex items-start gap-3">
-                <Calendar className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <Calendar className="h-4 w-4 text-gray-400 mt-0.5 shrink-0" />
                 <div className="text-sm">
                   <p className="font-medium text-gray-900">Event Date</p>
                   <p className="text-gray-600">
@@ -180,7 +180,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
 
               {/* Application Deadline */}
               <div className="flex items-start gap-3">
-                <Clock className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <Clock className="h-4 w-4 text-gray-400 mt-0.5 shrink-0" />
                 <div className="text-sm">
                   <p className="font-medium text-gray-900">Application Deadline</p>
                   <p className="text-gray-600">{formatDate(event.applicationDeadline)}</p>
@@ -189,7 +189,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
 
               {/* Location */}
               <div className="flex items-start gap-3">
-                <MapPin className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <MapPin className="h-4 w-4 text-gray-400 mt-0.5 shrink-0" />
                 <div className="text-sm">
                   <p className="font-medium text-gray-900">Location</p>
                   <p className="text-gray-600">
@@ -200,7 +200,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
 
               {/* Price */}
               <div className="flex items-start gap-3">
-                <DollarSign className="h-4 w-4 text-gray-400 mt-0.5 flex-shrink-0" />
+                <DollarSign className="h-4 w-4 text-gray-400 mt-0.5 shrink-0" />
                 <div className="text-sm">
                   <p className="font-medium text-gray-900">Price</p>
                   <p className={`${event.isFree ? "text-green-600 font-medium" : "text-gray-600"}`}>

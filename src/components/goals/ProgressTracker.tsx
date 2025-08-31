@@ -397,7 +397,7 @@ export function ProgressTracker({
                     Achievements
                   </h4>
                   <div className="space-y-2">
-                    <div className="flex items-center justify-between p-2 bg-green-50 rounded">
+                    <div className="flex items-center justify-between p-2 bg-green-50 rounded-sm">
                       <span className="text-sm">Improvement Rate</span>
                       <Badge variant="secondary">
                         {Math.round(
@@ -407,13 +407,13 @@ export function ProgressTracker({
                         %
                       </Badge>
                     </div>
-                    <div className="flex items-center justify-between p-2 bg-blue-50 rounded">
+                    <div className="flex items-center justify-between p-2 bg-blue-50 rounded-sm">
                       <span className="text-sm">Total Progress</span>
                       <Badge variant="secondary">
                         +{analytics.summary.totalProgress} {goal.measurable.unit}
                       </Badge>
                     </div>
-                    <div className="flex items-center justify-between p-2 bg-purple-50 rounded">
+                    <div className="flex items-center justify-between p-2 bg-purple-50 rounded-sm">
                       <span className="text-sm">Consistency</span>
                       <Badge variant="secondary">{analytics.summary.totalEntries} entries</Badge>
                     </div>
@@ -427,25 +427,25 @@ export function ProgressTracker({
                   </h4>
                   <div className="space-y-2 text-sm text-gray-600">
                     {analytics.summary.averageMotivation < 3 && (
-                      <div className="p-2 bg-yellow-50 rounded border-l-4 border-yellow-400">
+                      <div className="p-2 bg-yellow-50 rounded-sm border-l-4 border-yellow-400">
                         Consider finding ways to increase motivation - perhaps break down the goal
                         into smaller, more exciting milestones.
                       </div>
                     )}
                     {analytics.summary.averageDifficulty > 4 && (
-                      <div className="p-2 bg-orange-50 rounded border-l-4 border-orange-400">
+                      <div className="p-2 bg-orange-50 rounded-sm border-l-4 border-orange-400">
                         The difficulty level seems high. Consider simplifying your approach or
                         seeking additional resources/support.
                       </div>
                     )}
                     {currentStreak >= 3 && (
-                      <div className="p-2 bg-green-50 rounded border-l-4 border-green-400">
+                      <div className="p-2 bg-green-50 rounded-sm border-l-4 border-green-400">
                         Great momentum! You're on a {currentStreak}-day improvement streak. Keep it
                         up!
                       </div>
                     )}
                     {analytics.summary.setbackEntries > analytics.summary.improvementEntries && (
-                      <div className="p-2 bg-red-50 rounded border-l-4 border-red-400">
+                      <div className="p-2 bg-red-50 rounded-sm border-l-4 border-red-400">
                         You've had more setbacks than improvements recently. Consider adjusting your
                         strategy or timeline.
                       </div>
@@ -467,7 +467,7 @@ export function ProgressTracker({
           <div className="space-y-3">
             {progressEntries.slice(0, 5).map(entry => (
               <div key={entry._id} className="flex items-start gap-3 p-3 border rounded-lg">
-                <div className="flex-shrink-0 mt-0.5">{getProgressIcon(entry.type)}</div>
+                <div className="shrink-0 mt-0.5">{getProgressIcon(entry.type)}</div>
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <h4 className="font-medium text-sm">{entry.title}</h4>

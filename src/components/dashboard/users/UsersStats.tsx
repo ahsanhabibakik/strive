@@ -70,7 +70,7 @@ export function UsersStats({ stats }: UsersStatsProps) {
         return (
           <div
             key={stat.name}
-            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow-xs hover:shadow-md transition-shadow sm:px-6"
+            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow-2xs hover:shadow-md transition-shadow sm:px-6"
           >
             <dt>
               <div className={cn("absolute rounded-md p-3", colorClass)}>

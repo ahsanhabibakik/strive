@@ -25,7 +25,7 @@ export default function AuthTest() {
         
         {session ? (
           <div className="space-y-4">
-            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded">
+            <div className="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-sm">
               ✅ Authentication is working!
             </div>
             
@@ -39,21 +39,21 @@ export default function AuthTest() {
             
             <button
               onClick={() => signOut()}
-              className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+              className="w-full bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-sm transition-colors duration-200"
             >
               Sign Out
             </button>
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded">
+            <div className="bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded-sm">
               ℹ️ Not authenticated
             </div>
             
             <div className="space-y-2">
               <button
                 onClick={() => signIn("credentials")}
-                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded transition-colors duration-200"
+                className="w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-sm transition-colors duration-200"
               >
                 Sign In with Credentials
               </button>

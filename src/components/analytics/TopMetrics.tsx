@@ -59,10 +59,10 @@ export function TopMetrics({ data }: TopMetricsProps) {
         return (
           <div
             key={metric.name}
-            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow-2xs hover:shadow-xs transition-shadow sm:px-6 sm:py-6"
+            className="relative overflow-hidden rounded-lg bg-white px-4 py-5 shadow-2xs hover:shadow-2xs transition-shadow sm:px-6 sm:py-6"
           >
             <dt>
-              <div className={`absolute rounded-sm p-3 ${metric.bgColor}`}>
+              <div className={`absolute rounded-xs p-3 ${metric.bgColor}`}>
                 <Icon className={`h-6 w-6 ${metric.color}`} aria-hidden="true" />
               </div>
               <p className="ml-16 truncate text-sm font-medium text-gray-500">{metric.name}</p>

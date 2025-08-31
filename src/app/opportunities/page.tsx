@@ -18,7 +18,7 @@ export default async function OpportunitiesPage({
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-orange-500 to-red-600">
+      <div className="bg-linear-to-r from-orange-500 to-red-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
           <div className="text-center">
             <h1 className="text-4xl font-bold text-white sm:text-5xl">
@@ -33,9 +33,9 @@ export default async function OpportunitiesPage({
                   <input
                     type="text"
                     placeholder="Search opportunities..."
-                    className="flex-1 px-4 py-3 text-gray-900 placeholder-gray-500 rounded-l-md border-0 focus:ring-2 focus:ring-orange-500 focus:outline-none"
+                    className="flex-1 px-4 py-3 text-gray-900 placeholder-gray-500 rounded-l-md border-0 focus:ring-2 focus:ring-orange-500 focus:outline-hidden"
                   />
-                  <button className="px-6 py-3 bg-orange-500 text-white font-semibold rounded-r-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
+                  <button className="px-6 py-3 bg-orange-500 text-white font-semibold rounded-r-md hover:bg-orange-600 focus:outline-hidden focus:ring-2 focus:ring-orange-500 focus:ring-offset-2">
                     Search
                   </button>
                 </div>
@@ -47,7 +47,7 @@ export default async function OpportunitiesPage({
 
       {/* Quick Stats */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+        <div className="bg-white rounded-lg shadow-xs border border-gray-200 p-6">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-gray-900">2,847</div>

@@ -49,8 +49,8 @@ export function Header() {
   return (
     <header
       className={cn(
-        "fixed top-0 w-full bg-white/95 backdrop-blur-sm border-b z-50 transition-all duration-200",
-        scrolled ? "shadow-sm border-gray-200" : "border-gray-100"
+        "fixed top-0 w-full bg-white/95 backdrop-blur-xs border-b z-50 transition-all duration-200",
+        scrolled ? "shadow-xs border-gray-200" : "border-gray-100"
       )}
     >
       <nav className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -208,7 +208,7 @@ export function Header() {
             {session ? (
               <div className="pt-4 pb-3 border-t border-gray-200">
                 <div className="flex items-center px-5">
-                  <div className="flex-shrink-0">
+                  <div className="shrink-0">
                     <Avatar className="h-8 w-8">
                       <AvatarImage
                         src={

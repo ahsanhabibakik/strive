@@ -478,7 +478,7 @@ export function ApplicationWizard({
       </div>
       
       <div className="flex justify-center">
-        <div className="rounded-full bg-gradient-to-r from-green-100 to-blue-100 p-6 animate-pulse">
+        <div className="rounded-full bg-linear-to-r from-green-100 to-blue-100 p-6 animate-pulse">
           <CheckCircle className="h-16 w-16 text-green-600 animate-bounce" />
         </div>
       </div>
@@ -490,7 +490,7 @@ export function ApplicationWizard({
           Awesome! Your application for <span className="font-semibold text-orange-600">{opportunity.title}</span> has been sent to {opportunity.organizerName}. 🚀
         </p>
       </div>
-      <div className="bg-gradient-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
+      <div className="bg-linear-to-r from-blue-50 to-purple-50 rounded-xl p-6 border border-blue-200">
         <h4 className="font-semibold text-blue-900 mb-3 flex items-center justify-center gap-2">
           <Sparkles className="h-5 w-5" />
           What happens next?
@@ -564,7 +564,7 @@ export function ApplicationWizard({
                 <img
                   src={opportunity.logoUrl}
                   alt={opportunity.organizerName}
-                  className="h-8 w-8 rounded object-cover"
+                  className="h-8 w-8 rounded-sm object-cover"
                 />
               )}
               <div>
@@ -659,7 +659,7 @@ export function ApplicationWizard({
                 onClick={handleSubmit}
                 disabled={isSubmitting}
                 className={cn(
-                  "min-w-[140px] bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white hover:scale-105 hover:shadow-lg transition-all duration-300 group/submit",
+                  "min-w-[140px] bg-linear-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700 text-white hover:scale-105 hover:shadow-lg transition-all duration-300 group/submit",
                   isSubmitting && "animate-pulse cursor-not-allowed"
                 )}
               >
@@ -678,7 +678,7 @@ export function ApplicationWizard({
             ) : (
               <Button 
                 onClick={handleNext}
-                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white hover:scale-105 hover:shadow-lg transition-all duration-200 group/next"
+                className="bg-linear-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white hover:scale-105 hover:shadow-lg transition-all duration-200 group/next"
               >
                 <span className="group-hover/next:animate-pulse">Next</span>
                 <ArrowRight className="h-4 w-4 ml-2 group-hover/next:translate-x-1 transition-transform" />

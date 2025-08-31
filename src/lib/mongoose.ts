@@ -165,6 +165,11 @@ class ConnectionPoolMonitor {
 
 // Enhanced connection function with retry logic and monitoring
 export async function connectToDatabase(retryCount = 0): Promise<typeof mongoose> {
+  // Skip database connection if flag is set for faster development
+  if (process.env.SKIP_DATABASE_CONNECTION === "true") {
+    throw new Error("Database connection skipped for development");
+  }
+
   if (cached.conn) {
     return cached.conn;
   }

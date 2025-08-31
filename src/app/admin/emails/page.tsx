@@ -46,10 +46,10 @@ function EmailManagementSkeleton() {
       {/* Header Skeleton */}
       <div className="flex items-center justify-between">
         <div>
-          <div className="h-8 bg-gray-200 rounded w-64 mb-2"></div>
-          <div className="h-5 bg-gray-200 rounded w-96"></div>
+          <div className="h-8 bg-gray-200 rounded-sm w-64 mb-2"></div>
+          <div className="h-5 bg-gray-200 rounded-sm w-96"></div>
         </div>
-        <div className="h-6 bg-gray-200 rounded w-24"></div>
+        <div className="h-6 bg-gray-200 rounded-sm w-24"></div>
       </div>
 
       {/* Content Grid Skeleton */}
@@ -59,14 +59,14 @@ function EmailManagementSkeleton() {
           {[...Array(3)].map((_, i) => (
             <div key={i} className="border rounded-lg p-6">
               <div className="flex items-center mb-4">
-                <div className="h-5 w-5 bg-gray-200 rounded mr-2"></div>
-                <div className="h-6 bg-gray-200 rounded w-32"></div>
+                <div className="h-5 w-5 bg-gray-200 rounded-sm mr-2"></div>
+                <div className="h-6 bg-gray-200 rounded-sm w-32"></div>
               </div>
               <div className="space-y-3">
                 {[...Array(2)].map((_, j) => (
                   <div key={j} className="p-3 border rounded-lg">
-                    <div className="h-4 bg-gray-200 rounded w-24 mb-1"></div>
-                    <div className="h-3 bg-gray-200 rounded w-full"></div>
+                    <div className="h-4 bg-gray-200 rounded-sm w-24 mb-1"></div>
+                    <div className="h-3 bg-gray-200 rounded-sm w-full"></div>
                   </div>
                 ))}
               </div>
@@ -78,15 +78,15 @@ function EmailManagementSkeleton() {
         <div className="lg:col-span-2">
           <div className="border rounded-lg p-6 h-full">
             <div className="flex items-center justify-between mb-4">
-              <div className="h-6 bg-gray-200 rounded w-40"></div>
-              <div className="h-6 bg-gray-200 rounded w-32"></div>
+              <div className="h-6 bg-gray-200 rounded-sm w-40"></div>
+              <div className="h-6 bg-gray-200 rounded-sm w-32"></div>
             </div>
             <div className="space-y-4">
               <div className="flex space-x-2">
-                <div className="h-10 bg-gray-200 rounded w-32"></div>
-                <div className="h-10 bg-gray-200 rounded w-32"></div>
+                <div className="h-10 bg-gray-200 rounded-sm w-32"></div>
+                <div className="h-10 bg-gray-200 rounded-sm w-32"></div>
               </div>
-              <div className="h-96 bg-gray-100 rounded"></div>
+              <div className="h-96 bg-gray-100 rounded-sm"></div>
             </div>
           </div>
         </div>

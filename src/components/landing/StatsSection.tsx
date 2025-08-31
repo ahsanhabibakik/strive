@@ -189,7 +189,7 @@ export function StatsSection() {
     <section
       ref={sectionRef}
       id="stats"
-      className="py-20 bg-gradient-to-br from-gray-50 to-blue-50 relative overflow-hidden"
+      className="py-20 bg-linear-to-br from-gray-50 to-blue-50 relative overflow-hidden"
     >
       {/* Confetti Effect */}
       {confettiTrigger && (
@@ -231,7 +231,7 @@ export function StatsSection() {
         <div className="text-center mb-16 relative z-10">
           <Badge
             variant="outline"
-            className="mb-4 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-105 transition-all duration-300 cursor-default group"
+            className="mb-4 bg-white/80 backdrop-blur-xs hover:bg-white hover:scale-105 transition-all duration-300 cursor-default group"
           >
             <Sparkles className="h-3 w-3 mr-1 group-hover:text-[#FF7043] group-hover:animate-spin transition-all duration-300" />
             Our Impact
@@ -240,7 +240,7 @@ export function StatsSection() {
             <span className="inline-block animate-in slide-in-from-left duration-700">
               Trusted by{" "}
             </span>
-            <span className="inline-block bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
+            <span className="inline-block bg-linear-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
               Thousands
             </span>
             <span className="inline-block animate-in slide-in-from-left duration-700 delay-400">
@@ -263,7 +263,7 @@ export function StatsSection() {
               <div
                 key={index}
                 className={cn(
-                  `bg-white rounded-2xl p-8 shadow-sm border group cursor-default transition-all duration-500`,
+                  `bg-white rounded-2xl p-8 shadow-xs border group cursor-default transition-all duration-500`,
                   `hover:shadow-xl hover:scale-105 ${stat.hoverBg}`,
                   isVisible
                     ? "animate-in slide-in-from-bottom duration-700"
@@ -301,7 +301,7 @@ export function StatsSection() {
                     className={cn(
                       "text-4xl font-bold mb-2 transition-all duration-500",
                       hasValue
-                        ? "text-transparent bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text scale-110"
+                        ? "text-transparent bg-linear-to-r from-[#E53935] to-[#D32F2F] bg-clip-text scale-110"
                         : "text-gray-900"
                     )}
                   >
@@ -310,7 +310,7 @@ export function StatsSection() {
                       <span className="ml-2 animate-bounce text-[#FF7043]">✨</span>
                     )}
                   </div>
-                  <div className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
+                  <div className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-linear-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
                     {stat.label}
                   </div>
                   <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
@@ -325,7 +325,7 @@ export function StatsSection() {
         </div>
 
         {/* Achievements */}
-        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border">
+        <div className="bg-white rounded-3xl p-8 md:p-12 shadow-xs border">
           <div className="text-center mb-10">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
               <Award className="h-8 w-8 text-[#FF7043]" />
@@ -340,7 +340,7 @@ export function StatsSection() {
             {achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="text-center p-6 rounded-2xl bg-gradient-to-br from-red-50 to-orange-50 border border-red-100"
+                className="text-center p-6 rounded-2xl bg-linear-to-br from-red-50 to-orange-50 border border-red-100"
               >
                 <div className="bg-[#FF7043] bg-opacity-20 rounded-full p-3 w-fit mx-auto mb-4">
                   <Trophy className="h-6 w-6 text-[#FF7043]" />

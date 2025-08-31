@@ -192,11 +192,11 @@ export function DashboardClient({ user }: DashboardClientProps) {
           {Array.from({ length: 4 }).map((_, i) => (
             <Card key={i}>
               <CardHeader className="pb-2">
-                <div className="h-4 bg-gray-200 rounded w-24"></div>
+                <div className="h-4 bg-gray-200 rounded-sm w-24"></div>
               </CardHeader>
               <CardContent>
-                <div className="h-8 bg-gray-200 rounded w-16 mb-2"></div>
-                <div className="h-3 bg-gray-200 rounded w-32"></div>
+                <div className="h-8 bg-gray-200 rounded-sm w-16 mb-2"></div>
+                <div className="h-3 bg-gray-200 rounded-sm w-32"></div>
               </CardContent>
             </Card>
           ))}

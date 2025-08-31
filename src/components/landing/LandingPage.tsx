@@ -4,8 +4,6 @@ import { useState, useEffect } from "react";
 import { Header } from "./Header";
 import { LandingHero } from "./LandingHero";
 import { OpportunitiesShowcase } from "./OpportunitiesShowcase";
-import { FeaturesSection } from "./FeaturesSection";
-import { StatsSection } from "./StatsSection";
 import { Footer } from "@/components/layout/Footer";
 import { ArrowUp, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -22,11 +20,11 @@ export function LandingPage() {
       setShowScrollTop(window.scrollY > 1000);
 
       // Track current section for fun effects
-      const sections = ["hero", "opportunities", "features", "stats"];
+      const sections = ["hero", "opportunities"];
       const scrollPosition = window.scrollY + window.innerHeight / 2;
 
       for (const section of sections) {
-        const element = document.getElementById(section === "hero" ? "hero" : section);
+        const element = document.getElementById(section);
         if (element) {
           const { offsetTop, offsetHeight } = element;
           if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
@@ -83,7 +81,7 @@ export function LandingPage() {
         const message = document.createElement("div");
         message.innerHTML = "🎉 You found the secret! Welcome to the Strive family! 🎉";
         message.className =
-          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-[#E53935] text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
+          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-9999 bg-[#E53935] text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
         document.body.appendChild(message);
 
         setTimeout(() => {
@@ -135,7 +133,7 @@ export function LandingPage() {
 
       {/* Custom cursor effect - only on desktop */}
       <div
-        className="fixed w-6 h-6 pointer-events-none z-[9999] transition-all duration-300 ease-out hidden lg:block"
+        className="fixed w-6 h-6 pointer-events-none z-9999 transition-all duration-300 ease-out hidden lg:block"
         style={{
           left: mousePosition.x - 12,
           top: mousePosition.y - 12,
@@ -150,9 +148,9 @@ export function LandingPage() {
         <div id="hero">
           <LandingHero />
         </div>
-        <OpportunitiesShowcase />
-        <FeaturesSection />
-        <StatsSection />
+        <div id="opportunities">
+          <OpportunitiesShowcase />
+        </div>
         <Footer />
 
         {/* Scroll to top button with delightful animation */}

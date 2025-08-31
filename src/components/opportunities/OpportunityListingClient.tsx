@@ -246,7 +246,7 @@ export function OpportunityListingClient({ searchParams }: OpportunityListingCli
   return (
     <div className="flex gap-8">
       {/* Filters Sidebar */}
-      <div className={`${showFilters ? "block" : "hidden"} lg:block w-full lg:w-80 flex-shrink-0`}>
+      <div className={`${showFilters ? "block" : "hidden"} lg:block w-full lg:w-80 shrink-0`}>
         <OpportunityFilters
           filters={filters}
           onFiltersChange={handleFilterChange}
@@ -259,7 +259,7 @@ export function OpportunityListingClient({ searchParams }: OpportunityListingCli
       {/* Main Content */}
       <div className="flex-1">
         {/* Search and Sort Header */}
-        <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+        <div className="bg-white rounded-lg shadow-xs border border-gray-200 p-4 mb-6">
           <div className="flex flex-col sm:flex-row gap-4">
             {/* Search Bar */}
             <div className="flex-1 relative">
@@ -307,7 +307,7 @@ export function OpportunityListingClient({ searchParams }: OpportunityListingCli
               <select
                 value={sortBy}
                 onChange={e => handleSortChange(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+                className="px-3 py-2 border border-gray-300 rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-orange-500"
               >
                 {SORT_OPTIONS.map(option => (
                   <option key={option.value} value={option.value}>

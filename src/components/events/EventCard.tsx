@@ -154,7 +154,7 @@ export function EventCard({ event, onCompare, isInComparison }: EventCardProps) 
 
         <div className="space-y-3 mb-4">
           <div className="flex items-center text-sm text-gray-600">
-            <Calendar className="w-4 h-4 mr-2 flex-shrink-0" />
+            <Calendar className="w-4 h-4 mr-2 shrink-0" />
             <span>
               {formatDate(event.eventDate)}
               {event.eventDate !== event.endDate && ` - ${formatDate(event.endDate)}`}
@@ -162,17 +162,17 @@ export function EventCard({ event, onCompare, isInComparison }: EventCardProps) 
           </div>
 
           <div className="flex items-center text-sm text-gray-600">
-            <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+            <MapPin className="w-4 h-4 mr-2 shrink-0" />
             <span>{event.isOnline ? "Virtual Event" : `${event.city}, ${event.country}`}</span>
           </div>
 
           <div className="flex items-center text-sm text-gray-600">
-            <DollarSign className="w-4 h-4 mr-2 flex-shrink-0" />
+            <DollarSign className="w-4 h-4 mr-2 shrink-0" />
             <span className={event.isFree ? "text-green-600 font-medium" : ""}>{event.price}</span>
           </div>
 
           <div className="flex items-center text-sm text-gray-600">
-            <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
+            <Clock className="w-4 h-4 mr-2 shrink-0" />
             <span>Apply by {formatDate(event.applicationDeadline)}</span>
           </div>
         </div>

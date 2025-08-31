@@ -123,7 +123,7 @@ export function SystemHealth() {
               >
                 <div className="flex items-start justify-between">
                   <div className="flex items-center gap-3">
-                    <div className={cn("p-1 rounded", config.bgColor)}>
+                    <div className={cn("p-1 rounded-sm", config.bgColor)}>
                       <config.icon className={cn("h-5 w-5", config.color)} />
                     </div>
                     <div>

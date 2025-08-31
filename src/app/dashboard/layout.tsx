@@ -23,13 +23,16 @@ export default async function DashboardLayout({ children }: DashboardLayoutProps
 
   let user = null;
 
-  try {
-    // Try to get user from database
-    await connectToDatabase();
-    user = await User.findOne({ email: session.user.email });
-  } catch (error) {
-    // If database fails, create mock user from session
-    console.log("Database not available, using session user");
+  // Skip database connection if flag is set for faster development
+  if (process.env.SKIP_DATABASE_CONNECTION !== "true") {
+    try {
+      // Try to get user from database
+      await connectToDatabase();
+      user = await User.findOne({ email: session.user.email });
+    } catch (error) {
+      // If database fails, create mock user from session
+      console.log("Database not available, using session user");
+    }
   }
 
   // Use mock user for testing if no database user found

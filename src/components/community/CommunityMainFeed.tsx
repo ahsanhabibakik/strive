@@ -391,7 +391,7 @@ export function CommunityMainFeed({
                   <div className="mt-6 space-y-4 border-t border-gray-100 pt-4">
                     {post.replies.map(reply => (
                       <div key={reply.id} className="flex space-x-3">
-                        <Avatar className="h-8 w-8 flex-shrink-0">
+                        <Avatar className="h-8 w-8 shrink-0">
                           <AvatarImage src={reply.author.avatar} />
                           <AvatarFallback>{reply.author.name.charAt(0)}</AvatarFallback>
                         </Avatar>

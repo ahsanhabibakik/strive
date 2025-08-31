@@ -150,8 +150,8 @@ export function OpportunityCard({
   return (
     <Card
       className={cn(
-        "group hover:shadow-lg transition-all duration-300 border-0 shadow-sm hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] relative overflow-hidden",
-        isFeatured && "ring-2 ring-orange-200 bg-gradient-to-br from-orange-50/50 to-orange-100/30",
+        "group hover:shadow-lg transition-all duration-300 border-0 shadow-xs hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] relative overflow-hidden",
+        isFeatured && "ring-2 ring-orange-200 bg-linear-to-br from-orange-50/50 to-orange-100/30",
         isHovered && "shadow-2xl",
         className
       )}
@@ -189,7 +189,7 @@ export function OpportunityCard({
             alt={title}
             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <div className="absolute inset-0 bg-linear-to-t from-black/20 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           {isFeatured && (
             <Badge className="absolute top-3 left-3 bg-orange-500 hover:bg-orange-600">
               Featured
@@ -199,7 +199,7 @@ export function OpportunityCard({
             variant="ghost"
             size="sm"
             className={cn(
-              "absolute top-3 right-3 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-110 transition-all duration-200",
+              "absolute top-3 right-3 bg-white/80 backdrop-blur-xs hover:bg-white hover:scale-110 transition-all duration-200",
               hookBookmarked && "text-orange-600 bg-orange-50/90",
               bookmarkLoading && "animate-pulse"
             )}
@@ -251,7 +251,7 @@ export function OpportunityCard({
             <p className="text-sm text-gray-600 mt-1">{organizerName}</p>
           </div>
           {logoUrl && (
-            <div className="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden border bg-white">
+            <div className="shrink-0 w-12 h-12 rounded-lg overflow-hidden border bg-white">
               <img
                 src={logoUrl}
                 alt={`${organizerName} logo`}
@@ -267,13 +267,13 @@ export function OpportunityCard({
 
         <div className="space-y-3 text-sm text-gray-600">
           <div className="flex items-center gap-2 group/location hover:text-blue-600 transition-colors">
-            <MapPin className="h-4 w-4 flex-shrink-0 group-hover/location:animate-bounce" />
+            <MapPin className="h-4 w-4 shrink-0 group-hover/location:animate-bounce" />
             <span className="truncate">{location}</span>
           </div>
 
           <div className="flex items-center gap-2 group/deadline">
             <Calendar className={cn(
-              "h-4 w-4 flex-shrink-0",
+              "h-4 w-4 shrink-0",
               daysUntilDeadline && daysUntilDeadline <= 3 && "animate-pulse text-red-500"
             )} />
             <span className={cn(
@@ -300,7 +300,7 @@ export function OpportunityCard({
 
           {topPrize && (
             <div className="flex items-center gap-2 text-green-700 group/prize hover:text-green-600 transition-colors">
-              <Trophy className="h-4 w-4 flex-shrink-0 group-hover/prize:animate-bounce group-hover/prize:text-yellow-500" />
+              <Trophy className="h-4 w-4 shrink-0 group-hover/prize:animate-bounce group-hover/prize:text-yellow-500" />
               <span className="text-xs font-medium truncate">
                 {topPrize.amount
                   ? `${currency || "USD"} ${topPrize.amount.toLocaleString()} 💰`
@@ -338,7 +338,7 @@ export function OpportunityCard({
         <Link href={`/opportunities/${slug}`}>
           <Button 
             size="sm" 
-            className="bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white hover:scale-105 hover:shadow-lg transition-all duration-200 group/apply"
+            className="bg-linear-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white hover:scale-105 hover:shadow-lg transition-all duration-200 group/apply"
           >
             <span className="group-hover/apply:animate-pulse">Apply Now</span>
             {isHovered && (

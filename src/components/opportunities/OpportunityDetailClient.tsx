@@ -309,7 +309,7 @@ export function OpportunityDetailClient({
 
             <div className="flex items-center gap-4 text-gray-600">
               {logoUrl && (
-                <div className="w-12 h-12 rounded-lg overflow-hidden border bg-white flex-shrink-0">
+                <div className="w-12 h-12 rounded-lg overflow-hidden border bg-white shrink-0">
                   <Image
                     src={logoUrl}
                     alt={`${organizerName} logo`}
@@ -376,7 +376,7 @@ export function OpportunityDetailClient({
                   <>
                     <Button
                       size="lg"
-                      className="w-full bg-gradient-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white hover:scale-105 hover:shadow-xl transition-all duration-300 group/apply font-semibold"
+                      className="w-full bg-linear-to-r from-orange-600 to-orange-500 hover:from-orange-700 hover:to-orange-600 text-white hover:scale-105 hover:shadow-xl transition-all duration-300 group/apply font-semibold"
                       onClick={() => setShowApplicationWizard(true)}
                     >
                       <span className="group-hover/apply:animate-pulse">🚀 Apply Now</span>
@@ -645,7 +645,7 @@ export function OpportunityDetailClient({
                   <ul className="space-y-2">
                     {requirements.map((req, index) => (
                       <li key={index} className="flex items-start gap-2">
-                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                        <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 shrink-0" />
                         <span className="text-sm">{req}</span>
                       </li>
                     ))}

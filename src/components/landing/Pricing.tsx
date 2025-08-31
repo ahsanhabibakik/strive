@@ -80,11 +80,11 @@ export function Pricing() {
                 <Button
                   className={classNames(
                     tier.featured
-                      ? "bg-[#E53935] text-white shadow-xs hover:bg-[#D32F2F]"
+                      ? "bg-[#E53935] text-white shadow-2xs hover:bg-[#D32F2F]"
                       : "text-[#E53935] ring-1 ring-inset ring-red-200 hover:ring-red-300",
                     "mt-8 block w-full rounded-md px-3 py-2 text-center text-sm font-semibold leading-6 focus-visible:outline-solid focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E53935]"
                   )}
-                  variant={tier.featured ? "default" : "outline"}
+                  variant={tier.featured ? "default" : "outline-solid"}
                 >
                   {tier.cta}
                 </Button>

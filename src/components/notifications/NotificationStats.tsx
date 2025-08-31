@@ -180,7 +180,7 @@ export function NotificationStats({ stats }: NotificationStatsProps) {
 
       {/* Quick Actions */}
       <div className="lg:col-span-4">
-        <div className="bg-gradient-to-r from-indigo-500 to-purple-600 rounded-lg p-6 text-white">
+        <div className="bg-linear-to-r from-indigo-500 to-purple-600 rounded-lg p-6 text-white">
           <div className="flex items-center justify-between">
             <div>
               <h3 className="text-lg font-medium">Stay Updated</h3>

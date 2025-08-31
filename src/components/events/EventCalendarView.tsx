@@ -125,7 +125,7 @@ export function EventCalendarView({ events }: EventCalendarViewProps) {
                   fontWeight: "bold",
                 },
               }}
-              className="rounded-md border shadow"
+              className="rounded-md border shadow-sm"
             />
 
             {/* Legend */}

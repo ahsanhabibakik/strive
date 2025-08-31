@@ -130,13 +130,13 @@ function GoalListSkeleton() {
         <Card key={i}>
           <CardContent className="p-6">
             <div className="animate-pulse">
-              <div className="h-6 bg-gray-200 rounded w-3/4 mb-3"></div>
-              <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-              <div className="h-4 bg-gray-200 rounded w-2/3 mb-4"></div>
-              <div className="h-2 bg-gray-200 rounded w-full mb-2"></div>
+              <div className="h-6 bg-gray-200 rounded-sm w-3/4 mb-3"></div>
+              <div className="h-4 bg-gray-200 rounded-sm w-full mb-2"></div>
+              <div className="h-4 bg-gray-200 rounded-sm w-2/3 mb-4"></div>
+              <div className="h-2 bg-gray-200 rounded-sm w-full mb-2"></div>
               <div className="flex justify-between items-center">
-                <div className="h-4 bg-gray-200 rounded w-24"></div>
-                <div className="h-8 bg-gray-200 rounded w-20"></div>
+                <div className="h-4 bg-gray-200 rounded-sm w-24"></div>
+                <div className="h-8 bg-gray-200 rounded-sm w-20"></div>
               </div>
             </div>
           </CardContent>

@@ -82,7 +82,7 @@ export function UsersTable({
   };
 
   return (
-    <div className="bg-white shadow-2xs rounded-sm overflow-hidden">
+    <div className="bg-white shadow-2xs rounded-xs overflow-hidden">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <h3 className="text-lg font-medium text-gray-900">Users ({pagination.total})</h3>
@@ -110,7 +110,7 @@ export function UsersTable({
               <th scope="col" className="relative w-12 px-6 sm:w-16 sm:px-8">
                 <input
                   type="checkbox"
-                  className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                  className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded-sm border-gray-300 text-indigo-600 focus:ring-indigo-600"
                   checked={users.length > 0 && selectedUsers.length === users.length}
                   onChange={e => handleSelectAll(e.target.checked)}
                 />
@@ -166,7 +166,7 @@ export function UsersTable({
                   <td className="relative w-12 px-6 sm:w-16 sm:px-8">
                     <input
                       type="checkbox"
-                      className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                      className="absolute left-4 top-1/2 -mt-2 h-4 w-4 rounded-sm border-gray-300 text-indigo-600 focus:ring-indigo-600"
                       value={user._id}
                       checked={isSelected}
                       onChange={e => handleSelectUser(user._id, e.target.checked)}
@@ -252,7 +252,7 @@ export function UsersTable({
                         <EllipsisHorizontalIcon className="h-5 w-5" aria-hidden="true" />
                       </Menu.Button>
 
-                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-sm ring-3 ring-black ring-opacity-5 focus:outline-hidden">
+                      <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-xs ring-3 ring-black ring-opacity-5 focus:outline-hidden">
                         <div className="py-1">
                           {canViewDetails && (
                             <Menu.Item>

@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev --turbo",
+    "dev:webpack": "next dev",
     "dev:safe": "node scripts/dev.js",
-    "dev:fast": "next dev --turbo --experimental-debug-start",
     "dev:setup": "node scripts/dev.js --setup-db",
     "dev:monitor": "node scripts/dev.js --monitor",
     "build": "next build",
@@ -25,7 +25,7 @@
     "db:reset": "node scripts/db-reset.js",
     "sanity:deploy": "sanity deploy",
     "sanity:start": "sanity dev",
-    "commit": "node scripts/auto-commit-manager.js && git push origin main",
+    "commit": "node scripts/auto-commit-manager.js chunked",
     "commit:interactive": "bash scripts/chunk-commit.sh --interactive && git push origin main",
     "commit:auto": "bash scripts/chunk-commit.sh --auto && git push origin main",
     "quick": "git add . && git commit -m \"feat: quick commit\" && git push origin main",
@@ -78,6 +78,7 @@
     "@sanity/ui": "^2.16.13",
     "@sanity/vision": "^4.6.0",
     "@stripe/stripe-js": "^7.9.0",
+    "@tailwindcss/postcss": "^4.1.12",
     "@tanstack/react-query": "^5.85.5",
     "@types/qrcode": "^1.5.5",
     "bcryptjs": "^2.4.3",
@@ -134,7 +135,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "postcss": "^8.5.6",
     "prettier": "^3.6.2",
-    "tailwindcss": "^3.4.17",
+    "tailwindcss": "^4.1.12",
     "typescript": "^5.9.2"
   },
   "pnpm": {

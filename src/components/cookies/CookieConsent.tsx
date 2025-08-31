@@ -230,7 +230,7 @@ export function CookieConsent() {
                         className="sr-only"
                       />
                       <div className="w-12 h-6 bg-indigo-600 rounded-full flex items-center">
-                        <div className="w-5 h-5 bg-white rounded-full ml-1 shadow-xs"></div>
+                        <div className="w-5 h-5 bg-white rounded-full ml-1 shadow-2xs"></div>
                       </div>
                     </div>
                     <span className="text-xs text-gray-500 mt-1">Always On</span>
@@ -260,7 +260,7 @@ export function CookieConsent() {
                         }`}
                       >
                         <div
-                          className={`w-5 h-5 bg-white rounded-full shadow-xs transition-transform ${
+                          className={`w-5 h-5 bg-white rounded-full shadow-2xs transition-transform ${
                             preferences.analytics ? "translate-x-6 ml-1" : "ml-1"
                           }`}
                         ></div>
@@ -292,7 +292,7 @@ export function CookieConsent() {
                         }`}
                       >
                         <div
-                          className={`w-5 h-5 bg-white rounded-full shadow-xs transition-transform ${
+                          className={`w-5 h-5 bg-white rounded-full shadow-2xs transition-transform ${
                             preferences.marketing ? "translate-x-6 ml-1" : "ml-1"
                           }`}
                         ></div>
@@ -324,7 +324,7 @@ export function CookieConsent() {
                         }`}
                       >
                         <div
-                          className={`w-5 h-5 bg-white rounded-full shadow-xs transition-transform ${
+                          className={`w-5 h-5 bg-white rounded-full shadow-2xs transition-transform ${
                             preferences.preferences ? "translate-x-6 ml-1" : "ml-1"
                           }`}
                         ></div>

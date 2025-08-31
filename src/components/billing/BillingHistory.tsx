@@ -158,10 +158,10 @@ export function BillingHistory({ customerId }: BillingHistoryProps) {
                 className="flex justify-between items-center py-4 border-b border-gray-100 last:border-b-0"
               >
                 <div className="space-y-2">
-                  <div className="h-4 bg-gray-200 rounded w-32"></div>
-                  <div className="h-3 bg-gray-200 rounded w-24"></div>
+                  <div className="h-4 bg-gray-200 rounded-sm w-32"></div>
+                  <div className="h-3 bg-gray-200 rounded-sm w-24"></div>
                 </div>
-                <div className="h-6 bg-gray-200 rounded w-16"></div>
+                <div className="h-6 bg-gray-200 rounded-sm w-16"></div>
               </div>
             ))}
           </div>

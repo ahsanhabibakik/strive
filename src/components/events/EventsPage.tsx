@@ -7,7 +7,7 @@ import { EventFilters } from "./EventFilters";
 import { EventCalendarView } from "./EventCalendarView";
 import { EventComparison } from "./EventComparison";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Grid3x3, Calendar, Compare, Users } from "lucide-react";
+import { Search, Grid3x3, Calendar, GitCompare, Users } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -175,8 +175,8 @@ export function EventsPage({ user }: EventsPageProps) {
 
         <div className="flex gap-8">
           {/* Filters Sidebar */}
-          <div className="w-80 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-sm p-6 sticky top-24">
+          <div className="w-80 shrink-0">
+            <div className="bg-white rounded-lg shadow-xs p-6 sticky top-24">
               <EventFilters
                 onFilterChange={handleFilterChange}
                 eventCount={filteredEvents.length}
@@ -210,7 +210,7 @@ export function EventsPage({ user }: EventsPageProps) {
                         onClick={() => setSearchQuery(event.title)}
                       >
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-md overflow-hidden flex-shrink-0">
+                          <div className="w-10 h-10 rounded-md overflow-hidden shrink-0">
                             <img
                               src={event.logoUrl}
                               alt={event.title}
@@ -319,7 +319,7 @@ export function EventsPage({ user }: EventsPageProps) {
 
               {comparisonEvents.length > 0 && (
                 <Button variant="outline" className="flex items-center gap-2">
-                  <Compare className="h-4 w-4" />
+                  <GitCompare className="h-4 w-4" />
                   Compare ({comparisonEvents.length})
                   <Badge variant="secondary" className="ml-1">
                     {comparisonEvents.length}
@@ -340,7 +340,7 @@ export function EventsPage({ user }: EventsPageProps) {
                   Calendar View
                 </TabsTrigger>
                 <TabsTrigger value="comparison" className="flex items-center gap-2">
-                  <Compare className="h-4 w-4" />
+                  <GitCompare className="h-4 w-4" />
                   Compare
                   {comparisonEvents.length > 0 && (
                     <Badge variant="secondary" className="ml-1 text-xs">

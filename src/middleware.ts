@@ -5,7 +5,7 @@ import { getToken } from 'next-auth/jwt'
 import { applySecurityHeaders } from '@/lib/security/headers'
 import { createRateLimit } from '@/lib/middleware/rate-limit'
 import { findRateLimitConfig, adjustForEnvironment, getSpecialRateLimit } from '@/lib/middleware/rate-limit-config'
-import { logger } from '@/lib/monitoring'
+// import { logger } from '@/lib/monitoring' // Disabled for dev speed
 
 // Routes that require authentication
 const protectedRoutes = [
@@ -108,7 +108,7 @@ async function applyRateLimit(req: NextRequest): Promise<NextResponse | null> {
 
     return rateLimitResult;
   } catch (error) {
-    logger.error('Rate limiting error in middleware:', error);
+    console.error('Rate limiting error in middleware:', error);
     return null; // Continue without rate limiting on error
   }
 }

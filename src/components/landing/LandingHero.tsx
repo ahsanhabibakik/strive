@@ -86,11 +86,11 @@ export function LandingHero() {
   ];
 
   const formatDate = (dateString: string) => {
-    return new Date(dateString).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
+    // Use a consistent format that won't cause hydration mismatches
+    const date = new Date(dateString);
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    return `${months[date.getUTCMonth()]} ${date.getUTCDate()}, ${date.getUTCFullYear()}`;
   };
 
   return (
@@ -107,7 +107,7 @@ export function LandingHero() {
 
           <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
             Discover Your Next
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#E53935] to-[#D32F2F]">
+            <span className="block text-transparent bg-clip-text bg-linear-to-r from-[#E53935] to-[#D32F2F]">
               Professional Opportunity
             </span>
           </h1>
@@ -119,7 +119,7 @@ export function LandingHero() {
 
           {/* Search Bar */}
           <div className="max-w-2xl mx-auto mb-8">
-            <div className="flex gap-2 p-1.5 bg-white rounded-lg border shadow-sm">
+            <div className="flex gap-2 p-1.5 bg-white rounded-lg border shadow-xs">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <Input
@@ -188,7 +188,7 @@ export function LandingHero() {
             <div className="grid md:grid-cols-3 gap-6">
               {featuredEvents.map(event => (
                 <Link key={event._id} href={`/events/${event.slug}`}>
-                  <Card className="hover:shadow-lg transition-all duration-200 border-0 shadow-sm h-full group">
+                  <Card className="hover:shadow-lg transition-all duration-200 border-0 shadow-xs h-full group">
                     <div className="relative h-48 overflow-hidden rounded-t-lg">
                       <img
                         src={event.logoUrl}
@@ -250,7 +250,7 @@ export function LandingHero() {
               const Icon = category.icon;
               return (
                 <Link key={category.name} href={category.href}>
-                  <Card className="hover:shadow-md transition-all duration-200 border-0 shadow-sm group cursor-pointer">
+                  <Card className="hover:shadow-md transition-all duration-200 border-0 shadow-xs group cursor-pointer">
                     <CardContent className="p-6 text-center">
                       <Icon className="h-8 w-8 mx-auto text-[#2196F3] mb-3 group-hover:scale-110 transition-transform" />
                       <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>

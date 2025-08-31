@@ -1,33 +1,19 @@
 import type { NextConfig } from "next";
 
+// Minimal config for development speed
 const nextConfig: NextConfig = {
-  // Server external packages (moved from experimental)
+  // Basic settings only
   serverExternalPackages: ["mongoose"],
-
-  // FAST DEV MODE - Skip everything for speed
-  typescript: {
-    ignoreBuildErrors: true, // Skip all TS checks in dev
-  },
-
-  eslint: {
-    ignoreDuringBuilds: true, // Skip all linting
-  },
-
-  // Faster compilation
-  swcMinify: true,
   
-  // Skip static optimization for speed  
-  experimental: {
-    optimizePackageImports: [], // Disable to speed up dev
-  },
-
-  // Minimal image config for dev speed
+  // Skip all validations for speed
+  typescript: { ignoreBuildErrors: true },
+  eslint: { ignoreDuringBuilds: true },
+  
+  // Basic image config
   images: {
-    unoptimized: process.env.NODE_ENV === "development", // Skip image optimization in dev
+    unoptimized: true, // Skip optimization
     remotePatterns: [
-      { protocol: "https", hostname: "lh3.googleusercontent.com" },
-      { protocol: "https", hostname: "avatars.githubusercontent.com" },
-      { protocol: "https", hostname: "images.unsplash.com" },
+      { protocol: "https", hostname: "**" }, // Allow all HTTPS images
     ],
   },
 };
