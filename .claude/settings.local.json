@@ -17,7 +17,9 @@
       "mcp__playwright__browser_install",
       "mcp__playwright__browser_close",
       "WebSearch",
-      "Bash(npx shadcn@latest add:*)"
+      "Bash(npx shadcn@latest add:*)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm build:*)"
     ],
     "deny": [],
     "ask": [],
