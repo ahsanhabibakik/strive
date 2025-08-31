@@ -25,7 +25,8 @@
       "mcp__playwright__browser_console_messages",
       "Bash(find:*)",
       "Bash(timeout 30s pnpm dev)",
-      "Bash(pnpm run lint:*)"
+      "Bash(pnpm run lint:*)",
+      "Bash(pnpm remove:*)"
     ],
     "deny": [],
     "ask": [],
