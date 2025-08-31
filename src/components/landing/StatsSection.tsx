@@ -205,7 +205,7 @@ export function StatsSection() {
                 animationDuration: `${2 + Math.random() * 2}s`,
               }}
             >
-              <PartyPopper className="h-6 w-6 text-yellow-400" />
+              <PartyPopper className="h-6 w-6 text-[#FF7043]" />
             </div>
           ))}
         </div>
@@ -214,16 +214,16 @@ export function StatsSection() {
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-20 left-10 animate-pulse" style={{ animationDelay: "0s" }}>
-          <Star className="h-8 w-8 text-blue-300 opacity-20" />
+          <Star className="h-8 w-8 text-[#2196F3] opacity-20" />
         </div>
         <div
           className="absolute top-40 right-20 animate-bounce"
           style={{ animationDelay: "2s", animationDuration: "4s" }}
         >
-          <Heart className="h-6 w-6 text-pink-300 opacity-30" />
+          <Heart className="h-6 w-6 text-[#E53935] opacity-30" />
         </div>
         <div className="absolute bottom-40 left-1/4 animate-pulse" style={{ animationDelay: "1s" }}>
-          <Zap className="h-10 w-10 text-yellow-300 opacity-25" />
+          <Zap className="h-10 w-10 text-[#FF7043] opacity-25" />
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -233,7 +233,7 @@ export function StatsSection() {
             variant="outline"
             className="mb-4 bg-white/80 backdrop-blur-sm hover:bg-white hover:scale-105 transition-all duration-300 cursor-default group"
           >
-            <Sparkles className="h-3 w-3 mr-1 group-hover:text-yellow-500 group-hover:animate-spin transition-all duration-300" />
+            <Sparkles className="h-3 w-3 mr-1 group-hover:text-[#FF7043] group-hover:animate-spin transition-all duration-300" />
             Our Impact
           </Badge>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
@@ -307,7 +307,7 @@ export function StatsSection() {
                   >
                     {isVisible ? stat.value : "0"}
                     {hasValue && confettiTrigger && index === 0 && (
-                      <span className="ml-2 animate-bounce text-yellow-500">✨</span>
+                      <span className="ml-2 animate-bounce text-[#FF7043]">✨</span>
                     )}
                   </div>
                   <div className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
@@ -328,7 +328,7 @@ export function StatsSection() {
         <div className="bg-white rounded-3xl p-8 md:p-12 shadow-sm border">
           <div className="text-center mb-10">
             <h3 className="text-2xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-3">
-              <Award className="h-8 w-8 text-yellow-500" />
+              <Award className="h-8 w-8 text-[#FF7043]" />
               Recognition & Awards
             </h3>
             <p className="text-gray-600">
@@ -340,7 +340,7 @@ export function StatsSection() {
             {achievements.map((achievement, index) => (
               <div
                 key={index}
-                className="text-center p-6 rounded-2xl bg-gradient-to-br from-yellow-50 to-orange-50 border border-yellow-100"
+                className="text-center p-6 rounded-2xl bg-gradient-to-br from-red-50 to-orange-50 border border-red-100"
               >
                 <div className="bg-[#FF7043] bg-opacity-20 rounded-full p-3 w-fit mx-auto mb-4">
                   <Trophy className="h-6 w-6 text-[#FF7043]" />

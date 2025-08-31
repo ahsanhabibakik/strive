@@ -99,7 +99,7 @@ export function FeaturesSection() {
       description:
         "Never miss a deadline with personalized notifications for applications and goal milestones.",
       emoji: "🔔",
-      color: "text-yellow-600",
+      color: "text-[#FF7043]",
     },
     {
       icon: Users,
@@ -107,21 +107,21 @@ export function FeaturesSection() {
       description:
         "Work with teams, share goals, and collaborate on applications with built-in team features.",
       emoji: "👥",
-      color: "text-blue-600",
+      color: "text-[#2196F3]",
     },
     {
       icon: Shield,
       title: "Secure & Private",
       description: "Your data is protected with enterprise-grade security and privacy controls.",
       emoji: "🛡️",
-      color: "text-green-600",
+      color: "text-[#E53935]",
     },
     {
       icon: Calendar,
       title: "Deadline Management",
       description: "Keep track of all your important dates with our integrated calendar system.",
       emoji: "📅",
-      color: "text-purple-600",
+      color: "text-[#E53935]",
     },
     {
       icon: BookOpen,
@@ -129,7 +129,7 @@ export function FeaturesSection() {
       description:
         "Access guides, templates, and resources to improve your applications and goal setting.",
       emoji: "📚",
-      color: "text-orange-600",
+      color: "text-[#FF7043]",
     },
     {
       icon: Globe,
@@ -137,7 +137,7 @@ export function FeaturesSection() {
       description:
         "Connect with like-minded individuals from around the world pursuing similar goals.",
       emoji: "🌍",
-      color: "text-indigo-600",
+      color: "text-[#2196F3]",
     },
   ];
 
@@ -149,25 +149,25 @@ export function FeaturesSection() {
           className="absolute top-20 left-10 animate-bounce"
           style={{ animationDelay: "0s", animationDuration: "4s" }}
         >
-          <Star className="h-6 w-6 text-blue-300 opacity-20" />
+          <Star className="h-6 w-6 text-[#2196F3] opacity-20" />
         </div>
         <div
           className="absolute top-40 right-20 animate-bounce"
           style={{ animationDelay: "2s", animationDuration: "5s" }}
         >
-          <Heart className="h-4 w-4 text-pink-300 opacity-30" />
+          <Heart className="h-4 w-4 text-[#E53935] opacity-30" />
         </div>
         <div
           className="absolute bottom-40 left-1/4 animate-bounce"
           style={{ animationDelay: "1s", animationDuration: "3s" }}
         >
-          <Zap className="h-5 w-5 text-yellow-300 opacity-25" />
+          <Zap className="h-5 w-5 text-[#FF7043] opacity-25" />
         </div>
         <div
           className="absolute bottom-20 right-1/3 animate-bounce"
           style={{ animationDelay: "3s", animationDuration: "4s" }}
         >
-          <Rocket className="h-7 w-7 text-purple-300 opacity-20" />
+          <Rocket className="h-7 w-7 text-[#E53935] opacity-20" />
         </div>
       </div>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -177,14 +177,14 @@ export function FeaturesSection() {
             variant="outline"
             className="mb-4 hover:bg-white hover:scale-105 transition-all duration-300 cursor-default group"
           >
-            <Sparkles className="h-3 w-3 mr-1 group-hover:text-yellow-500 group-hover:animate-spin transition-all duration-300" />
+            <Sparkles className="h-3 w-3 mr-1 group-hover:text-[#FF7043] group-hover:animate-spin transition-all duration-300" />
             Powerful Features
           </Badge>
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
             <span className="inline-block animate-in slide-in-from-left duration-700">
               Everything You Need to{" "}
             </span>
-            <span className="inline-block bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
+            <span className="inline-block bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
               Succeed
             </span>
           </h2>
@@ -206,7 +206,7 @@ export function FeaturesSection() {
                 data-index={index}
                 className={cn(
                   "relative overflow-hidden group transition-all duration-500 cursor-pointer",
-                  "hover:shadow-xl hover:shadow-blue-100 hover:-translate-y-2",
+                  "hover:shadow-xl hover:shadow-red-100 hover:-translate-y-2",
                   isVisible
                     ? "animate-in slide-in-from-bottom duration-700"
                     : "opacity-0 translate-y-10"
@@ -252,7 +252,7 @@ export function FeaturesSection() {
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300">
+                  <h3 className="text-xl font-semibold text-gray-900 mb-4 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
                     {feature.title}
                   </h3>
 
@@ -262,7 +262,7 @@ export function FeaturesSection() {
 
                   <Button
                     variant="ghost"
-                    className="p-0 h-auto text-sm group-hover:translate-x-2 transition-all duration-300 group-hover:text-blue-600"
+                    className="p-0 h-auto text-sm group-hover:translate-x-2 transition-all duration-300 group-hover:text-[#E53935]"
                   >
                     Learn more
                     <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
@@ -271,7 +271,7 @@ export function FeaturesSection() {
                   {/* Hover glow effect */}
                   <div
                     className={cn(
-                      "absolute -inset-1 bg-gradient-to-r from-blue-600/20 to-purple-600/20 rounded-lg blur opacity-0 transition-opacity duration-300",
+                      "absolute -inset-1 bg-gradient-to-r from-[#E53935]/20 to-[#D32F2F]/20 rounded-lg blur opacity-0 transition-opacity duration-300",
                       isHovered && "opacity-100"
                     )}
                   />
@@ -299,7 +299,7 @@ export function FeaturesSection() {
                 )}
                 style={{ animationDelay: isVisible ? `${(cardIndex - 3) * 100 + 600}ms` : "0ms" }}
               >
-                <div className="flex items-start space-x-4 p-6 rounded-xl hover:bg-gradient-to-br hover:from-blue-50 hover:to-purple-50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border hover:border-blue-200">
+                <div className="flex items-start space-x-4 p-6 rounded-xl hover:bg-gradient-to-br hover:from-red-50 hover:to-orange-50 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border hover:border-red-200">
                   <div className="bg-gray-100 rounded-lg p-3 group-hover:bg-white group-hover:shadow-md transition-all duration-300 relative group-hover:scale-110">
                     <Icon
                       className={cn(
@@ -313,14 +313,14 @@ export function FeaturesSection() {
                     </div>
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-purple-600 group-hover:bg-clip-text transition-all duration-300">
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#FF7043] group-hover:bg-clip-text transition-all duration-300">
                       {feature.title}
                     </h3>
                     <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                       {feature.description}
                     </p>
                     {/* Fun hover indicator */}
-                    <div className="w-0 h-0.5 bg-gradient-to-r from-blue-600 to-purple-600 mt-3 group-hover:w-full transition-all duration-500 rounded-full" />
+                    <div className="w-0 h-0.5 bg-gradient-to-r from-[#E53935] to-[#FF7043] mt-3 group-hover:w-full transition-all duration-500 rounded-full" />
                   </div>
                 </div>
               </div>
@@ -329,7 +329,7 @@ export function FeaturesSection() {
         </div>
 
         {/* CTA Section */}
-        <div className="bg-gradient-to-r from-blue-600 to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden group">
+        <div className="bg-gradient-to-r from-[#E53935] to-[#D32F2F] rounded-3xl p-8 md:p-12 text-center text-white relative overflow-hidden group">
           {/* Animated background effects */}
           <div className="absolute inset-0 opacity-20">
             <div className="absolute top-4 left-4 animate-pulse">

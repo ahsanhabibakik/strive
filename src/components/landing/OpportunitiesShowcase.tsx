@@ -77,42 +77,42 @@ export function OpportunitiesShowcase() {
       label: "Scholarships",
       icon: GraduationCap,
       count: 0,
-      color: "bg-blue-50 text-blue-700",
+      color: "bg-blue-50 text-[#2196F3]",
     },
     {
       name: "competitions",
       label: "Competitions",
       icon: Trophy,
       count: 0,
-      color: "bg-green-50 text-green-700",
+      color: "bg-red-50 text-[#E53935]",
     },
     {
       name: "internships",
       label: "Internships",
       icon: Briefcase,
       count: 0,
-      color: "bg-purple-50 text-purple-700",
+      color: "bg-red-50 text-[#E53935]",
     },
     {
       name: "conferences",
       label: "Conferences",
       icon: Users,
       count: 0,
-      color: "bg-orange-50 text-orange-700",
+      color: "bg-orange-50 text-[#FF7043]",
     },
     {
       name: "workshops",
       label: "Workshops",
       icon: BookOpen,
       count: 0,
-      color: "bg-pink-50 text-pink-700",
+      color: "bg-blue-50 text-[#2196F3]",
     },
     {
       name: "grants",
       label: "Grants",
       icon: Award,
       count: 0,
-      color: "bg-indigo-50 text-indigo-700",
+      color: "bg-blue-50 text-[#2196F3]",
     },
   ];
 
@@ -269,7 +269,7 @@ export function OpportunitiesShowcase() {
           </Badge>
           <h2 className="text-3xl font-bold text-gray-900 mb-4">
             Deadline{" "}
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent">
               Approaching
             </span>
           </h2>
@@ -477,7 +477,7 @@ export function OpportunitiesShowcase() {
                 </Card>
                 <Card>
                   <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-green-600">
+                    <div className="text-2xl font-bold text-[#E53935]">
                       {stats.freeOpportunities}
                     </div>
                     <div className="text-sm text-gray-600">Free to Apply</div>
@@ -485,7 +485,7 @@ export function OpportunitiesShowcase() {
                 </Card>
                 <Card>
                   <CardContent className="p-4 text-center">
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-[#2196F3]">
                       {stats.onlineOpportunities}
                     </div>
                     <div className="text-sm text-gray-600">Online Events</div>
