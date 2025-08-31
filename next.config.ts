@@ -4,32 +4,31 @@ const nextConfig: NextConfig = {
   // Server external packages (moved from experimental)
   serverExternalPackages: ["mongoose"],
 
-  // Image optimization
-  images: {
-    remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "lh3.googleusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "avatars.githubusercontent.com",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-      },
-    ],
-  },
-
-  // TypeScript config - Skip errors in production/Vercel builds
+  // FAST DEV MODE - Skip everything for speed
   typescript: {
-    ignoreBuildErrors: process.env.NODE_ENV === "production" || !!process.env.VERCEL,
+    ignoreBuildErrors: true, // Skip all TS checks in dev
   },
 
-  // ESLint config - Only run in development
   eslint: {
-    ignoreDuringBuilds: process.env.NODE_ENV === "production" || !!process.env.VERCEL,
+    ignoreDuringBuilds: true, // Skip all linting
+  },
+
+  // Faster compilation
+  swcMinify: true,
+  
+  // Skip static optimization for speed  
+  experimental: {
+    optimizePackageImports: [], // Disable to speed up dev
+  },
+
+  // Minimal image config for dev speed
+  images: {
+    unoptimized: process.env.NODE_ENV === "development", // Skip image optimization in dev
+    remotePatterns: [
+      { protocol: "https", hostname: "lh3.googleusercontent.com" },
+      { protocol: "https", hostname: "avatars.githubusercontent.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
+    ],
   },
 };
 

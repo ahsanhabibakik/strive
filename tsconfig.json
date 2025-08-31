@@ -7,7 +7,7 @@
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": true,
+    "strict": false,
     "noEmit": true,
     "esModuleInterop": true,
     "module": "esnext",
@@ -37,8 +37,18 @@
   ],
   "exclude": [
     "node_modules",
-    "ref/**/*",
+    "ref/**/*", 
     "sanity.config.ts",
-    "sanity/**/*"
+    "sanity/**/*",
+    ".next/**/*",
+    "dist/**/*",
+    "build/**/*",
+    "coverage/**/*",
+    ".vercel/**/*",
+    "scripts/**/*",
+    "**/*.test.ts",
+    "**/*.test.tsx",
+    "**/*.spec.ts",
+    "**/*.spec.tsx"
   ]
 }

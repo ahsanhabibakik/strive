@@ -1,3 +1,83 @@
 {
-    "postman.settings.dotenv-detection-notification-visibility": false
+  "postman.settings.dotenv-detection-notification-visibility": false,
+  
+  // TypeScript Performance Optimization
+  "typescript.preferences.includePackageJsonAutoImports": "off",
+  "typescript.suggest.autoImports": false,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.validate.enable": false,
+  "typescript.format.enable": false,
+  "typescript.suggest.enabled": false,
+  
+  // Disable heavy language services
+  "eslint.enable": false,
+  "prettier.enable": false,
+  "emmet.showExpandedAbbreviation": "never",
+  
+  // File watching optimization
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/.git/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/.vercel/**": true,
+    "**/ref/**": true,
+    "**/.sanity/**": true
+  },
+  
+  // Search exclusions to reduce indexing
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/.vercel": true,
+    "**/ref": true,
+    "**/.sanity": true,
+    "**/.git": true
+  },
+  
+  // File associations to reduce processing
+  "files.associations": {
+    "*.json": "json"
+  },
+  
+  // Disable resource-heavy features
+  "editor.minimap.enabled": false,
+  "editor.codeLens": false,
+  "editor.hover.enabled": false,
+  "editor.parameterHints.enabled": false,
+  "editor.quickSuggestions": {
+    "comments": "off",
+    "strings": "off",
+    "other": "off"
+  },
+  "editor.suggestOnTriggerCharacters": false,
+  "editor.wordBasedSuggestions": "off",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  
+  // Reduce git operations
+  "git.enabled": true,
+  "git.autorefresh": false,
+  "git.autofetch": false,
+  "git.decorations.enabled": false,
+  
+  // Disable extensions that might be heavy
+  "extensions.autoUpdate": false,
+  "extensions.autoCheckUpdates": false,
+  
+  // Performance settings
+  "workbench.editor.enablePreview": false,
+  "workbench.editor.enablePreviewFromQuickOpen": false,
+  "workbench.startupEditor": "none",
+  
+  // Tailwind CSS optimization (if installed)
+  "tailwindCSS.emmetCompletions": false,
+  "tailwindCSS.suggestions": false,
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false
 }
