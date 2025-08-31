@@ -27,7 +27,7 @@ export function Hero() {
         <div className="text-center">
           <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-6xl">
             Achieve Your Goals
-            <span className="text-indigo-600"> Together</span>
+            <span className="text-[#E53935]"> Together</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-gray-600">
             A powerful platform to help you set, track, and achieve your personal and professional
@@ -50,19 +50,19 @@ export function Hero() {
           {/* Key Features Preview */}
           <div className="mt-16 grid grid-cols-2 gap-4 sm:grid-cols-4">
             <div className="rounded-lg bg-white/5 p-4 text-center">
-              <RocketLaunchIcon className="mx-auto h-8 w-8 text-indigo-600" />
+              <RocketLaunchIcon className="mx-auto h-8 w-8 text-[#E53935]" />
               <p className="mt-2 text-sm font-semibold text-gray-900">Goal Setting</p>
             </div>
             <div className="rounded-lg bg-white/5 p-4 text-center">
-              <ChartBarIcon className="mx-auto h-8 w-8 text-indigo-600" />
+              <ChartBarIcon className="mx-auto h-8 w-8 text-[#2196F3]" />
               <p className="mt-2 text-sm font-semibold text-gray-900">Progress Tracking</p>
             </div>
             <div className="rounded-lg bg-white/5 p-4 text-center">
-              <ShieldCheckIcon className="mx-auto h-8 w-8 text-indigo-600" />
+              <ShieldCheckIcon className="mx-auto h-8 w-8 text-[#FF7043]" />
               <p className="mt-2 text-sm font-semibold text-gray-900">Team Accountability</p>
             </div>
             <div className="rounded-lg bg-white/5 p-4 text-center">
-              <CurrencyDollarIcon className="mx-auto h-8 w-8 text-indigo-600" />
+              <CurrencyDollarIcon className="mx-auto h-8 w-8 text-[#E53935]" />
               <p className="mt-2 text-sm font-semibold text-gray-900">Achievement Rewards</p>
             </div>
           </div>

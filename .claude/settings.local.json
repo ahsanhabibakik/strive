@@ -19,7 +19,12 @@
       "WebSearch",
       "Bash(npx shadcn@latest add:*)",
       "Bash(pnpm add:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(timeout 60s pnpm run type-check)",
+      "mcp__playwright__browser_resize",
+      "mcp__playwright__browser_console_messages",
+      "Bash(find:*)",
+      "Bash(timeout 30s pnpm dev)"
     ],
     "deny": [],
     "ask": [],
