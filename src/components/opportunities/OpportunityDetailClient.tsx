@@ -246,7 +246,6 @@ export function OpportunityDetailClient({
         </div>
       )}
       
-      <div className="max-w-7xl mx-auto">
       {/* Breadcrumb */}
       <div className="mb-6">
         <Link
@@ -803,3 +802,5 @@ export function OpportunityDetailClient({
     </div>
   );
 }
+
+export default OpportunityDetailClient;
