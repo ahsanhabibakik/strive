@@ -1,9 +1,22 @@
 "use client";
 
-import { Calendar, MapPin, Users, DollarSign, Clock, ExternalLink } from "lucide-react";
+import { useState } from "react";
+import {
+  Calendar,
+  MapPin,
+  Users,
+  DollarSign,
+  Clock,
+  ExternalLink,
+  Bookmark,
+  Share,
+  Plus,
+  Check,
+} from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
+import { toast } from "sonner";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -29,9 +42,12 @@ interface Event {
 
 interface EventCardProps {
   event: Event;
+  onCompare?: (event: Event) => void;
+  isInComparison?: boolean;
 }
 
-export function EventCard({ event }: EventCardProps) {
+export function EventCard({ event, onCompare, isInComparison }: EventCardProps) {
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const formatDate = (dateString: string) => {
     return new Date(dateString).toLocaleDateString("en-US", {
       month: "short",
@@ -75,6 +91,37 @@ export function EventCard({ event }: EventCardProps) {
         return "bg-pink-100 text-pink-800";
       default:
         return "bg-gray-100 text-gray-800";
+    }
+  };
+
+  const handleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    toast(isBookmarked ? "Removed from bookmarks" : "Added to bookmarks");
+  };
+
+  const handleShare = async () => {
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: event.title,
+          text: event.description,
+          url: `${window.location.origin}/events/${event.slug}`,
+        });
+      } catch (error) {
+        // Fallback to clipboard
+        navigator.clipboard.writeText(`${window.location.origin}/events/${event.slug}`);
+        toast("Link copied to clipboard!");
+      }
+    } else {
+      navigator.clipboard.writeText(`${window.location.origin}/events/${event.slug}`);
+      toast("Link copied to clipboard!");
+    }
+  };
+
+  const handleCompare = () => {
+    if (onCompare) {
+      onCompare(event);
+      toast(isInComparison ? "Removed from comparison" : "Added to comparison");
     }
   };
 
@@ -146,17 +193,44 @@ export function EventCard({ event }: EventCardProps) {
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex gap-3">
-        <Button asChild className="flex-1">
+        <Button asChild className="flex-1 bg-indigo-600 hover:bg-indigo-700">
           <Link href={`/events/${event.slug}`}>
             <Users className="w-4 h-4 mr-2" />
             View Details
           </Link>
         </Button>
-        <Button variant="outline" size="icon" asChild>
-          <a href="#" target="_blank" rel="noopener noreferrer">
-            <ExternalLink className="w-4 h-4" />
-          </a>
-        </Button>
+
+        <div className="flex gap-2">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleBookmark}
+            className={isBookmarked ? "bg-yellow-50 border-yellow-300 text-yellow-600" : ""}
+          >
+            <Bookmark className={`w-4 h-4 ${isBookmarked ? "fill-current" : ""}`} />
+          </Button>
+
+          <Button variant="outline" size="icon" onClick={handleShare}>
+            <Share className="w-4 h-4" />
+          </Button>
+
+          {onCompare && (
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={handleCompare}
+              className={isInComparison ? "bg-indigo-50 border-indigo-300 text-indigo-600" : ""}
+            >
+              {isInComparison ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+            </Button>
+          )}
+
+          <Button variant="outline" size="icon" asChild>
+            <a href="#" target="_blank" rel="noopener noreferrer">
+              <ExternalLink className="w-4 h-4" />
+            </a>
+          </Button>
+        </div>
       </CardFooter>
     </Card>
   );

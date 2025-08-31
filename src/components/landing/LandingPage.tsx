@@ -83,7 +83,7 @@ export function LandingPage() {
         const message = document.createElement("div");
         message.innerHTML = "🎉 You found the secret! Welcome to the Strive family! 🎉";
         message.className =
-          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-gradient-to-r from-purple-600 to-pink-600 text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
+          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-blue-600 text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
         document.body.appendChild(message);
 
         setTimeout(() => {
@@ -125,7 +125,7 @@ export function LandingPage() {
             box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
           }
           50% {
-            box-shadow: 0 0 20px rgba(147, 51, 234, 0.8);
+            box-shadow: 0 0 20px rgba(37, 99, 235, 0.8);
           }
           100% {
             box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
@@ -160,7 +160,7 @@ export function LandingPage() {
           onClick={scrollToTop}
           className={cn(
             "fixed bottom-8 right-8 z-50 transition-all duration-500 group",
-            "bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700",
+            "bg-blue-600 hover:bg-blue-700",
             "hover:scale-110 hover:shadow-xl hover:shadow-blue-200",
             "rounded-full w-14 h-14 p-0",
             showScrollTop
