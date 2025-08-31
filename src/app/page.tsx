@@ -1,29 +1,13 @@
-import { getServerSession } from "next-auth";
-import { authOptions } from "@/lib/auth";
-import { redirect } from "next/navigation";
-import { Hero } from "@/components/landing/Hero";
-import { Footer } from "@/components/layout/Footer";
+import { LandingPage } from "@/components/landing/LandingPage";
 
 export const metadata = {
-  title: "Strive - Achieve Your Goals Together",
+  title: "Strive - Discover Opportunities & Achieve Your Goals",
   description:
-    "A powerful platform to help you set, track, and achieve your personal and professional goals. Stay motivated and organized with our comprehensive goal management system.",
+    "Discover amazing opportunities, scholarships, competitions, and events. Set goals, track progress, and achieve success with our comprehensive platform.",
   keywords:
-    "goal tracking, productivity, achievement, personal development, goal setting, progress tracking, motivation, success planning, habit formation, life goals",
+    "opportunities, scholarships, competitions, events, goal tracking, productivity, achievement, personal development, applications, career growth",
 };
 
-export default async function LandingPage() {
-  const session = await getServerSession(authOptions);
-
-  // Redirect authenticated users to dashboard
-  if (session?.user) {
-    redirect("/dashboard");
-  }
-
-  return (
-    <div className="min-h-screen bg-white">
-      <Hero />
-      <Footer />
-    </div>
-  );
+export default function HomePage() {
+  return <LandingPage />;
 }
