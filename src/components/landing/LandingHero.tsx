@@ -288,14 +288,16 @@ export function LandingHero() {
                                 View Details
                               </Button>
                             </Link>
-                            <Button
-                              variant="outline"
-                              size="lg"
-                              className="border-orange-200 text-orange-600 hover:bg-orange-50"
-                            >
-                              <Calendar className="mr-2 h-4 w-4" />
-                              Register
-                            </Button>
+                            <Link href="/events">
+                              <Button
+                                variant="outline"
+                                size="lg"
+                                className="border-orange-200 text-orange-600 hover:bg-orange-50"
+                              >
+                                <Calendar className="mr-2 h-4 w-4" />
+                                Browse All Events
+                              </Button>
+                            </Link>
                           </div>
                         </div>
                       </div>
@@ -329,6 +331,49 @@ export function LandingHero() {
               </CardContent>
             </Card>
           )}
+        </div>
+
+        {/* Quick Access Section */}
+        <div className="mb-12">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-2">Quick Access</h2>
+            <p className="text-gray-600">Jump straight to the features you need most</p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+            <Link href="/events" className="flex-1">
+              <Card className="hover:shadow-lg transition-shadow duration-200 cursor-pointer group">
+                <CardContent className="p-6 text-center">
+                  <Calendar className="h-12 w-12 mx-auto text-orange-600 mb-4 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Browse Events</h3>
+                  <p className="text-gray-600 mb-4">
+                    Discover conferences, hackathons, and workshops happening worldwide
+                  </p>
+                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
+                    View All Events
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
+
+            <Link href="/community" className="flex-1">
+              <Card className="hover:shadow-lg transition-shadow duration-200 cursor-pointer group">
+                <CardContent className="p-6 text-center">
+                  <Users className="h-12 w-12 mx-auto text-indigo-600 mb-4 group-hover:scale-110 transition-transform" />
+                  <h3 className="text-xl font-bold text-gray-900 mb-2">Join Community</h3>
+                  <p className="text-gray-600 mb-4">
+                    Connect with like-minded professionals and share your journey
+                  </p>
+                  <Button
+                    variant="outline"
+                    className="w-full border-indigo-200 text-indigo-600 hover:bg-indigo-50"
+                  >
+                    Enter Community
+                  </Button>
+                </CardContent>
+              </Card>
+            </Link>
+          </div>
         </div>
 
         {/* Categories Grid */}

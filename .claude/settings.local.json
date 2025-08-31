@@ -14,7 +14,9 @@
       "mcp__playwright__browser_take_screenshot",
       "Bash(git add:*)",
       "Bash(git push:*)",
-      "mcp__playwright__browser_install"
+      "mcp__playwright__browser_install",
+      "mcp__playwright__browser_close",
+      "WebSearch"
     ],
     "deny": [],
     "ask": [],
