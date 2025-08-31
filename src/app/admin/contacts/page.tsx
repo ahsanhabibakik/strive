@@ -112,7 +112,7 @@ export default function ContactsAdminPage() {
             {["all", "new", "read", "replied", "closed"].map(status => (
               <Button
                 key={status}
-                variant={filter === status ? "default" : "outline"}
+                variant={filter === status ? "default" : "outline-solid"}
                 onClick={() => setFilter(status)}
                 className="capitalize"
               >

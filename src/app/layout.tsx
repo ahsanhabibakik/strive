@@ -6,7 +6,7 @@ import { SkipLink } from "@/components/accessibility/SkipLink";
 import { generateMetadata as generateSEOMetadata } from "@/lib/utils/seo";
 import { AnalyticsProvider } from "@/lib/analytics";
 import { CookieConsent } from "@/components/cookies/CookieConsent";
-import { Navbar } from "@/components/layout/Navbar";
+import { Toaster } from "@/components/ui/sonner";
 
 // const inter = Inter({
 //   subsets: ["latin"],
@@ -82,7 +82,6 @@ export default function RootLayout({
 
         <AnalyticsProvider>
           <Providers>
-            <Navbar />
             <main id="main-content" tabIndex={-1}>
               {children}
             </main>
@@ -91,6 +90,8 @@ export default function RootLayout({
           {/* Cookie Consent */}
           <CookieConsent />
         </AnalyticsProvider>
+
+        <Toaster />
 
         {/* Accessibility styles are now in globals.css */}
       </body>

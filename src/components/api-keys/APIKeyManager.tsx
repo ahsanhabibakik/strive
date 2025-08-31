@@ -182,7 +182,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
 
   if (loading) {
     return (
-      <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+      <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
         <div className="px-6 py-4 border-b border-gray-200">
           <h3 className="text-lg font-medium text-gray-900">API Keys</h3>
         </div>
@@ -198,7 +198,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
   }
 
   return (
-    <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-x-3">
@@ -237,7 +237,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                   value={newKey.name}
                   onChange={e => setNewKey(prev => ({ ...prev, name: e.target.value }))}
                   placeholder="e.g., Production API, Development Key"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                 />
               </div>
 
@@ -273,7 +273,7 @@ export function APIKeyManager({ userId, canCreate, canDelete }: APIKeyManagerPro
                 <select
                   value={newKey.expiresIn}
                   onChange={e => setNewKey(prev => ({ ...prev, expiresIn: e.target.value }))}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-xs focus:ring-indigo-500 focus:border-indigo-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md shadow-2xs focus:ring-indigo-500 focus:border-indigo-500"
                 >
                   <option value="0">Never expires</option>
                   <option value="30">30 days</option>

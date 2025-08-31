@@ -93,7 +93,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
   };
 
   return (
-    <div className="bg-white rounded-lg shadow-xs border border-gray-200">
+    <div className="bg-white rounded-lg shadow-2xs border border-gray-200">
       <div className="px-6 py-4 border-b border-gray-200">
         <h2 className="text-lg font-semibold text-gray-900">Current Subscription</h2>
       </div>
@@ -151,7 +151,7 @@ export function SubscriptionOverview({ user, currentPlan }: SubscriptionOverview
               <ul className="space-y-2">
                 {currentPlan.features.map((feature, index) => (
                   <li key={index} className="flex items-center text-sm text-gray-600">
-                    <CheckCircleIcon className="h-4 w-4 text-green-500 mr-3 flex-shrink-0" />
+                    <CheckCircleIcon className="h-4 w-4 text-green-500 mr-3 shrink-0" />
                     {feature}
                   </li>
                 ))}
