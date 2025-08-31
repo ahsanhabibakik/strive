@@ -276,7 +276,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
                   className="w-48 h-48"
                 />
               ) : (
-                <div className="w-48 h-48 bg-gray-100 flex items-center justify-center rounded">
+                <div className="w-48 h-48 bg-gray-100 flex items-center justify-center rounded-sm">
                   Loading QR Code...
                 </div>
               )}
@@ -298,7 +298,7 @@ export function TwoFactorSetup({ isEnabled, onStatusChange }: TwoFactorSetupProp
           <div className="space-y-3">
             <h4 className="text-sm font-medium">Or enter this code manually:</h4>
             <div className="flex items-center space-x-2">
-              <code className="flex-1 bg-muted px-3 py-2 rounded text-sm font-mono">
+              <code className="flex-1 bg-muted px-3 py-2 rounded-sm text-sm font-mono">
                 {setupData.secret}
               </code>
               <Button size="sm" variant="outline" onClick={() => copyToClipboard(setupData.secret)}>

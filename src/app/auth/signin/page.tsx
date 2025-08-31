@@ -87,8 +87,8 @@ export default function SignInPage() {
           <form onSubmit={handleCredentialsSignIn} className="space-y-4">
             <div>
               <Input
-                type="email"
-                placeholder="Email"
+                type="text"
+                placeholder="Email or Username"
                 value={email}
                 onChange={e => setEmail(e.target.value)}
                 required

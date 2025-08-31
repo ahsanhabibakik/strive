@@ -415,7 +415,7 @@ export function SignUpForm() {
               type="checkbox"
               checked={formData.acceptTerms}
               onChange={e => handleInputChange("acceptTerms", e.target.checked)}
-              className="mt-1 rounded border-gray-300"
+              className="mt-1 rounded-sm border-gray-300"
               disabled={isLoading}
             />
             <Label htmlFor="acceptTerms" className="text-sm leading-5">

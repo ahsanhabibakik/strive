@@ -80,7 +80,7 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
     // Default unauthorized UI
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="max-w-md w-full bg-white rounded-lg shadow-xs border p-8 text-center">
+        <div className="max-w-md w-full bg-white rounded-lg shadow-2xs border p-8 text-center">
           <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
             <svg
               className="w-8 h-8 text-orange-600"
