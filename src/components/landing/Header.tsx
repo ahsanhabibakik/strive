@@ -58,7 +58,7 @@ export function Header() {
           {/* Logo */}
           <div className="flex items-center">
             <Link href="/" className="flex items-center space-x-2 group">
-              <div className="bg-blue-600 p-1.5 rounded-lg">
+              <div className="bg-[#E53935] p-1.5 rounded-lg">
                 <Target className="h-5 w-5 text-white" />
               </div>
               <span className="text-xl font-bold text-gray-900">Strive</span>
@@ -108,7 +108,7 @@ export function Header() {
                         <AvatarImage
                           src={
                             (session.user as any)?.image ||
-                            `https://ui-avatars.com/api/?name=${session.user?.name}&background=2563eb&color=fff`
+                            `https://ui-avatars.com/api/?name=${session.user?.name}&background=E53935&color=fff`
                           }
                           alt={session.user?.name || "User"}
                         />
@@ -154,7 +154,7 @@ export function Header() {
                   </Button>
                 </Link>
                 <Link href="/auth/signin">
-                  <Button size="sm" className="bg-blue-600 hover:bg-blue-700">
+                  <Button size="sm" className="bg-[#E53935] hover:bg-[#D32F2F]">
                     Get Started
                   </Button>
                 </Link>
@@ -213,7 +213,7 @@ export function Header() {
                       <AvatarImage
                         src={
                           (session.user as any)?.image ||
-                          `https://ui-avatars.com/api/?name=${session.user?.name}&background=2563eb&color=fff`
+                          `https://ui-avatars.com/api/?name=${session.user?.name}&background=E53935&color=fff`
                         }
                         alt={session.user?.name || "User"}
                       />
@@ -253,7 +253,7 @@ export function Header() {
                   </Button>
                 </Link>
                 <Link href="/auth/signin" onClick={() => setMobileMenuOpen(false)}>
-                  <Button className="w-full bg-blue-600 hover:bg-blue-700">Get Started</Button>
+                  <Button className="w-full bg-[#E53935] hover:bg-[#D32F2F]">Get Started</Button>
                 </Link>
               </div>
             )}

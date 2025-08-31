@@ -75,11 +75,11 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
       case "conference":
         return "bg-blue-100 text-blue-800";
       case "hackathon":
-        return "bg-purple-100 text-purple-800";
+        return "bg-red-100 text-[#E53935]";
       case "workshop":
-        return "bg-orange-100 text-orange-800";
+        return "bg-orange-100 text-[#FF7043]";
       case "networking":
-        return "bg-pink-100 text-pink-800";
+        return "bg-blue-100 text-[#2196F3]";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -267,7 +267,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
         <CardContent>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div>
-              <div className="text-2xl font-bold text-indigo-600">
+              <div className="text-2xl font-bold text-[#E53935]">
                 {events.filter(e => e.isFree).length}
               </div>
               <div className="text-sm text-gray-600">Free Events</div>
@@ -279,7 +279,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
               <div className="text-sm text-gray-600">Virtual Events</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-blue-600">
+              <div className="text-2xl font-bold text-[#2196F3]">
                 {
                   events.filter(
                     e =>
@@ -291,7 +291,7 @@ export function EventComparison({ events, onRemoveEvent, onClearAll }: EventComp
               <div className="text-sm text-gray-600">Beginner Friendly</div>
             </div>
             <div>
-              <div className="text-2xl font-bold text-purple-600">
+              <div className="text-2xl font-bold text-[#E53935]">
                 {new Set(events.map(e => e.category)).size}
               </div>
               <div className="text-sm text-gray-600">Different Categories</div>

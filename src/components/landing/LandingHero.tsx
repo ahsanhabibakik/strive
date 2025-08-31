@@ -99,7 +99,7 @@ export function LandingHero() {
         {/* Hero Section */}
         <div className="text-center pt-12 pb-16">
           <div className="mb-6">
-            <Badge variant="secondary" className="bg-blue-50 text-blue-700 border-blue-200">
+            <Badge variant="secondary" className="bg-red-50 text-[#E53935] border-red-200">
               <Calendar className="h-3 w-3 mr-1" />
               New events added weekly
             </Badge>
@@ -107,7 +107,7 @@ export function LandingHero() {
 
           <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
             Discover Your Next
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-700">
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-[#E53935] to-[#D32F2F]">
               Professional Opportunity
             </span>
           </h1>
@@ -131,7 +131,7 @@ export function LandingHero() {
                   onKeyPress={e => e.key === "Enter" && handleSearch()}
                 />
               </div>
-              <Button onClick={handleSearch} className="h-12 px-6 bg-blue-600 hover:bg-blue-700">
+              <Button onClick={handleSearch} className="h-12 px-6 bg-[#E53935] hover:bg-[#D32F2F]">
                 Search
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
@@ -141,12 +141,16 @@ export function LandingHero() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-12">
             <Link href="/events" className="flex-1">
-              <Button size="lg" className="w-full bg-blue-600 hover:bg-blue-700">
+              <Button size="lg" className="w-full bg-[#E53935] hover:bg-[#D32F2F]">
                 Browse Events
               </Button>
             </Link>
             <Link href="/community" className="flex-1">
-              <Button size="lg" variant="outline" className="w-full">
+              <Button
+                size="lg"
+                variant="outline"
+                className="w-full border-[#2196F3] text-[#2196F3] hover:bg-[#2196F3] hover:text-white"
+              >
                 Join Community
               </Button>
             </Link>
@@ -202,7 +206,7 @@ export function LandingHero() {
                     </div>
 
                     <CardContent className="p-6">
-                      <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-blue-600 transition-colors">
+                      <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-[#E53935] transition-colors">
                         {event.title}
                       </h3>
                       <p className="text-gray-600 text-sm mb-4 line-clamp-2">{event.description}</p>
@@ -248,7 +252,7 @@ export function LandingHero() {
                 <Link key={category.name} href={category.href}>
                   <Card className="hover:shadow-md transition-all duration-200 border-0 shadow-sm group cursor-pointer">
                     <CardContent className="p-6 text-center">
-                      <Icon className="h-8 w-8 mx-auto text-blue-600 mb-3 group-hover:scale-110 transition-transform" />
+                      <Icon className="h-8 w-8 mx-auto text-[#2196F3] mb-3 group-hover:scale-110 transition-transform" />
                       <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>
                       <p className="text-sm text-gray-500">{category.count}</p>
                     </CardContent>

@@ -82,13 +82,13 @@ export function EventCard({ event, onCompare, isInComparison }: EventCardProps) 
   const getCategoryColor = (category: string) => {
     switch (category.toLowerCase()) {
       case "conference":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-[#2196F3]";
       case "hackathon":
-        return "bg-blue-100 text-blue-800";
+        return "bg-red-100 text-[#E53935]";
       case "workshop":
-        return "bg-blue-100 text-blue-800";
+        return "bg-orange-100 text-[#FF7043]";
       case "networking":
-        return "bg-blue-100 text-blue-800";
+        return "bg-blue-100 text-[#2196F3]";
       default:
         return "bg-gray-100 text-gray-800";
     }
@@ -193,7 +193,7 @@ export function EventCard({ event, onCompare, isInComparison }: EventCardProps) 
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex gap-3">
-        <Button asChild className="flex-1 bg-blue-600 hover:bg-blue-700">
+        <Button asChild className="flex-1 bg-[#E53935] hover:bg-[#D32F2F]">
           <Link href={`/events/${event.slug}`}>
             <Users className="w-4 h-4 mr-2" />
             View Details
@@ -219,7 +219,7 @@ export function EventCard({ event, onCompare, isInComparison }: EventCardProps) 
               variant="outline"
               size="icon"
               onClick={handleCompare}
-              className={isInComparison ? "bg-blue-50 border-blue-300 text-blue-600" : ""}
+              className={isInComparison ? "bg-red-50 border-red-300 text-[#E53935]" : ""}
             >
               {isInComparison ? <Check className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
             </Button>

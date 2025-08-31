@@ -152,7 +152,7 @@ export function EventsPage({ user }: EventsPageProps) {
         <Header />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
           <div className="flex items-center justify-center h-96">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-[#E53935]"></div>
           </div>
         </div>
       </div>
@@ -223,7 +223,7 @@ export function EventsPage({ user }: EventsPageProps) {
                               {event.organizerName} • {event.category}
                             </p>
                           </div>
-                          <Badge className="text-xs bg-blue-100 text-blue-700">Event</Badge>
+                          <Badge className="text-xs bg-red-100 text-[#E53935]">Event</Badge>
                         </div>
                       </div>
                     ))}

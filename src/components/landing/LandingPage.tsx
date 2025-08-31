@@ -83,7 +83,7 @@ export function LandingPage() {
         const message = document.createElement("div");
         message.innerHTML = "🎉 You found the secret! Welcome to the Strive family! 🎉";
         message.className =
-          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-blue-600 text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
+          "fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-[9999] bg-[#E53935] text-white px-8 py-4 rounded-2xl shadow-2xl animate-bounce text-xl font-bold";
         document.body.appendChild(message);
 
         setTimeout(() => {
@@ -122,13 +122,13 @@ export function LandingPage() {
 
         @keyframes cursor-glow {
           0% {
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 5px rgba(229, 57, 53, 0.5);
           }
           50% {
-            box-shadow: 0 0 20px rgba(37, 99, 235, 0.8);
+            box-shadow: 0 0 20px rgba(229, 57, 53, 0.8);
           }
           100% {
-            box-shadow: 0 0 5px rgba(59, 130, 246, 0.5);
+            box-shadow: 0 0 5px rgba(229, 57, 53, 0.5);
           }
         }
       `}</style>
@@ -139,7 +139,7 @@ export function LandingPage() {
         style={{
           left: mousePosition.x - 12,
           top: mousePosition.y - 12,
-          background: "radial-gradient(circle, rgba(59,130,246,0.3) 0%, transparent 70%)",
+          background: "radial-gradient(circle, rgba(229,57,53,0.3) 0%, transparent 70%)",
           borderRadius: "50%",
           animation: currentSection === "features" ? "cursor-glow 2s infinite" : "none",
         }}
@@ -160,8 +160,8 @@ export function LandingPage() {
           onClick={scrollToTop}
           className={cn(
             "fixed bottom-8 right-8 z-50 transition-all duration-500 group",
-            "bg-blue-600 hover:bg-blue-700",
-            "hover:scale-110 hover:shadow-xl hover:shadow-blue-200",
+            "bg-[#E53935] hover:bg-[#D32F2F]",
+            "hover:scale-110 hover:shadow-xl hover:shadow-red-200",
             "rounded-full w-14 h-14 p-0",
             showScrollTop
               ? "opacity-100 translate-y-0 rotate-0"

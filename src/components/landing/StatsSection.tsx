@@ -99,9 +99,9 @@ export function StatsSection() {
       staticValue: "5,800+",
       label: "Active Opportunities",
       description: "Live events, competitions, and scholarships",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-      hoverBg: "hover:bg-blue-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "🏆",
       animationKey: "opportunities",
     },
@@ -111,9 +111,9 @@ export function StatsSection() {
       staticValue: "25,000+",
       label: "Active Members",
       description: "Students and professionals achieving goals",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-      hoverBg: "hover:bg-blue-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "👥",
       animationKey: "members",
     },
@@ -135,9 +135,9 @@ export function StatsSection() {
       staticValue: "180+",
       label: "Countries",
       description: "Global opportunities from around the world",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-      hoverBg: "hover:bg-blue-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "🌍",
       animationKey: "countries",
     },
@@ -147,9 +147,9 @@ export function StatsSection() {
       staticValue: "1,200+",
       label: "Events This Month",
       description: "New opportunities added monthly",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-      hoverBg: "hover:bg-blue-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "📅",
       animationKey: "events",
     },
@@ -159,9 +159,9 @@ export function StatsSection() {
       staticValue: "15,000+",
       label: "Goals Achieved",
       description: "Personal and professional goals completed",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100",
-      hoverBg: "hover:bg-blue-200",
+      color: "text-[#E53935]",
+      bgColor: "bg-red-100",
+      hoverBg: "hover:bg-red-200",
       emoji: "🎯",
       animationKey: "goals",
     },
@@ -240,7 +240,7 @@ export function StatsSection() {
             <span className="inline-block animate-in slide-in-from-left duration-700">
               Trusted by{" "}
             </span>
-            <span className="inline-block bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
+            <span className="inline-block bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text text-transparent animate-in slide-in-from-right duration-700 delay-200 hover:scale-105 transition-transform duration-300 cursor-default">
               Thousands
             </span>
             <span className="inline-block animate-in slide-in-from-left duration-700 delay-400">
@@ -301,7 +301,7 @@ export function StatsSection() {
                     className={cn(
                       "text-4xl font-bold mb-2 transition-all duration-500",
                       hasValue
-                        ? "text-transparent bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text scale-110"
+                        ? "text-transparent bg-gradient-to-r from-[#E53935] to-[#D32F2F] bg-clip-text scale-110"
                         : "text-gray-900"
                     )}
                   >
@@ -310,14 +310,14 @@ export function StatsSection() {
                       <span className="ml-2 animate-bounce text-yellow-500">✨</span>
                     )}
                   </div>
-                  <div className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-blue-600 group-hover:to-blue-700 group-hover:bg-clip-text transition-all duration-300">
+                  <div className="text-xl font-semibold text-gray-800 mb-2 group-hover:text-transparent group-hover:bg-gradient-to-r group-hover:from-[#E53935] group-hover:to-[#D32F2F] group-hover:bg-clip-text transition-all duration-300">
                     {stat.label}
                   </div>
                   <p className="text-gray-600 group-hover:text-gray-700 transition-colors duration-300">
                     {stat.description}
                   </p>
                   {/* Fun hover bar */}
-                  <div className="w-0 h-1 bg-blue-600 mt-4 group-hover:w-full transition-all duration-500 rounded-full" />
+                  <div className="w-0 h-1 bg-[#E53935] mt-4 group-hover:w-full transition-all duration-500 rounded-full" />
                 </div>
               </div>
             );
