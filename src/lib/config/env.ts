@@ -58,7 +58,7 @@ const envSchema = z.object({
 
   // Security
   ENCRYPTION_KEY: z.string().min(32, "Encryption key must be at least 32 characters").optional(),
-  JWT_SECRET: z.string().min(32, "JWT secret must be at least 32 characters").optional(),
+  JWT_SECRET: z.string().min(32, "JWT secret must be at least 32 characters").optional().or(z.literal("")),
 
   // Monitoring & Logging
   SENTRY_DSN: z.string().url().optional().or(z.literal("")),
