@@ -10,19 +10,15 @@ import { Badge } from "@/components/ui/badge";
 import eventsData from "@/data/events.json";
 import {
   Search,
-  ChevronLeft,
-  ChevronRight,
-  MapPin,
+  ArrowRight,
   Calendar,
-  Clock,
+  Globe,
   Users,
   BookOpen,
   Trophy,
   Briefcase,
   GraduationCap,
   Award,
-  Globe,
-  Target,
 } from "lucide-react";
 
 interface FeaturedEvent {
@@ -48,38 +44,17 @@ interface FeaturedEvent {
 export function LandingHero() {
   const [searchQuery, setSearchQuery] = useState("");
   const [featuredEvents, setFeaturedEvents] = useState<FeaturedEvent[]>([]);
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [loading, setLoading] = useState(false);
   const { data: session } = useSession();
 
   useEffect(() => {
-    // Load events from JSON file
-    const loadFeaturedEvents = () => {
-      try {
-        const events = eventsData.events.slice(0, 5);
-        setFeaturedEvents(events);
-      } catch (error) {
-        console.error("Error loading events:", error);
-      }
-    };
-
-    loadFeaturedEvents();
+    // Load featured events
+    const events = eventsData.events.slice(0, 3);
+    setFeaturedEvents(events);
   }, []);
-
-  // Auto-advance carousel
-  useEffect(() => {
-    if (featuredEvents.length > 0) {
-      const interval = setInterval(() => {
-        setCurrentSlide(prev => (prev + 1) % featuredEvents.length);
-      }, 6000);
-      return () => clearInterval(interval);
-    }
-  }, [featuredEvents.length]);
 
   const handleSearch = () => {
     if (searchQuery.trim()) {
-      const element = document.getElementById("opportunities");
-      element?.scrollIntoView({ behavior: "smooth" });
+      window.location.href = `/events?search=${encodeURIComponent(searchQuery)}`;
     }
   };
 
@@ -88,321 +63,197 @@ export function LandingHero() {
       name: "Conferences",
       icon: Users,
       count: "65+",
-      color: "bg-orange-50 text-orange-700 border-orange-200",
-      iconColor: "text-orange-600",
+      href: "/events?category=conference",
     },
     {
       name: "Hackathons",
       icon: Trophy,
       count: "180+",
-      color: "bg-gray-50 text-gray-700 border-gray-200",
-      iconColor: "text-gray-600",
+      href: "/events?category=hackathon",
     },
     {
       name: "Workshops",
       icon: BookOpen,
       count: "42+",
-      color: "bg-white text-gray-700 border-gray-200",
-      iconColor: "text-gray-600",
+      href: "/events?category=workshop",
     },
     {
-      name: "Internships",
+      name: "Networking",
       icon: Briefcase,
       count: "95+",
-      color: "bg-orange-50 text-orange-700 border-orange-200",
-      iconColor: "text-orange-600",
-    },
-    {
-      name: "Competitions",
-      icon: Award,
-      count: "28+",
-      color: "bg-gray-50 text-gray-700 border-gray-200",
-      iconColor: "text-gray-600",
-    },
-    {
-      name: "Certifications",
-      icon: GraduationCap,
-      count: "120+",
-      color: "bg-white text-gray-700 border-gray-200",
-      iconColor: "text-gray-600",
+      href: "/events?category=networking",
     },
   ];
 
-  const getDaysUntilDeadline = (deadline: string) => {
-    const days = Math.ceil((new Date(deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-    return days;
+  const formatDate = (dateString: string) => {
+    return new Date(dateString).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
   };
 
   return (
-    <section className="relative bg-white pt-20 pb-8">
+    <section className="relative bg-white pt-16">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Search Bar */}
-        <div className="mb-8">
-          <div className="max-w-3xl mx-auto">
-            <div className="flex flex-col sm:flex-row gap-3 p-1.5 bg-white rounded-lg border border-gray-200">
+        {/* Hero Section */}
+        <div className="text-center pt-12 pb-16">
+          <div className="mb-6">
+            <Badge variant="secondary" className="bg-indigo-50 text-indigo-700 border-indigo-200">
+              <Calendar className="h-3 w-3 mr-1" />
+              New events added weekly
+            </Badge>
+          </div>
+
+          <h1 className="text-4xl sm:text-6xl font-bold text-gray-900 mb-6 tracking-tight">
+            Discover Your Next
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600">
+              Professional Opportunity
+            </span>
+          </h1>
+
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto mb-8 leading-relaxed">
+            Connect with top conferences, hackathons, and networking events worldwide. Advance your
+            career with curated opportunities from leading organizations.
+          </p>
+
+          {/* Search Bar */}
+          <div className="max-w-2xl mx-auto mb-8">
+            <div className="flex gap-2 p-1.5 bg-white rounded-lg border shadow-sm">
               <div className="flex-1 relative">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                 <Input
                   type="text"
-                  placeholder="Search events, conferences, hackathons, or workshops..."
+                  placeholder="Search events, conferences, or topics..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="pl-12 border-0 text-base h-11 focus-visible:ring-0 bg-transparent"
+                  className="pl-12 border-0 text-base h-12 focus-visible:ring-0 bg-transparent"
                   onKeyPress={e => e.key === "Enter" && handleSearch()}
                 />
               </div>
               <Button
                 onClick={handleSearch}
-                className="h-11 px-6 bg-orange-600 hover:bg-orange-700"
+                className="h-12 px-6 bg-indigo-600 hover:bg-indigo-700"
               >
                 Search
+                <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
           </div>
-        </div>
 
-        {/* Featured Opportunities Carousel */}
-        <div className="mb-12">
-          <div className="flex items-center justify-between mb-6">
-            <div>
-              <h2 className="text-2xl font-bold text-gray-900">Featured Events</h2>
-              <p className="text-gray-600">
-                Discover upcoming tech conferences, hackathons, and workshops
-              </p>
-            </div>
-            <Badge variant="outline" className="bg-white text-orange-600 border-orange-200">
-              <Target className="h-3 w-3 mr-1" />
-              Trending
-            </Badge>
+          {/* CTA Buttons */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto mb-12">
+            <Link href="/events" className="flex-1">
+              <Button size="lg" className="w-full bg-indigo-600 hover:bg-indigo-700">
+                Browse Events
+              </Button>
+            </Link>
+            <Link href="/community" className="flex-1">
+              <Button size="lg" variant="outline" className="w-full">
+                Join Community
+              </Button>
+            </Link>
           </div>
 
-          {loading ? (
-            <Card className="h-80">
-              <CardContent className="h-full flex items-center justify-center">
-                <div className="text-gray-400">Loading featured events...</div>
-              </CardContent>
-            </Card>
-          ) : featuredEvents.length > 0 ? (
-            <div className="relative">
-              <Card className="overflow-hidden bg-white border border-gray-200">
-                <CardContent className="p-0">
-                  <div className="relative h-80 flex items-center">
-                    {/* Carousel Navigation */}
-                    {featuredEvents.length > 1 && (
-                      <>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-gray-50 border border-gray-200"
-                          onClick={() =>
-                            setCurrentSlide(
-                              prev => (prev - 1 + featuredEvents.length) % featuredEvents.length
-                            )
-                          }
-                        >
-                          <ChevronLeft className="h-5 w-5" />
-                        </Button>
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-white hover:bg-gray-50 border border-gray-200"
-                          onClick={() =>
-                            setCurrentSlide(prev => (prev + 1) % featuredEvents.length)
-                          }
-                        >
-                          <ChevronRight className="h-5 w-5" />
-                        </Button>
-                      </>
-                    )}
+          {/* Stats */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-2xl mx-auto text-center">
+            <div>
+              <div className="text-2xl font-bold text-gray-900">500+</div>
+              <div className="text-sm text-gray-600">Active Events</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">50K+</div>
+              <div className="text-sm text-gray-600">Professionals</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">200+</div>
+              <div className="text-sm text-gray-600">Organizations</div>
+            </div>
+            <div>
+              <div className="text-2xl font-bold text-gray-900">95%</div>
+              <div className="text-sm text-gray-600">Success Rate</div>
+            </div>
+          </div>
+        </div>
 
-                    {/* Current Slide Content */}
-                    <div className="w-full px-16 py-8">
-                      <div className="max-w-4xl mx-auto flex items-center gap-8">
-                        {featuredEvents[currentSlide].logoUrl && (
-                          <div className="flex-shrink-0">
-                            <img
-                              src={featuredEvents[currentSlide].logoUrl}
-                              alt={featuredEvents[currentSlide].organizerName}
-                              className="w-24 h-24 rounded-lg object-cover border border-gray-200"
-                            />
-                          </div>
-                        )}
+        {/* Featured Events */}
+        {featuredEvents.length > 0 && (
+          <div className="mb-16">
+            <div className="text-center mb-8">
+              <h2 className="text-3xl font-bold text-gray-900 mb-2">Featured Events</h2>
+              <p className="text-gray-600">Don't miss out on these upcoming opportunities</p>
+            </div>
 
-                        <div className="flex-1">
-                          <div className="flex items-start justify-between mb-4">
-                            <div>
-                              <Badge
-                                variant="secondary"
-                                className="mb-3 bg-orange-50 text-orange-700 border border-orange-200"
-                              >
-                                {featuredEvents[currentSlide].category}
-                              </Badge>
-                              <h3 className="text-3xl font-bold text-gray-900 mb-2">
-                                {featuredEvents[currentSlide].title}
-                              </h3>
-                              <p className="text-lg text-gray-600 mb-4 line-clamp-2">
-                                {featuredEvents[currentSlide].description}
-                              </p>
-                            </div>
-                          </div>
+            <div className="grid md:grid-cols-3 gap-6">
+              {featuredEvents.map(event => (
+                <Link key={event._id} href={`/events/${event.slug}`}>
+                  <Card className="hover:shadow-lg transition-all duration-200 border-0 shadow-sm h-full group">
+                    <div className="relative h-48 overflow-hidden rounded-t-lg">
+                      <img
+                        src={event.logoUrl}
+                        alt={event.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
+                      />
+                      <div className="absolute top-4 left-4">
+                        <Badge className="bg-white/90 text-gray-700">{event.category}</Badge>
+                      </div>
+                      {event.isFree && (
+                        <div className="absolute top-4 right-4">
+                          <Badge className="bg-green-500 text-white">Free</Badge>
+                        </div>
+                      )}
+                    </div>
 
-                          <div className="flex flex-wrap items-center gap-4 mb-6">
-                            <div className="flex items-center text-gray-600">
-                              <Globe className="h-4 w-4 mr-2" />
-                              <span className="text-sm">
-                                {featuredEvents[currentSlide].organizerName}
-                              </span>
-                            </div>
-                            {featuredEvents[currentSlide].isOnline ? (
-                              <div className="flex items-center text-orange-600">
-                                <Globe className="h-4 w-4 mr-2" />
-                                <span className="text-sm font-medium">Online Event</span>
-                              </div>
-                            ) : (
-                              <div className="flex items-center text-gray-600">
-                                <MapPin className="h-4 w-4 mr-2" />
-                                <span className="text-sm">
-                                  {featuredEvents[currentSlide].city},{" "}
-                                  {featuredEvents[currentSlide].country}
-                                </span>
-                              </div>
-                            )}
-                            <div className="flex items-center text-gray-600">
-                              <Calendar className="h-4 w-4 mr-2" />
-                              <span className="text-sm font-medium">
-                                {new Date(
-                                  featuredEvents[currentSlide].eventDate
-                                ).toLocaleDateString()}
-                              </span>
-                            </div>
-                            <div className="flex items-center text-orange-600">
-                              <span className="text-sm font-semibold">
-                                {featuredEvents[currentSlide].price}
-                              </span>
-                            </div>
-                          </div>
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold text-lg text-gray-900 mb-2 group-hover:text-indigo-600 transition-colors">
+                        {event.title}
+                      </h3>
+                      <p className="text-gray-600 text-sm mb-4 line-clamp-2">{event.description}</p>
 
-                          <div className="flex items-center gap-3">
-                            <Link href={`/events/${featuredEvents[currentSlide].slug}`}>
-                              <Button size="lg" className="bg-orange-600 hover:bg-orange-700">
-                                View Details
-                              </Button>
-                            </Link>
-                            <Link href="/events">
-                              <Button
-                                variant="outline"
-                                size="lg"
-                                className="border-orange-200 text-orange-600 hover:bg-orange-50"
-                              >
-                                <Calendar className="mr-2 h-4 w-4" />
-                                Browse All Events
-                              </Button>
-                            </Link>
-                          </div>
+                      <div className="space-y-2 text-sm text-gray-500">
+                        <div className="flex items-center">
+                          <Calendar className="h-4 w-4 mr-2" />
+                          {formatDate(event.eventDate)}
+                        </div>
+                        <div className="flex items-center">
+                          <Globe className="h-4 w-4 mr-2" />
+                          {event.isOnline ? "Virtual Event" : `${event.city}, ${event.country}`}
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-
-              {/* Carousel Indicators */}
-              {featuredEvents.length > 1 && (
-                <div className="flex justify-center mt-4 gap-2">
-                  {featuredEvents.map((_, index) => (
-                    <button
-                      key={index}
-                      className={`w-2 h-2 rounded-full transition-all duration-200 ${
-                        index === currentSlide ? "bg-orange-600" : "bg-gray-300 hover:bg-gray-400"
-                      }`}
-                      onClick={() => setCurrentSlide(index)}
-                    />
-                  ))}
-                </div>
-              )}
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
             </div>
-          ) : (
-            <Card className="h-80">
-              <CardContent className="h-full flex items-center justify-center">
-                <div className="text-center">
-                  <Trophy className="h-12 w-12 mx-auto text-gray-400 mb-4" />
-                  <p className="text-gray-600">No featured events available</p>
-                </div>
-              </CardContent>
-            </Card>
-          )}
-        </div>
 
-        {/* Quick Access Section */}
-        <div className="mb-12">
+            <div className="text-center mt-8">
+              <Link href="/events">
+                <Button variant="outline" size="lg">
+                  View All Events
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {/* Categories */}
+        <div className="mb-16">
           <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Quick Access</h2>
-            <p className="text-gray-600">Jump straight to the features you need most</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Event Categories</h2>
+            <p className="text-gray-600">Find opportunities that match your interests</p>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
-            <Link href="/events" className="flex-1">
-              <Card className="hover:shadow-lg transition-shadow duration-200 cursor-pointer group">
-                <CardContent className="p-6 text-center">
-                  <Calendar className="h-12 w-12 mx-auto text-orange-600 mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Browse Events</h3>
-                  <p className="text-gray-600 mb-4">
-                    Discover conferences, hackathons, and workshops happening worldwide
-                  </p>
-                  <Button className="w-full bg-orange-600 hover:bg-orange-700">
-                    View All Events
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-
-            <Link href="/community" className="flex-1">
-              <Card className="hover:shadow-lg transition-shadow duration-200 cursor-pointer group">
-                <CardContent className="p-6 text-center">
-                  <Users className="h-12 w-12 mx-auto text-indigo-600 mb-4 group-hover:scale-110 transition-transform" />
-                  <h3 className="text-xl font-bold text-gray-900 mb-2">Join Community</h3>
-                  <p className="text-gray-600 mb-4">
-                    Connect with like-minded professionals and share your journey
-                  </p>
-                  <Button
-                    variant="outline"
-                    className="w-full border-indigo-200 text-indigo-600 hover:bg-indigo-50"
-                  >
-                    Enter Community
-                  </Button>
-                </CardContent>
-              </Card>
-            </Link>
-          </div>
-        </div>
-
-        {/* Categories Grid */}
-        <div>
-          <div className="text-center mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-2">Event Categories</h2>
-            <p className="text-gray-600">
-              Discover events that match your interests and career goals
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             {categories.map(category => {
               const Icon = category.icon;
               return (
-                <Link
-                  key={category.name}
-                  href={`#opportunities?category=${category.name.toLowerCase()}`}
-                  className="group"
-                >
-                  <Card
-                    className={`${category.color} border transition-colors duration-200 hover:border-orange-300 cursor-pointer`}
-                  >
-                    <CardContent className="p-4 text-center">
-                      <div className={`${category.iconColor} mb-3 flex justify-center`}>
-                        <Icon className="h-8 w-8" />
-                      </div>
-                      <h3 className="font-semibold mb-1">{category.name}</h3>
-                      <p className="text-xs opacity-75">{category.count}</p>
+                <Link key={category.name} href={category.href}>
+                  <Card className="hover:shadow-md transition-all duration-200 border-0 shadow-sm group cursor-pointer">
+                    <CardContent className="p-6 text-center">
+                      <Icon className="h-8 w-8 mx-auto text-indigo-600 mb-3 group-hover:scale-110 transition-transform" />
+                      <h3 className="font-semibold text-gray-900 mb-1">{category.name}</h3>
+                      <p className="text-sm text-gray-500">{category.count}</p>
                     </CardContent>
                   </Card>
                 </Link>
